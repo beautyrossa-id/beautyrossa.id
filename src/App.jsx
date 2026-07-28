@@ -32,6 +32,58 @@ const PRODUCTS = [
   { id: 28, name: "Facial Foam Brightening Tube", cat: "Sabun", desc: "Deskripsi menyusul", price: 176000, blob: "from-sky-100 to-blue-100" },
   { id: 29, name: "Facial Wash 200 ML", cat: "Sabun", desc: "Deskripsi menyusul", price: 99000, blob: "from-sky-100 to-blue-100" },
   { id: 30, name: "Facial Wash Grape Seed 200 ML", cat: "Sabun", desc: "Deskripsi menyusul", price: 176000, blob: "from-sky-100 to-blue-100" },
+  { id: 31, name: "Glutathione Lightening Body Cream", cat: "Cream", desc: "Deskripsi menyusul", price: 394000, blob: "from-amber-100 to-yellow-100" },
+  { id: 32, name: "Green Jelly", cat: "Serum", desc: "Deskripsi menyusul", price: 220000, blob: "from-emerald-100 to-teal-100" },
+  { id: 33, name: "Hyal-c Serum", cat: "Serum", desc: "Deskripsi menyusul", price: 300000, blob: "from-emerald-100 to-teal-100" },
+  { id: 34, name: "Hydrating & Calming Serum", cat: "Serum", desc: "Deskripsi menyusul", price: 425000, blob: "from-emerald-100 to-teal-100" },
+  { id: 35, name: "Instant Bright Body Lotion", cat: "Lotion", desc: "Deskripsi menyusul", price: 264000, blob: "from-purple-100 to-pink-100" },
+  { id: 36, name: "Luxury Acne Face Wash", cat: "Sabun", desc: "Deskripsi menyusul", price: 92400, blob: "from-sky-100 to-blue-100" },
+  { id: 37, name: "Luxury All Skin Facial Wash", cat: "Sabun", desc: "Deskripsi menyusul", price: 92400, blob: "from-sky-100 to-blue-100" },
+  { id: 38, name: "Luxury Night Cream", cat: "Cream", desc: "Deskripsi menyusul", price: 176000, blob: "from-amber-100 to-yellow-100" },
+  { id: 39, name: "Maintenance & Conditioning Night Cream", cat: "Cream", desc: "Deskripsi menyusul", price: 158000, blob: "from-amber-100 to-yellow-100" },
+  { id: 40, name: "Milky Bright BB Cream", cat: "Cream", desc: "Deskripsi menyusul", price: 127600, blob: "from-amber-100 to-yellow-100" },
+  { id: 41, name: "Mulberry Soothing Toner", cat: "Toner", desc: "Deskripsi menyusul", price: 97900, blob: "from-cyan-100 to-sky-100" },
+  { id: 42, name: "Oily Bar Soap", cat: "Sabun", desc: "Deskripsi menyusul", price: 60000, blob: "from-sky-100 to-blue-100" },
+  { id: 43, name: "Orange Oil Facial Wash", cat: "Sabun", desc: "Deskripsi menyusul", price: 142000, blob: "from-sky-100 to-blue-100" },
+  { id: 44, name: "Radiant Day Cream", cat: "Cream", desc: "Deskripsi menyusul", price: 121000, blob: "from-amber-100 to-yellow-100" },
+  { id: 45, name: "Resveratrol Retinol Night Cream", cat: "Cream", desc: "Deskripsi menyusul", price: 220000, blob: "from-amber-100 to-yellow-100" },
+  { id: 46, name: "Sea Fern & Peptide Night Cream", cat: "Cream", desc: "Deskripsi menyusul", price: 127600, blob: "from-amber-100 to-yellow-100" },
+  { id: 47, name: "Sea Fern & Retinol Night Cream", cat: "Cream", desc: "Deskripsi menyusul", price: 315000, blob: "from-amber-100 to-yellow-100" },
+  { id: 48, name: "Serum Acne", cat: "Serum", desc: "Deskripsi menyusul", price: 138600, blob: "from-emerald-100 to-teal-100" },
+  { id: 49, name: "Serum Radiant Whitening", cat: "Serum", desc: "Deskripsi menyusul", price: 138600, blob: "from-emerald-100 to-teal-100" },
+  { id: 50, name: "Serum Spot", cat: "Serum", desc: "Deskripsi menyusul", price: 212300, blob: "from-emerald-100 to-teal-100" },
+  { id: 51, name: "Serum Vit C", cat: "Serum", desc: "Deskripsi menyusul", price: 212300, blob: "from-emerald-100 to-teal-100" },
+  { id: 52, name: "Serum Whitening Mulberry", cat: "Serum", desc: "Deskripsi menyusul", price: 399000, blob: "from-emerald-100 to-teal-100" },
+  { id: 53, name: "Sparkling Brightening Shower Gel", cat: "Sabun", desc: "Deskripsi menyusul", price: 161700, blob: "from-sky-100 to-blue-100" },
+  { id: 54, name: "Sunscreen Foundation", cat: "Cream", desc: "Deskripsi menyusul", price: 150000, blob: "from-amber-100 to-yellow-100" },
+  { id: 55, name: "Teatree Soothing Acne Toner", cat: "Toner", desc: "Deskripsi menyusul", price: 115500, blob: "from-cyan-100 to-sky-100" },
+  { id: 56, name: "Toner Anti Acne + AHA & BHA 200 ML", cat: "Toner", desc: "Deskripsi menyusul", price: 484000, blob: "from-cyan-100 to-sky-100" },
+  { id: 57, name: "Toner Anti Aging Acetyl Hexapeptide 200 ML", cat: "Toner", desc: "Deskripsi menyusul", price: 484000, blob: "from-cyan-100 to-sky-100" },
+  { id: 58, name: "Toner Tranexamide Acid 200 ML", cat: "Toner", desc: "Deskripsi menyusul", price: 528000, blob: "from-cyan-100 to-sky-100" },
+  { id: 59, name: "Ultra Mild Bird's Nest Face Wash", cat: "Sabun", desc: "Deskripsi menyusul", price: 84000, blob: "from-sky-100 to-blue-100" },
+  { id: 60, name: "Vitamin C Moisturizer Cream", cat: "Cream", desc: "Deskripsi menyusul", price: 121000, blob: "from-amber-100 to-yellow-100" },
+  { id: 61, name: "Vitamin C & Collagen Shower Gel", cat: "Sabun", desc: "Deskripsi menyusul", price: 172900, blob: "from-sky-100 to-blue-100" },
+  { id: 62, name: "Vitamin C Booster Serum With Ferulic Acid & Vitamin E", cat: "Serum", desc: "Deskripsi menyusul", price: 460000, blob: "from-emerald-100 to-teal-100" },
+  { id: 63, name: "Vitamin C Calming Serum", cat: "Serum", desc: "Deskripsi menyusul", price: 788000, blob: "from-emerald-100 to-teal-100" },
+  { id: 64, name: "Whitening Night Cream With AHA", cat: "Cream", desc: "Deskripsi menyusul", price: 210000, blob: "from-amber-100 to-yellow-100" },
+  { id: 65, name: "Zinc Day Cream", cat: "Cream", desc: "Deskripsi menyusul", price: 127600, blob: "from-amber-100 to-yellow-100" },
+  { id: 66, name: "Easy Sunscreen", cat: "Cream", desc: "Deskripsi menyusul", price: 150000, blob: "from-amber-100 to-yellow-100" },
+  { id: 67, name: "Vitamin C Brightening Serum", cat: "Serum", desc: "Deskripsi menyusul", price: 788000, blob: "from-emerald-100 to-teal-100" },
+  { id: 68, name: "Hydrating & Calming Serum", cat: "Serum", desc: "Deskripsi menyusul", price: 425000, blob: "from-emerald-100 to-teal-100" },
+  { id: 69, name: "Milky Day Cream- Ivory", cat: "Cream", desc: "Deskripsi menyusul", price: 0, blob: "from-amber-100 to-yellow-100" },
+  { id: 70, name: "Make Up Remover Balm", cat: "Cream", desc: "Deskripsi menyusul", price: 0, blob: "from-amber-100 to-yellow-100" },
+  { id: 71, name: "Hyaluronic Acid + Caviar Serum", cat: "Serum", desc: "Deskripsi menyusul", price: 425000, blob: "from-emerald-100 to-teal-100" },
+  { id: 72, name: "Luxury All Skin Facial Wash", cat: "Sabun", desc: "Deskripsi menyusul", price: 92400, blob: "from-sky-100 to-blue-100" },
+  { id: 73, name: "Mulberry Soothing Toner", cat: "Toner", desc: "Deskripsi menyusul", price: 97900, blob: "from-cyan-100 to-sky-100" },
+  { id: 74, name: "Night Cream Luxury", cat: "Cream", desc: "Deskripsi menyusul", price: 176000, blob: "from-amber-100 to-yellow-100" },
+  { id: 75, name: "Facial Cleanser Brightening", cat: "Cleansing", desc: "Deskripsi menyusul", price: 0, blob: "from-rose-100 to-orange-100" },
+  { id: 76, name: "AHA BHA Acne Brightening Toner", cat: "Toner", desc: "Deskripsi menyusul", price: 0, blob: "from-cyan-100 to-sky-100" },
+  { id: 77, name: "Antiaging & Dark Spot Toner", cat: "Toner", desc: "Deskripsi menyusul", price: 0, blob: "from-cyan-100 to-sky-100" },
+  { id: 78, name: "Tranexamic Acid 3% Brightening Toner", cat: "Toner", desc: "Deskripsi menyusul", price: 0, blob: "from-cyan-100 to-sky-100" },
+  { id: 79, name: "Triple Active Whitening Body Lotion", cat: "Lotion", desc: "Deskripsi menyusul", price: 413000, blob: "from-purple-100 to-pink-100" },
+  { id: 80, name: "Night Cream 2", cat: "Cream", desc: "Deskripsi menyusul", price: 220000, blob: "from-amber-100 to-yellow-100" },
+  { id: 81, name: "Acnezone Mattifying Gel", cat: "Gel", desc: "Deskripsi menyusul", price: 220000, blob: "from-lime-100 to-emerald-100" },
+  { id: 82, name: "Grape Seed Oil Cleansing Milk", cat: "Cleansing", desc: "Deskripsi menyusul", price: 0, blob: "from-rose-100 to-orange-100" },
 ];
 
 const rupiah = (n) => "Rp" + n.toLocaleString("id-ID");
@@ -141,7 +193,7 @@ export default function BeautyRossaStore() {
         <div className="flex items-center justify-between mb-8 flex-wrap gap-4">
           <h2 className="font-display text-3xl">Katalog Produk</h2>
           <div className="flex gap-2">
-            {["Semua", "Cream", "Serum", "Sabun", "Lotion", "Cleansing"].map((c) => (
+            {["Semua", "Cream", "Serum", "Toner", "Sabun", "Lotion", "Cleansing", "Gel"].map((c) => (
               <button
                 key={c}
                 onClick={() => setCategory(c)}
@@ -163,19 +215,39 @@ export default function BeautyRossaStore() {
               key={p.id}
               className="group border border-[#C6A15B]/15 rounded-2xl overflow-hidden bg-[#141110] hover:border-[#C6A15B]/50 transition"
             >
-              <div className={`aspect-square bg-gradient-to-br ${p.blob} opacity-90`} />
+              <div className={`relative aspect-square bg-gradient-to-br ${p.blob} opacity-90`}>
+                <img
+                  src={`/images/${p.id}.jpg`}
+                  alt={p.name}
+                  className="absolute inset-0 w-full h-full object-cover"
+                  onError={(e) => {
+                    e.currentTarget.style.display = "none";
+                  }}
+                />
+              </div>
               <div className="p-4">
                 <div className="text-[10px] uppercase tracking-wider text-[#C6A15B] mb-1">{p.cat}</div>
                 <h3 className="font-display text-lg mb-1">{p.name}</h3>
                 <p className="text-xs text-[#F5EFE6]/50 mb-3 leading-relaxed">{p.desc}</p>
                 <div className="flex items-center justify-between">
-                  <span className="font-semibold text-[#EAD59A]">{rupiah(p.price)}</span>
-                  <button
-                    onClick={() => addToCart(p.id)}
-                    className="text-xs border border-[#C6A15B]/40 rounded-full px-3 py-1.5 hover:bg-[#C6A15B] hover:text-black transition"
-                  >
-                    + Keranjang
-                  </button>
+                  {p.price > 0 ? (
+                    <>
+                      <span className="font-semibold text-[#EAD59A]">{rupiah(p.price)}</span>
+                      <button
+                        onClick={() => addToCart(p.id)}
+                        className="text-xs border border-[#C6A15B]/40 rounded-full px-3 py-1.5 hover:bg-[#C6A15B] hover:text-black transition"
+                      >
+                        + Keranjang
+                      </button>
+                    </>
+                  ) : (
+                    <>
+                      <span className="font-semibold text-[#F5EFE6]/40 text-sm">Hubungi Kami</span>
+                      <span className="text-xs border border-[#C6A15B]/15 text-[#F5EFE6]/30 rounded-full px-3 py-1.5">
+                        Segera Hadir
+                      </span>
+                    </>
+                  )}
                 </div>
               </div>
             </div>
@@ -214,7 +286,16 @@ export default function BeautyRossaStore() {
                   )}
                   {cartItems.map((item) => (
                     <div key={item.id} className="flex gap-3 items-center border-b border-[#C6A15B]/10 pb-4">
-                      <div className={`w-16 h-16 rounded-lg bg-gradient-to-br ${item.blob} flex-shrink-0`} />
+                      <div className={`relative w-16 h-16 rounded-lg overflow-hidden bg-gradient-to-br ${item.blob} flex-shrink-0`}>
+                        <img
+                          src={`/images/${item.id}.jpg`}
+                          alt={item.name}
+                          className="absolute inset-0 w-full h-full object-cover"
+                          onError={(e) => {
+                            e.currentTarget.style.display = "none";
+                          }}
+                        />
+                      </div>
                       <div className="flex-1 min-w-0">
                         <div className="text-sm font-medium truncate">{item.name}</div>
                         <div className="text-xs text-[#C6A15B]">{rupiah(item.price)}</div>
@@ -369,4 +450,3 @@ export default function BeautyRossaStore() {
     </div>
   );
 }
-
