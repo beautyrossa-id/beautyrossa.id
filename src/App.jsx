@@ -150,11 +150,8 @@ export default function BeautyRossaStore() {
       <header className="sticky top-0 z-30 bg-[#FFFFFF]/90 backdrop-blur border-b border-[#2FA8E0]/20">
         <div className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <img src="/logo.jpg" alt="Beauty Rossa" className="h-12 w-12 rounded-full object-cover" />
-            <div>
-              <div className="font-display text-xl font-semibold text-[#2FA8E0] italic">Beauty Rossa</div>
-              <div className="text-[10px] tracking-wider text-[#1F2937]/40 uppercase">beautyrossa.id</div>
-            </div>
+            <img src="/logo.jpg" alt="Beauty Rossa" className="h-14 w-14 rounded-full object-cover" />
+            <div className="font-display text-3xl font-semibold text-[#2FA8E0] italic">Beauty Rossa</div>
           </div>
           <button
             onClick={openCart}
