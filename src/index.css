@@ -11,13 +11,13 @@
   font-family: "Manrope", sans-serif;
 }
 .gold-text {
-  background: linear-gradient(120deg, #c6a15b 0%, #ead59a 45%, #c6a15b 100%);
+  background: linear-gradient(120deg, #2fa8e0 0%, #6fbf3f 45%, #2fa8e0 100%);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
 }
 .gold-line {
-  background: linear-gradient(90deg, transparent, #c6a15b, transparent);
+  background: linear-gradient(90deg, transparent, #2fa8e0, transparent);
 }
 @keyframes shimmer {
   0% {
@@ -28,7 +28,7 @@
   }
 }
 .shimmer {
-  background: linear-gradient(110deg, #c6a15b 30%, #f7e7b8 50%, #c6a15b 70%);
+  background: linear-gradient(110deg, #2fa8e0 30%, #a8e05f 50%, #2fa8e0 70%);
   background-size: 200% auto;
   animation: shimmer 3.5s linear infinite;
   -webkit-background-clip: text;
