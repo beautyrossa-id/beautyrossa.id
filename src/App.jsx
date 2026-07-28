@@ -149,9 +149,8 @@ export default function BeautyRossaStore() {
       {/* Header */}
       <header className="sticky top-0 z-30 bg-[#FFFFFF]/90 backdrop-blur border-b border-[#2FA8E0]/20">
         <div className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <img src="/images/logo.jpg" alt="Beauty Rossa" className="h-14 w-14 rounded-full object-cover" />
-            <div className="font-display text-3xl font-semibold text-[#2FA8E0] italic">Beauty Rossa</div>
+          <div className="flex items-center">
+            <img src="/images/logo.png" alt="Beauty Rossa" className="h-16 w-auto object-contain" />
           </div>
           <button
             onClick={openCart}
@@ -192,7 +191,7 @@ export default function BeautyRossaStore() {
         </div>
         <div className="relative aspect-square rounded-full bg-gradient-to-br from-[#DFF3D8] via-[#2FA8E0]/20 to-[#EAF6FD] flex items-center justify-center border border-[#2FA8E0]/30">
           <div className="absolute inset-6 rounded-full border border-[#2FA8E0]/20" />
-          <img src="/images/logo.jpg" alt="Beauty Rossa" className="w-2/3 h-2/3 object-contain drop-shadow-lg" />
+          <img src="/images/logo.png" alt="Beauty Rossa" className="w-2/3 h-2/3 object-contain drop-shadow-lg" />
         </div>
       </section>
 
@@ -281,9 +280,8 @@ export default function BeautyRossaStore() {
       <footer className="border-t border-[#2FA8E0]/15 bg-[#F4FAFD] pt-12 pb-8">
         <div className="max-w-6xl mx-auto px-6 grid sm:grid-cols-3 gap-8 mb-8">
           <div>
-            <div className="flex items-center gap-2 mb-3">
-              <img src="/images/logo.jpg" alt="Beauty Rossa" className="h-8 w-8 rounded-full object-cover" />
-              <span className="font-display text-lg font-semibold text-[#2FA8E0] italic">Beauty Rossa</span>
+            <div className="flex items-center mb-3">
+              <img src="/images/logo.png" alt="Beauty Rossa" className="h-14 w-auto object-contain" />
             </div>
             <p className="text-xs text-[#1F2937]/50 leading-relaxed">
               Rangkaian skincare untuk kulit yang bercahaya dan tampilan yang percaya diri, setiap hari.
