@@ -2,14 +2,36 @@ import React, { useState, useMemo } from "react";
 import { ShoppingBag, X, Plus, Minus, Sparkles, Check, ChevronRight, Trash2 } from "lucide-react";
 
 const PRODUCTS = [
-  { id: 1, name: "Rossa Glow Serum", cat: "Skincare", desc: "Vitamin C 15% untuk kulit lebih cerah", price: 185000, blob: "from-amber-100 to-rose-200" },
-  { id: 2, name: "Velvet Rose Toner", cat: "Skincare", desc: "Menenangkan & melembapkan kulit sensitif", price: 95000, blob: "from-rose-100 to-orange-100" },
-  { id: 3, name: "Gold Radiance Night Cream", cat: "Skincare", desc: "Perawatan malam dengan ekstrak emas 24K", price: 245000, blob: "from-yellow-100 to-amber-200" },
-  { id: 4, name: "Petal Soft Cleanser", cat: "Skincare", desc: "Pembersih lembut berbahan dasar mawar", price: 89000, blob: "from-pink-100 to-rose-100" },
-  { id: 5, name: "Rossa Matte Lip Velvet", cat: "Makeup", desc: "Shade Mauve Rose, tahan hingga 8 jam", price: 79000, blob: "from-rose-200 to-red-100" },
-  { id: 6, name: "Golden Hour Highlighter", cat: "Makeup", desc: "Efek glow keemasan alami", price: 135000, blob: "from-amber-100 to-yellow-100" },
-  { id: 7, name: "Silk Foundation SPF30", cat: "Makeup", desc: "Coverage medium, hasil akhir semi-matte", price: 165000, blob: "from-orange-100 to-amber-100" },
-  { id: 8, name: "Rose Blush Duo", cat: "Makeup", desc: "Dua warna blush nuansa rose gold", price: 99000, blob: "from-rose-100 to-pink-200" },
+  { id: 1, name: "24K Gold Peptide Night Cream", cat: "Cream", desc: "Deskripsi menyusul", price: 220000, blob: "from-amber-100 to-yellow-100" },
+  { id: 2, name: "Acne Care Lightening Serum", cat: "Serum", desc: "Deskripsi menyusul", price: 300000, blob: "from-emerald-100 to-teal-100" },
+  { id: 3, name: "Alpha Collagen Whitening Serum 10 ML", cat: "Serum", desc: "Deskripsi menyusul", price: 241000, blob: "from-emerald-100 to-teal-100" },
+  { id: 4, name: "Anti Acne Lightening Serum", cat: "Serum", desc: "Deskripsi menyusul", price: 263000, blob: "from-emerald-100 to-teal-100" },
+  { id: 5, name: "Aqua Collagen Brightening Night Cream", cat: "Cream", desc: "Deskripsi menyusul", price: 260000, blob: "from-amber-100 to-yellow-100" },
+  { id: 6, name: "Aquabright Night Cream", cat: "Cream", desc: "Deskripsi menyusul", price: 220000, blob: "from-amber-100 to-yellow-100" },
+  { id: 7, name: "Aromatherapy Moist Cleansing Milk", cat: "Cleansing", desc: "Deskripsi menyusul", price: 125400, blob: "from-rose-100 to-orange-100" },
+  { id: 8, name: "Bebe Cream", cat: "Cream", desc: "Deskripsi menyusul", price: 289000, blob: "from-amber-100 to-yellow-100" },
+  { id: 9, name: "Blue Jelly", cat: "Serum", desc: "Deskripsi menyusul", price: 241000, blob: "from-emerald-100 to-teal-100" },
+  { id: 10, name: "Brightening Shower Gel", cat: "Sabun", desc: "Deskripsi menyusul", price: 331000, blob: "from-sky-100 to-blue-100" },
+  { id: 11, name: "Chamo Gentle Milk Cleanser Beauty", cat: "Cleansing", desc: "Deskripsi menyusul", price: 81400, blob: "from-rose-100 to-orange-100" },
+  { id: 12, name: "Clearskin Lotion 2", cat: "Lotion", desc: "Deskripsi menyusul", price: 236000, blob: "from-purple-100 to-pink-100" },
+  { id: 13, name: "Collagenix Firming Cream", cat: "Cream", desc: "Deskripsi menyusul", price: 236000, blob: "from-amber-100 to-yellow-100" },
+  { id: 14, name: "Cream Malam", cat: "Cream", desc: "Deskripsi menyusul", price: 127600, blob: "from-amber-100 to-yellow-100" },
+  { id: 15, name: "Cream Pagi A", cat: "Cream", desc: "Deskripsi menyusul", price: 121000, blob: "from-amber-100 to-yellow-100" },
+  { id: 16, name: "Cream Pagi Platinum", cat: "Cream", desc: "Deskripsi menyusul", price: 210000, blob: "from-amber-100 to-yellow-100" },
+  { id: 17, name: "Cream Pagi Seri II", cat: "Cream", desc: "Deskripsi menyusul", price: 168000, blob: "from-amber-100 to-yellow-100" },
+  { id: 18, name: "Day Cream 3", cat: "Cream", desc: "Deskripsi menyusul", price: 132000, blob: "from-amber-100 to-yellow-100" },
+  { id: 19, name: "Day Cream Luxury", cat: "Cream", desc: "Deskripsi menyusul", price: 169400, blob: "from-amber-100 to-yellow-100" },
+  { id: 20, name: "Day Cream Luxury 2 With Niacinamide & UV Filter", cat: "Cream", desc: "Deskripsi menyusul", price: 176000, blob: "from-amber-100 to-yellow-100" },
+  { id: 21, name: "Day Cream Octadecenedioic Acid", cat: "Cream", desc: "Deskripsi menyusul", price: 168000, blob: "from-amber-100 to-yellow-100" },
+  { id: 22, name: "Day Cream Stearyl Glycrrhetinate", cat: "Cream", desc: "Deskripsi menyusul", price: 210000, blob: "from-amber-100 to-yellow-100" },
+  { id: 23, name: "Diamond Jelly", cat: "Serum", desc: "Deskripsi menyusul", price: 460000, blob: "from-emerald-100 to-teal-100" },
+  { id: 24, name: "Dry Skin Face Wash", cat: "Sabun", desc: "Deskripsi menyusul", price: 84000, blob: "from-sky-100 to-blue-100" },
+  { id: 25, name: "Easy Foundation", cat: "Cream", desc: "Deskripsi menyusul", price: 171000, blob: "from-amber-100 to-yellow-100" },
+  { id: 26, name: "Ectoin & Soothing Lotion", cat: "Serum", desc: "Deskripsi menyusul", price: 188000, blob: "from-emerald-100 to-teal-100" },
+  { id: 27, name: "Eye Cream Peptide", cat: "Cream", desc: "Deskripsi menyusul", price: 200000, blob: "from-amber-100 to-yellow-100" },
+  { id: 28, name: "Facial Foam Brightening Tube", cat: "Sabun", desc: "Deskripsi menyusul", price: 176000, blob: "from-sky-100 to-blue-100" },
+  { id: 29, name: "Facial Wash 200 ML", cat: "Sabun", desc: "Deskripsi menyusul", price: 99000, blob: "from-sky-100 to-blue-100" },
+  { id: 30, name: "Facial Wash Grape Seed 200 ML", cat: "Sabun", desc: "Deskripsi menyusul", price: 176000, blob: "from-sky-100 to-blue-100" },
 ];
 
 const rupiah = (n) => "Rp" + n.toLocaleString("id-ID");
@@ -90,7 +112,7 @@ export default function BeautyRossaStore() {
       <section className="max-w-6xl mx-auto px-6 pt-16 pb-20 grid md:grid-cols-2 gap-10 items-center">
         <div>
           <div className="flex items-center gap-2 text-[#C6A15B] text-xs tracking-[0.2em] uppercase mb-4">
-            <Sparkles size={14} /> Skincare &amp; Makeup Pilihan
+            <Sparkles size={14} /> Rangkaian Skincare Pilihan
           </div>
           <h1 className="font-display text-5xl md:text-6xl leading-tight mb-6">
             Kilau alami,
@@ -98,7 +120,7 @@ export default function BeautyRossaStore() {
             <span className="gold-text italic">gaya abadi.</span>
           </h1>
           <p className="text-[#F5EFE6]/70 max-w-md mb-8 leading-relaxed">
-            Rangkaian skincare dan makeup dengan sentuhan rose gold — diformulasikan untuk
+            Rangkaian skincare dengan sentuhan rose gold — diformulasikan untuk
             kulit yang bercahaya dan tampilan yang percaya diri, setiap hari.
           </p>
           <button
@@ -119,7 +141,7 @@ export default function BeautyRossaStore() {
         <div className="flex items-center justify-between mb-8 flex-wrap gap-4">
           <h2 className="font-display text-3xl">Katalog Produk</h2>
           <div className="flex gap-2">
-            {["Semua", "Skincare", "Makeup"].map((c) => (
+            {["Semua", "Cream", "Serum", "Sabun", "Lotion", "Cleansing"].map((c) => (
               <button
                 key={c}
                 onClick={() => setCategory(c)}
@@ -347,3 +369,4 @@ export default function BeautyRossaStore() {
     </div>
   );
 }
+
