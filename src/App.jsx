@@ -1,8 +1,5 @@
 import React, { useState, useMemo } from "react";
-import { ShoppingBag, X, Plus, Minus, Sparkles, Check, ChevronRight, Trash2, MessageCircle } from "lucide-react";
-
-const WA_NUMBER = "62895392141015";
-const WA_DISPLAY = "+62 895-3921-41015";
+import { ShoppingBag, X, Plus, Minus, Sparkles, Check, ChevronRight, Trash2 } from "lucide-react";
 
 const PRODUCTS = [
   { id: 1, name: "24K Gold Peptide Night Cream", cat: "Cream", desc: "Deskripsi menyusul", price: 220000, blob: "from-amber-100 to-yellow-100" },
@@ -93,18 +90,13 @@ const rupiah = (n) => "Rp" + n.toLocaleString("id-ID");
 
 export default function BeautyRossaStore() {
   const [category, setCategory] = useState("Semua");
-  const [search, setSearch] = useState("");
   const [cart, setCart] = useState({}); // id -> qty
   const [cartOpen, setCartOpen] = useState(false);
   const [step, setStep] = useState("cart"); // cart | checkout | success
   const [form, setForm] = useState({ nama: "", hp: "", alamat: "", metode: "Transfer Bank" });
   const [orderNo, setOrderNo] = useState("");
 
-  const filtered = PRODUCTS.filter((p) => {
-    const matchCat = category === "Semua" || p.cat === category;
-    const matchSearch = p.name.toLowerCase().includes(search.toLowerCase());
-    return matchCat && matchSearch;
-  });
+  const filtered = category === "Semua" ? PRODUCTS : PRODUCTS.filter((p) => p.cat === category);
 
   const cartItems = useMemo(() => {
     return Object.entries(cart)
@@ -145,22 +137,22 @@ export default function BeautyRossaStore() {
   };
 
   return (
-    <div className="font-body min-h-screen bg-[#FFFFFF] text-[#1F2937]">
+    <div className="font-body min-h-screen bg-[#0B0908] text-[#F5EFE6]">
       {/* Header */}
-      <header className="sticky top-0 z-30 bg-[#FFFFFF]/90 backdrop-blur border-b border-[#2FA8E0]/20">
+      <header className="sticky top-0 z-30 bg-[#0B0908]/90 backdrop-blur border-b border-[#C6A15B]/20">
         <div className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <img src="/logo.jpg" alt="Beauty Rossa" className="h-14 w-14 rounded-full object-cover" />
-            <div className="font-display text-3xl font-semibold text-[#2FA8E0] italic">Beauty Rossa</div>
+          <div>
+            <div className="font-display text-2xl tracking-wide shimmer font-semibold">beautyrossa.id</div>
+            <div className="h-px w-full gold-line mt-1 opacity-70" />
           </div>
           <button
             onClick={openCart}
-            className="relative flex items-center gap-2 border border-[#2FA8E0]/50 rounded-full px-4 py-2 text-sm hover:bg-[#2FA8E0]/10 transition"
+            className="relative flex items-center gap-2 border border-[#C6A15B]/50 rounded-full px-4 py-2 text-sm hover:bg-[#C6A15B]/10 transition"
           >
-            <ShoppingBag size={16} className="text-[#2FA8E0]" />
+            <ShoppingBag size={16} className="text-[#C6A15B]" />
             <span className="hidden sm:inline">Keranjang</span>
             {totalItems > 0 && (
-              <span className="absolute -top-2 -right-2 bg-[#2FA8E0] text-white text-xs w-5 h-5 rounded-full flex items-center justify-center font-semibold">
+              <span className="absolute -top-2 -right-2 bg-[#C6A15B] text-black text-xs w-5 h-5 rounded-full flex items-center justify-center font-semibold">
                 {totalItems}
               </span>
             )}
@@ -171,42 +163,33 @@ export default function BeautyRossaStore() {
       {/* Hero */}
       <section className="max-w-6xl mx-auto px-6 pt-16 pb-20 grid md:grid-cols-2 gap-10 items-center">
         <div>
-          <div className="flex items-center gap-2 text-[#2FA8E0] text-xs tracking-[0.2em] uppercase mb-4">
+          <div className="flex items-center gap-2 text-[#C6A15B] text-xs tracking-[0.2em] uppercase mb-4">
             <Sparkles size={14} /> Rangkaian Skincare Pilihan
           </div>
-          <h1 className="font-display text-5xl md:text-6xl leading-tight mb-6 text-[#1F2937]">
+          <h1 className="font-display text-5xl md:text-6xl leading-tight mb-6">
             Kilau alami,
             <br />
             <span className="gold-text italic">gaya abadi.</span>
           </h1>
-          <p className="text-[#1F2937]/70 max-w-md mb-8 leading-relaxed">
-            Rangkaian skincare Beauty Rossa — diformulasikan untuk kulit yang
-            bercahaya dan tampilan yang percaya diri, setiap hari.
+          <p className="text-[#F5EFE6]/70 max-w-md mb-8 leading-relaxed">
+            Rangkaian skincare dengan sentuhan rose gold — diformulasikan untuk
+            kulit yang bercahaya dan tampilan yang percaya diri, setiap hari.
           </p>
           <button
             onClick={() => document.getElementById("katalog")?.scrollIntoView({ behavior: "smooth" })}
-            className="inline-flex items-center gap-2 bg-[#2FA8E0] text-white font-semibold px-6 py-3 rounded-full hover:bg-[#6FBF3F] transition"
+            className="inline-flex items-center gap-2 bg-[#C6A15B] text-black font-semibold px-6 py-3 rounded-full hover:bg-[#EAD59A] transition"
           >
             Lihat Katalog <ChevronRight size={16} />
           </button>
         </div>
-        <div className="relative aspect-square rounded-full bg-gradient-to-br from-[#DFF3D8] via-[#2FA8E0]/20 to-[#EAF6FD] flex items-center justify-center border border-[#2FA8E0]/30">
-          <div className="absolute inset-6 rounded-full border border-[#2FA8E0]/20" />
-          <img src="/logo.jpg" alt="Beauty Rossa" className="w-2/3 h-2/3 object-contain drop-shadow-lg" />
+        <div className="relative aspect-square rounded-full bg-gradient-to-br from-[#3a2a1f] via-[#C6A15B]/30 to-[#1A1613] flex items-center justify-center border border-[#C6A15B]/30">
+          <div className="absolute inset-6 rounded-full border border-[#C6A15B]/20" />
+          <Sparkles size={48} className="text-[#EAD59A]" />
         </div>
       </section>
 
       {/* Katalog */}
       <section id="katalog" className="max-w-6xl mx-auto px-6 pb-24">
-        <div className="mb-6">
-          <input
-            type="text"
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
-            placeholder="Cari produk, misal: serum, cream malam..."
-            className="w-full md:w-96 bg-[#F4FAFD] border border-[#2FA8E0]/25 rounded-full px-5 py-2.5 text-sm focus:outline-none focus:border-[#2FA8E0] placeholder:text-[#1F2937]/30"
-          />
-        </div>
         <div className="flex items-center justify-between mb-8 flex-wrap gap-4">
           <h2 className="font-display text-3xl">Katalog Produk</h2>
           <div className="flex gap-2">
@@ -216,8 +199,8 @@ export default function BeautyRossaStore() {
                 onClick={() => setCategory(c)}
                 className={`px-4 py-1.5 rounded-full text-sm border transition ${
                   category === c
-                    ? "bg-[#2FA8E0] text-white border-[#2FA8E0] font-semibold"
-                    : "border-[#2FA8E0]/30 text-[#1F2937]/70 hover:border-[#2FA8E0]/60"
+                    ? "bg-[#C6A15B] text-black border-[#C6A15B] font-semibold"
+                    : "border-[#C6A15B]/30 text-[#F5EFE6]/70 hover:border-[#C6A15B]/60"
                 }`}
               >
                 {c}
@@ -226,17 +209,11 @@ export default function BeautyRossaStore() {
           </div>
         </div>
 
-        {filtered.length === 0 && (
-          <p className="text-center text-[#1F2937]/40 py-16">
-            Produk tidak ditemukan. Coba kata kunci atau kategori lain.
-          </p>
-        )}
-
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {filtered.map((p) => (
             <div
               key={p.id}
-              className="group border border-[#2FA8E0]/15 rounded-2xl overflow-hidden bg-[#F4FAFD] hover:border-[#2FA8E0]/50 transition"
+              className="group border border-[#C6A15B]/15 rounded-2xl overflow-hidden bg-[#141110] hover:border-[#C6A15B]/50 transition"
             >
               <div className={`relative aspect-square bg-gradient-to-br ${p.blob} opacity-90`}>
                 <img
@@ -249,24 +226,24 @@ export default function BeautyRossaStore() {
                 />
               </div>
               <div className="p-4">
-                <div className="text-[10px] uppercase tracking-wider text-[#2FA8E0] mb-1">{p.cat}</div>
+                <div className="text-[10px] uppercase tracking-wider text-[#C6A15B] mb-1">{p.cat}</div>
                 <h3 className="font-display text-lg mb-1">{p.name}</h3>
-                <p className="text-xs text-[#1F2937]/50 mb-3 leading-relaxed">{p.desc}</p>
+                <p className="text-xs text-[#F5EFE6]/50 mb-3 leading-relaxed">{p.desc}</p>
                 <div className="flex items-center justify-between">
                   {p.price > 0 ? (
                     <>
-                      <span className="font-semibold text-[#6FBF3F]">{rupiah(p.price)}</span>
+                      <span className="font-semibold text-[#EAD59A]">{rupiah(p.price)}</span>
                       <button
                         onClick={() => addToCart(p.id)}
-                        className="text-xs border border-[#2FA8E0]/40 rounded-full px-3 py-1.5 hover:bg-[#2FA8E0] hover:text-white transition"
+                        className="text-xs border border-[#C6A15B]/40 rounded-full px-3 py-1.5 hover:bg-[#C6A15B] hover:text-black transition"
                       >
                         + Keranjang
                       </button>
                     </>
                   ) : (
                     <>
-                      <span className="font-semibold text-[#1F2937]/40 text-sm">Hubungi Kami</span>
-                      <span className="text-xs border border-[#2FA8E0]/15 text-[#1F2937]/30 rounded-full px-3 py-1.5">
+                      <span className="font-semibold text-[#F5EFE6]/40 text-sm">Hubungi Kami</span>
+                      <span className="text-xs border border-[#C6A15B]/15 text-[#F5EFE6]/30 rounded-full px-3 py-1.5">
                         Segera Hadir
                       </span>
                     </>
@@ -278,62 +255,22 @@ export default function BeautyRossaStore() {
         </div>
       </section>
 
-      <footer className="border-t border-[#2FA8E0]/15 bg-[#F4FAFD] pt-12 pb-8">
-        <div className="max-w-6xl mx-auto px-6 grid sm:grid-cols-3 gap-8 mb-8">
-          <div>
-            <div className="flex items-center gap-2 mb-3">
-              <img src="/logo.jpg" alt="Beauty Rossa" className="h-8 w-8 rounded-full object-cover" />
-              <span className="font-display text-lg font-semibold text-[#2FA8E0] italic">Beauty Rossa</span>
-            </div>
-            <p className="text-xs text-[#1F2937]/50 leading-relaxed">
-              Rangkaian skincare untuk kulit yang bercahaya dan tampilan yang percaya diri, setiap hari.
-            </p>
-          </div>
-          <div>
-            <h4 className="text-xs uppercase tracking-wider text-[#1F2937]/40 mb-3">Kontak</h4>
-            <ul className="text-sm text-[#1F2937]/70 space-y-1.5">
-              <li>WhatsApp: {WA_DISPLAY}</li>
-              <li>beautyrossa.id</li>
-            </ul>
-          </div>
-          <div>
-            <h4 className="text-xs uppercase tracking-wider text-[#1F2937]/40 mb-3">Kebijakan</h4>
-            <ul className="text-sm text-[#1F2937]/70 space-y-1.5">
-              <li>Pengiriman ke seluruh Indonesia</li>
-              <li>Pembayaran via Transfer Bank / COD / QRIS</li>
-              <li>Hubungi kami untuk pertanyaan produk</li>
-            </ul>
-          </div>
-        </div>
-        <p className="text-center text-xs text-[#1F2937]/40 border-t border-[#2FA8E0]/10 pt-6">
-          © 2026 beautyrossa.id — Kilau alami, gaya abadi.
-        </p>
+      <footer className="border-t border-[#C6A15B]/15 py-8 text-center text-xs text-[#F5EFE6]/40">
+        © 2026 beautyrossa.id — Kilau alami, gaya abadi.
       </footer>
-
-      {/* Tombol WhatsApp Mengambang */}
-      <a
-        href={`https://wa.me/${WA_NUMBER}`}
-        target="_blank"
-        rel="noopener noreferrer"
-        className="fixed bottom-6 right-6 z-30 flex items-center gap-2 bg-[#25D366] text-white px-4 py-3 rounded-full shadow-lg hover:scale-105 transition"
-        aria-label="Chat via WhatsApp"
-      >
-        <MessageCircle size={22} />
-        <span className="hidden sm:inline text-sm font-semibold pr-1">Chat Kami</span>
-      </a>
 
       {/* Cart / Checkout Drawer */}
       {cartOpen && (
         <div className="fixed inset-0 z-40 flex justify-end">
           <div className="absolute inset-0 bg-black/60" onClick={() => setCartOpen(false)} />
-          <div className="relative w-full max-w-md h-full bg-[#F4FAFD] border-l border-[#2FA8E0]/20 flex flex-col">
-            <div className="flex items-center justify-between px-6 py-5 border-b border-[#2FA8E0]/15">
+          <div className="relative w-full max-w-md h-full bg-[#141110] border-l border-[#C6A15B]/20 flex flex-col">
+            <div className="flex items-center justify-between px-6 py-5 border-b border-[#C6A15B]/15">
               <h3 className="font-display text-xl">
                 {step === "cart" && "Keranjang Belanja"}
                 {step === "checkout" && "Checkout"}
                 {step === "success" && "Pesanan Diterima"}
               </h3>
-              <button onClick={() => setCartOpen(false)} className="text-[#1F2937]/60 hover:text-[#2FA8E0]">
+              <button onClick={() => setCartOpen(false)} className="text-[#F5EFE6]/60 hover:text-[#C6A15B]">
                 <X size={20} />
               </button>
             </div>
@@ -343,12 +280,12 @@ export default function BeautyRossaStore() {
               <>
                 <div className="flex-1 overflow-y-auto px-6 py-4 space-y-4">
                   {cartItems.length === 0 && (
-                    <p className="text-sm text-[#1F2937]/50 mt-10 text-center">
+                    <p className="text-sm text-[#F5EFE6]/50 mt-10 text-center">
                       Keranjangmu masih kosong. Yuk pilih produk favoritmu.
                     </p>
                   )}
                   {cartItems.map((item) => (
-                    <div key={item.id} className="flex gap-3 items-center border-b border-[#2FA8E0]/10 pb-4">
+                    <div key={item.id} className="flex gap-3 items-center border-b border-[#C6A15B]/10 pb-4">
                       <div className={`relative w-16 h-16 rounded-lg overflow-hidden bg-gradient-to-br ${item.blob} flex-shrink-0`}>
                         <img
                           src={`/images/${item.id}.jpg`}
@@ -361,38 +298,38 @@ export default function BeautyRossaStore() {
                       </div>
                       <div className="flex-1 min-w-0">
                         <div className="text-sm font-medium truncate">{item.name}</div>
-                        <div className="text-xs text-[#2FA8E0]">{rupiah(item.price)}</div>
+                        <div className="text-xs text-[#C6A15B]">{rupiah(item.price)}</div>
                         <div className="flex items-center gap-3 mt-2">
                           <button
                             onClick={() => changeQty(item.id, -1)}
-                            className="w-6 h-6 flex items-center justify-center border border-[#2FA8E0]/30 rounded-full hover:bg-[#2FA8E0]/10"
+                            className="w-6 h-6 flex items-center justify-center border border-[#C6A15B]/30 rounded-full hover:bg-[#C6A15B]/10"
                           >
                             <Minus size={12} />
                           </button>
                           <span className="text-sm w-4 text-center">{item.qty}</span>
                           <button
                             onClick={() => changeQty(item.id, 1)}
-                            className="w-6 h-6 flex items-center justify-center border border-[#2FA8E0]/30 rounded-full hover:bg-[#2FA8E0]/10"
+                            className="w-6 h-6 flex items-center justify-center border border-[#C6A15B]/30 rounded-full hover:bg-[#C6A15B]/10"
                           >
                             <Plus size={12} />
                           </button>
                         </div>
                       </div>
-                      <button onClick={() => removeItem(item.id)} className="text-[#1F2937]/30 hover:text-red-400">
+                      <button onClick={() => removeItem(item.id)} className="text-[#F5EFE6]/30 hover:text-red-400">
                         <Trash2 size={16} />
                       </button>
                     </div>
                   ))}
                 </div>
                 {cartItems.length > 0 && (
-                  <div className="px-6 py-5 border-t border-[#2FA8E0]/15 space-y-3">
-                    <div className="flex justify-between text-sm text-[#1F2937]/70">
+                  <div className="px-6 py-5 border-t border-[#C6A15B]/15 space-y-3">
+                    <div className="flex justify-between text-sm text-[#F5EFE6]/70">
                       <span>Subtotal</span>
                       <span>{rupiah(subtotal)}</span>
                     </div>
                     <button
                       onClick={() => setStep("checkout")}
-                      className="w-full bg-[#2FA8E0] text-white font-semibold py-3 rounded-full hover:bg-[#6FBF3F] transition"
+                      className="w-full bg-[#C6A15B] text-black font-semibold py-3 rounded-full hover:bg-[#EAD59A] transition"
                     >
                       Lanjut ke Checkout
                     </button>
@@ -405,38 +342,38 @@ export default function BeautyRossaStore() {
             {step === "checkout" && (
               <form onSubmit={submitOrder} className="flex-1 overflow-y-auto px-6 py-5 flex flex-col gap-4">
                 <div>
-                  <label className="text-xs text-[#1F2937]/60 block mb-1">Nama Penerima</label>
+                  <label className="text-xs text-[#F5EFE6]/60 block mb-1">Nama Penerima</label>
                   <input
                     required
                     value={form.nama}
                     onChange={(e) => setForm({ ...form, nama: e.target.value })}
-                    className="w-full bg-[#FFFFFF] border border-[#2FA8E0]/25 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-[#2FA8E0]"
+                    className="w-full bg-[#0B0908] border border-[#C6A15B]/25 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-[#C6A15B]"
                     placeholder="Nama lengkap"
                   />
                 </div>
                 <div>
-                  <label className="text-xs text-[#1F2937]/60 block mb-1">Nomor HP / WhatsApp</label>
+                  <label className="text-xs text-[#F5EFE6]/60 block mb-1">Nomor HP / WhatsApp</label>
                   <input
                     required
                     value={form.hp}
                     onChange={(e) => setForm({ ...form, hp: e.target.value })}
-                    className="w-full bg-[#FFFFFF] border border-[#2FA8E0]/25 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-[#2FA8E0]"
+                    className="w-full bg-[#0B0908] border border-[#C6A15B]/25 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-[#C6A15B]"
                     placeholder="08xxxxxxxxxx"
                   />
                 </div>
                 <div>
-                  <label className="text-xs text-[#1F2937]/60 block mb-1">Alamat Pengiriman</label>
+                  <label className="text-xs text-[#F5EFE6]/60 block mb-1">Alamat Pengiriman</label>
                   <textarea
                     required
                     value={form.alamat}
                     onChange={(e) => setForm({ ...form, alamat: e.target.value })}
                     rows={3}
-                    className="w-full bg-[#FFFFFF] border border-[#2FA8E0]/25 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-[#2FA8E0] resize-none"
+                    className="w-full bg-[#0B0908] border border-[#C6A15B]/25 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-[#C6A15B] resize-none"
                     placeholder="Alamat lengkap"
                   />
                 </div>
                 <div>
-                  <label className="text-xs text-[#1F2937]/60 block mb-2">Metode Pembayaran</label>
+                  <label className="text-xs text-[#F5EFE6]/60 block mb-2">Metode Pembayaran</label>
                   <div className="grid grid-cols-3 gap-2">
                     {["Transfer Bank", "COD", "QRIS"].map((m) => (
                       <button
@@ -445,8 +382,8 @@ export default function BeautyRossaStore() {
                         onClick={() => setForm({ ...form, metode: m })}
                         className={`text-xs py-2 rounded-lg border transition ${
                           form.metode === m
-                            ? "bg-[#2FA8E0] text-white border-[#2FA8E0] font-semibold"
-                            : "border-[#2FA8E0]/25 text-[#1F2937]/70"
+                            ? "bg-[#C6A15B] text-black border-[#C6A15B] font-semibold"
+                            : "border-[#C6A15B]/25 text-[#F5EFE6]/70"
                         }`}
                       >
                         {m}
@@ -455,16 +392,16 @@ export default function BeautyRossaStore() {
                   </div>
                 </div>
 
-                <div className="mt-2 border-t border-[#2FA8E0]/15 pt-4 space-y-1 text-sm">
-                  <div className="flex justify-between text-[#1F2937]/70">
+                <div className="mt-2 border-t border-[#C6A15B]/15 pt-4 space-y-1 text-sm">
+                  <div className="flex justify-between text-[#F5EFE6]/70">
                     <span>Subtotal</span>
                     <span>{rupiah(subtotal)}</span>
                   </div>
-                  <div className="flex justify-between text-[#1F2937]/70">
+                  <div className="flex justify-between text-[#F5EFE6]/70">
                     <span>Ongkos Kirim</span>
                     <span>{rupiah(ongkir)}</span>
                   </div>
-                  <div className="flex justify-between font-semibold text-[#6FBF3F] text-base pt-1">
+                  <div className="flex justify-between font-semibold text-[#EAD59A] text-base pt-1">
                     <span>Total</span>
                     <span>{rupiah(total)}</span>
                   </div>
@@ -472,14 +409,14 @@ export default function BeautyRossaStore() {
 
                 <button
                   type="submit"
-                  className="w-full bg-[#2FA8E0] text-white font-semibold py-3 rounded-full hover:bg-[#6FBF3F] transition mt-2"
+                  className="w-full bg-[#C6A15B] text-black font-semibold py-3 rounded-full hover:bg-[#EAD59A] transition mt-2"
                 >
                   Buat Pesanan
                 </button>
                 <button
                   type="button"
                   onClick={() => setStep("cart")}
-                  className="text-xs text-[#1F2937]/50 hover:text-[#2FA8E0] text-center"
+                  className="text-xs text-[#F5EFE6]/50 hover:text-[#C6A15B] text-center"
                 >
                   Kembali ke keranjang
                 </button>
@@ -489,19 +426,19 @@ export default function BeautyRossaStore() {
             {/* SUCCESS STEP */}
             {step === "success" && (
               <div className="flex-1 flex flex-col items-center justify-center px-6 text-center gap-4">
-                <div className="w-14 h-14 rounded-full bg-[#2FA8E0] flex items-center justify-center">
-                  <Check size={26} className="text-white" />
+                <div className="w-14 h-14 rounded-full bg-[#C6A15B] flex items-center justify-center">
+                  <Check size={26} className="text-black" />
                 </div>
                 <h4 className="font-display text-2xl">Terima kasih, {form.nama.split(" ")[0]}!</h4>
-                <p className="text-sm text-[#1F2937]/60 max-w-xs">
-                  Pesananmu dengan nomor <span className="text-[#6FBF3F] font-semibold">{orderNo}</span> telah kami
+                <p className="text-sm text-[#F5EFE6]/60 max-w-xs">
+                  Pesananmu dengan nomor <span className="text-[#EAD59A] font-semibold">{orderNo}</span> telah kami
                   terima. Kami akan menghubungimu via WhatsApp untuk konfirmasi pembayaran ({form.metode}) dan
                   pengiriman.
                 </p>
-                <div className="text-sm text-[#6FBF3F] font-semibold">Total: {rupiah(total)}</div>
+                <div className="text-sm text-[#EAD59A] font-semibold">Total: {rupiah(total)}</div>
                 <button
                   onClick={resetAll}
-                  className="mt-4 bg-[#2FA8E0] text-white font-semibold px-6 py-2.5 rounded-full hover:bg-[#6FBF3F] transition"
+                  className="mt-4 bg-[#C6A15B] text-black font-semibold px-6 py-2.5 rounded-full hover:bg-[#EAD59A] transition"
                 >
                   Belanja Lagi
                 </button>
