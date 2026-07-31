@@ -1,8 +1,50 @@
-import React, { useState, useMemo } from "react";
-import { ShoppingBag, X, Plus, Minus, Sparkles, Check, ChevronRight, Trash2, MessageCircle } from "lucide-react";
+import React, { useState, useMemo, useEffect } from "react";
+import {
+  ShoppingBag,
+  X,
+  Plus,
+  Minus,
+  Sparkles,
+  Check,
+  ChevronRight,
+  Trash2,
+  MessageCircle,
+  ShieldCheck,
+  Stethoscope,
+  Truck,
+  MapPin,
+} from "lucide-react";
 
 const WA_NUMBER = "62895392141015";
 const WA_DISPLAY = "+62 895-3921-41015";
+
+const HERO_SLIDES = [
+  {
+    tag: "Rangkaian Skincare Pilihan",
+    title: "Kilau alami,",
+    accent: "gaya abadi.",
+    desc: "Rangkaian skincare Beauty Rossa — diformulasikan untuk kulit yang bercahaya dan tampilan yang percaya diri, setiap hari.",
+  },
+  {
+    tag: "Klinik Kecantikan Resmi",
+    title: "Konsultasi dokter,",
+    accent: "hasil nyata.",
+    desc: "Didukung klinik kecantikan resmi dengan dokter berpengalaman, siap membantu perjalanan rawatan kulitmu.",
+  },
+  {
+    tag: "82 Produk Pilihan",
+    title: "Satu tempat,",
+    accent: "semua kebutuhan.",
+    desc: "Dari cream, serum, toner, hingga cleansing — koleksi lengkap untuk rutinitas perawatan kulitmu.",
+  },
+];
+
+const TRUST_BADGES = [
+  { icon: ShieldCheck, label: "100% Original" },
+  { icon: Stethoscope, label: "Konsultasi Dokter Tersedia" },
+  { icon: Truck, label: "Kirim ke Seluruh Indonesia" },
+  { icon: MapPin, label: "Klinik Resmi Malang" },
+];
 
 const PRODUCTS = [
   { id: 1, name: "24K Gold Peptide Night Cream", cat: "Cream", desc: "Deskripsi menyusul", price: 220000, blob: "from-amber-100 to-yellow-100" },
@@ -94,6 +136,8 @@ const rupiah = (n) => "Rp" + n.toLocaleString("id-ID");
 export default function BeautyRossaStore() {
   const [category, setCategory] = useState("Semua");
   const [search, setSearch] = useState("");
+  const [slide, setSlide] = useState(0);
+  const [detailProduct, setDetailProduct] = useState(null);
   const [cart, setCart] = useState({}); // id -> qty
   const [cartOpen, setCartOpen] = useState(false);
   const [step, setStep] = useState("cart"); // cart | checkout | success
@@ -124,6 +168,13 @@ export default function BeautyRossaStore() {
       return { ...c, [id]: next };
     });
   const removeItem = (id) => setCart((c) => ({ ...c, [id]: 0 }));
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setSlide((s) => (s + 1) % HERO_SLIDES.length);
+    }, 5000);
+    return () => clearInterval(timer);
+  }, []);
 
   const openCart = () => {
     setStep("cart");
@@ -167,31 +218,54 @@ export default function BeautyRossaStore() {
         </div>
       </header>
 
-      {/* Hero */}
-      <section className="max-w-6xl mx-auto px-6 pt-16 pb-20 grid md:grid-cols-2 gap-10 items-center">
-        <div>
+      {/* Hero Carousel */}
+      <section className="max-w-6xl mx-auto px-6 pt-16 pb-12 grid md:grid-cols-2 gap-10 items-center">
+        <div key={slide} className="animate-[fadeIn_0.4s_ease]">
           <div className="flex items-center gap-2 text-[#2FA8E0] text-xs tracking-[0.2em] uppercase mb-4">
-            <Sparkles size={14} /> Rangkaian Skincare Pilihan
+            <Sparkles size={14} /> {HERO_SLIDES[slide].tag}
           </div>
           <h1 className="font-display text-5xl md:text-6xl leading-tight mb-6 text-[#1F2937]">
-            Kilau alami,
+            {HERO_SLIDES[slide].title}
             <br />
-            <span className="gold-text italic">gaya abadi.</span>
+            <span className="gold-text italic">{HERO_SLIDES[slide].accent}</span>
           </h1>
-          <p className="text-[#1F2937]/70 max-w-md mb-8 leading-relaxed">
-            Rangkaian skincare Beauty Rossa — diformulasikan untuk kulit yang
-            bercahaya dan tampilan yang percaya diri, setiap hari.
-          </p>
-          <button
-            onClick={() => document.getElementById("katalog")?.scrollIntoView({ behavior: "smooth" })}
-            className="inline-flex items-center gap-2 bg-[#2FA8E0] text-white font-semibold px-6 py-3 rounded-full hover:bg-[#6FBF3F] transition"
-          >
-            Lihat Katalog <ChevronRight size={16} />
-          </button>
+          <p className="text-[#1F2937]/70 max-w-md mb-8 leading-relaxed">{HERO_SLIDES[slide].desc}</p>
+          <div className="flex items-center gap-6">
+            <button
+              onClick={() => document.getElementById("katalog")?.scrollIntoView({ behavior: "smooth" })}
+              className="inline-flex items-center gap-2 bg-[#2FA8E0] text-white font-semibold px-6 py-3 rounded-full hover:bg-[#6FBF3F] transition"
+            >
+              Lihat Katalog <ChevronRight size={16} />
+            </button>
+            <div className="flex gap-2">
+              {HERO_SLIDES.map((_, i) => (
+                <button
+                  key={i}
+                  onClick={() => setSlide(i)}
+                  aria-label={`Slide ${i + 1}`}
+                  className={`w-2 h-2 rounded-full transition ${i === slide ? "bg-[#2FA8E0] w-6" : "bg-[#2FA8E0]/25"}`}
+                />
+              ))}
+            </div>
+          </div>
         </div>
         <div className="relative aspect-square rounded-full bg-gradient-to-br from-[#DFF3D8] via-[#2FA8E0]/20 to-[#EAF6FD] flex items-center justify-center border border-[#2FA8E0]/30">
           <div className="absolute inset-6 rounded-full border border-[#2FA8E0]/20" />
           <img src="/images/logo.png" alt="Beauty Rossa" className="w-2/3 h-2/3 object-contain drop-shadow-lg" />
+        </div>
+      </section>
+
+      {/* Trust Badges */}
+      <section className="max-w-6xl mx-auto px-6 pb-16">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 border-t border-b border-[#2FA8E0]/10 py-6">
+          {TRUST_BADGES.map((b, i) => (
+            <div key={i} className="flex items-center gap-2.5">
+              <div className="w-9 h-9 rounded-full bg-[#F4FAFD] flex items-center justify-center flex-shrink-0">
+                <b.icon size={16} className="text-[#2FA8E0]" />
+              </div>
+              <span className="text-xs text-[#1F2937]/70 leading-tight">{b.label}</span>
+            </div>
+          ))}
         </div>
       </section>
 
@@ -235,22 +309,30 @@ export default function BeautyRossaStore() {
           {filtered.map((p) => (
             <div
               key={p.id}
-              className="group border border-[#2FA8E0]/15 rounded-2xl overflow-hidden bg-[#F4FAFD] hover:border-[#2FA8E0]/50 transition"
+              className="group border border-[#2FA8E0]/15 rounded-2xl overflow-hidden bg-[#F4FAFD] hover:border-[#2FA8E0]/50 hover:shadow-xl hover:-translate-y-1 transition-all duration-300"
             >
-              <div className={`relative aspect-square bg-gradient-to-br ${p.blob} opacity-90`}>
-                <img
-                  src={`/images/${p.id}.jpg`}
-                  alt={p.name}
-                  className="absolute inset-0 w-full h-full object-cover"
-                  onError={(e) => {
-                    e.currentTarget.style.display = "none";
-                  }}
-                />
-              </div>
-              <div className="p-4">
-                <div className="text-[10px] uppercase tracking-wider text-[#2FA8E0] mb-1">{p.cat}</div>
-                <h3 className="font-display text-lg mb-1">{p.name}</h3>
-                <p className="text-xs text-[#1F2937]/50 mb-3 leading-relaxed">{p.desc}</p>
+              <button
+                onClick={() => setDetailProduct(p)}
+                className="block w-full text-left"
+                aria-label={`Lihat detail ${p.name}`}
+              >
+                <div className={`relative aspect-square bg-gradient-to-br ${p.blob} opacity-90 overflow-hidden`}>
+                  <img
+                    src={`/images/${p.id}.jpg`}
+                    alt={p.name}
+                    className="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                    onError={(e) => {
+                      e.currentTarget.style.display = "none";
+                    }}
+                  />
+                </div>
+                <div className="px-4 pt-4">
+                  <div className="text-[10px] uppercase tracking-wider text-[#2FA8E0] mb-1">{p.cat}</div>
+                  <h3 className="font-display text-lg mb-1 group-hover:text-[#2FA8E0] transition">{p.name}</h3>
+                  <p className="text-xs text-[#1F2937]/50 mb-3 leading-relaxed">{p.desc}</p>
+                </div>
+              </button>
+              <div className="px-4 pb-4">
                 <div className="flex items-center justify-between">
                   {p.price > 0 ? (
                     <>
@@ -505,6 +587,80 @@ export default function BeautyRossaStore() {
                 </button>
               </div>
             )}
+          </div>
+        </div>
+      )}
+
+      {/* Modal Detail Produk */}
+      {detailProduct && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+          <div className="absolute inset-0 bg-black/60" onClick={() => setDetailProduct(null)} />
+          <div className="relative w-full max-w-2xl max-h-[90vh] overflow-y-auto bg-white rounded-2xl border border-[#2FA8E0]/15">
+            <button
+              onClick={() => setDetailProduct(null)}
+              className="absolute top-4 right-4 z-10 w-9 h-9 rounded-full bg-white/90 border border-[#2FA8E0]/20 flex items-center justify-center hover:bg-[#F4FAFD]"
+            >
+              <X size={18} />
+            </button>
+            <div className="grid md:grid-cols-2">
+              <div className={`relative aspect-square bg-gradient-to-br ${detailProduct.blob} opacity-90`}>
+                <img
+                  src={`/images/${detailProduct.id}.jpg`}
+                  alt={detailProduct.name}
+                  className="absolute inset-0 w-full h-full object-cover"
+                  onError={(e) => {
+                    e.currentTarget.style.display = "none";
+                  }}
+                />
+              </div>
+              <div className="p-6">
+                <div className="text-[10px] uppercase tracking-wider text-[#2FA8E0] mb-2">{detailProduct.cat}</div>
+                <h3 className="font-display text-2xl mb-3">{detailProduct.name}</h3>
+                {detailProduct.price > 0 ? (
+                  <div className="text-xl font-semibold text-[#6FBF3F] mb-4">{rupiah(detailProduct.price)}</div>
+                ) : (
+                  <div className="text-sm font-semibold text-[#1F2937]/40 mb-4">
+                    Hubungi Kami — Segera Hadir
+                  </div>
+                )}
+
+                <div className="mb-4">
+                  <h4 className="text-xs uppercase tracking-wider text-[#1F2937]/40 mb-1">Deskripsi</h4>
+                  <p className="text-sm text-[#1F2937]/70 leading-relaxed">{detailProduct.desc}</p>
+                </div>
+                <div className="mb-6">
+                  <h4 className="text-xs uppercase tracking-wider text-[#1F2937]/40 mb-1">Cara Pakai</h4>
+                  <p className="text-sm text-[#1F2937]/70 leading-relaxed">
+                    Informasi cara pakai akan segera dilengkapi. Hubungi kami via WhatsApp untuk konsultasi
+                    penggunaan produk ini.
+                  </p>
+                </div>
+
+                {detailProduct.price > 0 ? (
+                  <button
+                    onClick={() => {
+                      addToCart(detailProduct.id);
+                      setDetailProduct(null);
+                      openCart();
+                    }}
+                    className="w-full bg-[#2FA8E0] text-white font-semibold py-3 rounded-full hover:bg-[#6FBF3F] transition"
+                  >
+                    + Tambah ke Keranjang
+                  </button>
+                ) : (
+                  <a
+                    href={`https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(
+                      `Halo, saya ingin tanya harga produk ${detailProduct.name}`
+                    )}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="block text-center w-full bg-[#25D366] text-white font-semibold py-3 rounded-full hover:opacity-90 transition"
+                  >
+                    Tanya via WhatsApp
+                  </a>
+                )}
+              </div>
+            </div>
           </div>
         </div>
       )}
