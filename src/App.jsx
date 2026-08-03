@@ -45,7 +45,7 @@ const TRUST_BADGES = [
   { icon: ShieldCheck, label: "100% Original" },
   {
     icon: Stethoscope,
-    label: "Konsultasi Beauty Advisor",
+    label: "Konsultasi Beauty Rossa Advisor",
     link: `https://wa.me/${DOCTOR_WA_NUMBER}?text=${encodeURIComponent(
       "Halo Beauty Rossa,\nSaya ingin melakukan konsultasi mengenai kondisi kulit saya. Mohon dibantu informasi konsultasi dan prosedurnya.\nTerima kasih."
     )}`,
@@ -398,7 +398,7 @@ export default function BeautyRossaStore() {
             <h4 className="text-xs uppercase tracking-wider text-[#1F2937]/40 mb-3">Kontak</h4>
             <ul className="text-sm text-[#1F2937]/70 space-y-1.5">
               <li>Admin (Pembelian): {WA_DISPLAY}</li>
-              <li>Beauty Advisor: {DOCTOR_WA_DISPLAY}</li>
+              <li>Beauty Rossa Advisor: {DOCTOR_WA_DISPLAY}</li>
               <li>beautyrossa.id</li>
             </ul>
           </div>
@@ -425,10 +425,10 @@ export default function BeautyRossaStore() {
           target="_blank"
           rel="noopener noreferrer"
           className="flex items-center gap-2 bg-[#2FA8E0] text-white px-4 py-3 rounded-full shadow-lg hover:scale-105 transition"
-          aria-label="Konsultasi Beauty Advisor via WhatsApp"
+          aria-label="Konsultasi Beauty Rossa Advisor via WhatsApp"
         >
           <Stethoscope size={20} />
-          <span className="hidden sm:inline text-sm font-semibold pr-1">Beauty Advisor</span>
+          <span className="hidden sm:inline text-sm font-semibold pr-1">Beauty Rossa Advisor</span>
         </a>
         <a
           href={`https://wa.me/${WA_NUMBER}`}
