@@ -47,9 +47,7 @@ const TRUST_BADGES = [
     icon: Stethoscope,
     label: "Konsultasi Beauty Advisor",
     link: `https://wa.me/${DOCTOR_WA_NUMBER}?text=${encodeURIComponent(
-      "Halo Beauty Rossa 😊
-Saya ingin melakukan konsultasi mengenai kondisi kulit saya. Mohon dibantu informasi konsultasi dan prosedurnya.
-Terima kasih."
+      "Halo Beauty Rossa 😊\nSaya ingin melakukan konsultasi mengenai kondisi kulit saya. Mohon dibantu informasi konsultasi dan prosedurnya.\nTerima kasih."
     )}`,
   },
   { icon: Truck, label: "Kirim ke Seluruh Indonesia" },
@@ -422,9 +420,7 @@ export default function BeautyRossaStore() {
       <div className="fixed bottom-6 right-6 z-30 flex flex-col items-end gap-3">
         <a
           href={`https://wa.me/${DOCTOR_WA_NUMBER}?text=${encodeURIComponent(
-            "Halo Beauty Rossa 😊
-Saya ingin melakukan konsultasi mengenai kondisi kulit saya. Mohon dibantu informasi konsultasi dan prosedurnya.
-Terima kasih."
+            "Halo Beauty Rossa 😊\nSaya ingin melakukan konsultasi mengenai kondisi kulit saya. Mohon dibantu informasi konsultasi dan prosedurnya.\nTerima kasih."
           )}`}
           target="_blank"
           rel="noopener noreferrer"
