@@ -83,7 +83,7 @@ const PRODUCTS = [
   { id: 26, name: "Ectoin & Soothing Lotion", cat: "Serum", desc: "Deskripsi menyusul", price: 188000, blob: "from-emerald-100 to-teal-100", image: "26.jpg" },
   { id: 27, name: "Eye Cream Peptide", cat: "Cream", desc: "Deskripsi menyusul", price: 200000, blob: "from-amber-100 to-yellow-100", image: "27.jpg" },
   { id: 28, name: "Facial Foam Brightening Tube", cat: "Sabun", desc: "Deskripsi menyusul", price: 176000, blob: "from-sky-100 to-blue-100", image: "28.jpg" },
-  { id: 29, name: "Facial Wash 200 ML", cat: "Sabun", desc: "Deskripsi menyusul", price: 99000, blob: "from-sky-100 to-blue-100", image: "29.jpg" },
+  { id: 29, name: "Facial Wash 200 ML", cat: "Sabun", desc: "Deskripsi menyusul", price: 99000, blob: "from-sky-100 to-blue-100", image: "29__FACIAL_WASH_200_ML_.png" },
   { id: 30, name: "Facial Wash Grape Seed 200 ML", cat: "Sabun", desc: "Deskripsi menyusul", price: 176000, blob: "from-sky-100 to-blue-100", image: "30.jpg" },
   { id: 31, name: "Glutathione Lightening Body Cream", cat: "Cream", desc: "Deskripsi menyusul", price: 394000, blob: "from-amber-100 to-yellow-100", image: "31.jpg" },
   { id: 32, name: "Green Jelly", cat: "Serum", desc: "Deskripsi menyusul", price: 220000, blob: "from-emerald-100 to-teal-100", image: "32.jpg" },
