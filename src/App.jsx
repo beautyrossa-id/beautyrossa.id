@@ -193,6 +193,27 @@ export default function BeautyRossaStore() {
     e.preventDefault();
     const no = "BR" + Math.floor(100000 + Math.random() * 900000);
     setOrderNo(no);
+
+    // Susun rincian pesanan untuk dikirim ke WhatsApp admin
+    const itemLines = cartItems
+      .map((item) => `- ${item.name} x${item.qty} = ${rupiah(item.qty * item.price)}`)
+      .join("\n");
+
+    const message =
+      `Halo Beauty Rossa, ada pesanan baru masuk lewat website:\n\n` +
+      `No. Pesanan: ${no}\n` +
+      `Nama: ${form.nama}\n` +
+      `No. HP: ${form.hp}\n` +
+      `Alamat: ${form.alamat}\n` +
+      `Metode Bayar: ${form.metode}\n\n` +
+      `Rincian Produk:\n${itemLines}\n\n` +
+      `Subtotal: ${rupiah(subtotal)}\n` +
+      `Ongkos Kirim: ${rupiah(ongkir)}\n` +
+      `Total: ${rupiah(total)}`;
+
+    const waUrl = `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(message)}`;
+    window.open(waUrl, "_blank");
+
     setStep("success");
   };
 
@@ -616,10 +637,27 @@ export default function BeautyRossaStore() {
                 </div>
                 <h4 className="font-display text-2xl">Terima kasih, {form.nama.split(" ")[0]}!</h4>
                 <p className="text-sm text-[#1F2937]/60 max-w-xs">
-                  Pesananmu dengan nomor <span className="text-[#6FBF3F] font-semibold">{orderNo}</span> telah kami
-                  terima. Kami akan menghubungimu via WhatsApp untuk konfirmasi pembayaran ({form.metode}) dan
-                  pengiriman.
+                  Pesananmu dengan nomor <span className="text-[#6FBF3F] font-semibold">{orderNo}</span> sudah
+                  disiapkan. Tab WhatsApp seharusnya sudah terbuka dengan rincian pesananmu &mdash; tinggal klik{" "}
+                  <strong>Kirim</strong> di WhatsApp untuk menyelesaikan pemesanan.
                 </p>
+                <div className="text-sm text-[#1F2937]/40">
+                  Kalau WhatsApp tidak otomatis terbuka, klik tombol di bawah ini:
+                </div>
+                <a
+                  href={`https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(
+                    `Halo Beauty Rossa, ada pesanan baru masuk lewat website:\n\nNo. Pesanan: ${orderNo}\nNama: ${form.nama}\nNo. HP: ${form.hp}\nAlamat: ${form.alamat}\nMetode Bayar: ${form.metode}\n\nRincian Produk:\n${cartItems
+                      .map((item) => `- ${item.name} x${item.qty} = ${rupiah(item.qty * item.price)}`)
+                      .join("\n")}\n\nSubtotal: ${rupiah(subtotal)}\nOngkos Kirim: ${rupiah(
+                      ongkir
+                    )}\nTotal: ${rupiah(total)}`
+                  )}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 bg-[#25D366] text-white text-sm font-semibold px-5 py-2.5 rounded-full hover:opacity-90 transition"
+                >
+                  <MessageCircle size={16} /> Kirim via WhatsApp
+                </a>
                 <div className="text-sm text-[#6FBF3F] font-semibold">Total: {rupiah(total)}</div>
                 <button
                   onClick={resetAll}
