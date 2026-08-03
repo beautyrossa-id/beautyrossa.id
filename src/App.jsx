@@ -47,7 +47,11 @@ const TRUST_BADGES = [
     icon: Stethoscope,
     label: "Konsultasi Beauty Advisor",
     link: `https://wa.me/${DOCTOR_WA_NUMBER}?text=${encodeURIComponent(
-      "Halo, saya ingin konsultasi dengan Beauty Advisor mengenai jenis kulit saya"
+      "Halo Beauty Rossa 😊
+
+Saya ingin melakukan konsultasi dengan dokter mengenai kondisi kulit saya. Mohon dibantu informasi mengenai jadwal konsultasi dan prosedurnya.
+
+Terima kasih."
     )}`,
   },
   { icon: Truck, label: "Kirim ke Seluruh Indonesia" },
