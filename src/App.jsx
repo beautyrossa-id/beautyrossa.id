@@ -25,7 +25,7 @@ const HERO_SLIDES = [
     tag: "Rangkaian Skincare Pilihan",
     title: "Kilau alami,",
     accent: "gaya abadi.",
-    desc: "Rangkaian skincare Beauty Rossa — diformulasikan untuk kulit yang bercahaya dan tampilan yang percaya diri, setiap hari.",
+    desc: "Rangkaian skincare Beauty Rossa - diformulasikan untuk kulit yang bercahaya dan tampilan yang percaya diri, setiap hari.",
   },
   {
     tag: "Klinik Kecantikan Resmi",
@@ -37,7 +37,7 @@ const HERO_SLIDES = [
     tag: "82 Produk Pilihan",
     title: "Satu tempat,",
     accent: "semua kebutuhan.",
-    desc: "Dari cream, serum, toner, hingga cleansing — koleksi lengkap untuk rutinitas perawatan kulitmu.",
+    desc: "Dari cream, serum, toner, hingga cleansing - koleksi lengkap untuk rutinitas perawatan kulitmu.",
   },
 ];
 
@@ -412,7 +412,7 @@ export default function BeautyRossaStore() {
           </div>
         </div>
         <p className="text-center text-xs text-[#1F2937]/40 border-t border-[#2FA8E0]/10 pt-6">
-          © 2026 beautyrossa.id — Kilau alami, gaya abadi.
+          © 2026 beautyrossa.id - Kilau alami, gaya abadi.
         </p>
       </footer>
 
@@ -662,7 +662,7 @@ export default function BeautyRossaStore() {
                   <div className="text-xl font-semibold text-[#6FBF3F] mb-4">{rupiah(detailProduct.price)}</div>
                 ) : (
                   <div className="text-sm font-semibold text-[#1F2937]/40 mb-4">
-                    Hubungi Kami — Segera Hadir
+                    Hubungi Kami - Segera Hadir
                   </div>
                 )}
 
