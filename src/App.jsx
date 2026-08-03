@@ -431,7 +431,9 @@ export default function BeautyRossaStore() {
           <span className="hidden sm:inline text-sm font-semibold pr-1">Beauty Rossa Advisor</span>
         </a>
         <a
-          href={`https://wa.me/${WA_NUMBER}`}
+          href={`https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(
+            "Halo Beauty Rossa,\nSaya ingin mendapatkan informasi mengenai produk dan layanan Beauty Rossa.\nMohon bantuannya.\nTerima kasih."
+          )}`}
           target="_blank"
           rel="noopener noreferrer"
           className="flex items-center gap-2 bg-[#25D366] text-white px-4 py-3 rounded-full shadow-lg hover:scale-105 transition"
