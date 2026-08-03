@@ -17,6 +17,8 @@ import {
 
 const WA_NUMBER = "62895392141015";
 const WA_DISPLAY = "+62 895-3921-41015";
+const DOCTOR_WA_NUMBER = "6285337352283";
+const DOCTOR_WA_DISPLAY = "+62 853-3735-2283";
 
 const HERO_SLIDES = [
   {
@@ -41,7 +43,13 @@ const HERO_SLIDES = [
 
 const TRUST_BADGES = [
   { icon: ShieldCheck, label: "100% Original" },
-  { icon: Stethoscope, label: "Konsultasi Dokter Tersedia" },
+  {
+    icon: Stethoscope,
+    label: "Konsultasi Beauty Advisor",
+    link: `https://wa.me/${DOCTOR_WA_NUMBER}?text=${encodeURIComponent(
+      "Halo, saya ingin konsultasi dengan Beauty Advisor mengenai jenis kulit saya"
+    )}`,
+  },
   { icon: Truck, label: "Kirim ke Seluruh Indonesia" },
   { icon: MapPin, label: "Klinik Resmi Malang" },
 ];
@@ -258,14 +266,31 @@ export default function BeautyRossaStore() {
       {/* Trust Badges */}
       <section className="max-w-6xl mx-auto px-6 pb-16">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 border-t border-b border-[#2FA8E0]/10 py-6">
-          {TRUST_BADGES.map((b, i) => (
-            <div key={i} className="flex items-center gap-2.5">
-              <div className="w-9 h-9 rounded-full bg-[#F4FAFD] flex items-center justify-center flex-shrink-0">
-                <b.icon size={16} className="text-[#2FA8E0]" />
+          {TRUST_BADGES.map((b, i) =>
+            b.link ? (
+              <a
+                key={i}
+                href={b.link}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-2.5 group cursor-pointer"
+              >
+                <div className="w-9 h-9 rounded-full bg-[#F4FAFD] flex items-center justify-center flex-shrink-0 group-hover:bg-[#2FA8E0]/10 transition">
+                  <b.icon size={16} className="text-[#2FA8E0]" />
+                </div>
+                <span className="text-xs text-[#1F2937]/70 leading-tight group-hover:text-[#2FA8E0] transition underline decoration-dotted">
+                  {b.label}
+                </span>
+              </a>
+            ) : (
+              <div key={i} className="flex items-center gap-2.5">
+                <div className="w-9 h-9 rounded-full bg-[#F4FAFD] flex items-center justify-center flex-shrink-0">
+                  <b.icon size={16} className="text-[#2FA8E0]" />
+                </div>
+                <span className="text-xs text-[#1F2937]/70 leading-tight">{b.label}</span>
               </div>
-              <span className="text-xs text-[#1F2937]/70 leading-tight">{b.label}</span>
-            </div>
-          ))}
+            )
+          )}
         </div>
       </section>
 
@@ -372,7 +397,8 @@ export default function BeautyRossaStore() {
           <div>
             <h4 className="text-xs uppercase tracking-wider text-[#1F2937]/40 mb-3">Kontak</h4>
             <ul className="text-sm text-[#1F2937]/70 space-y-1.5">
-              <li>WhatsApp: {WA_DISPLAY}</li>
+              <li>Admin (Pembelian): {WA_DISPLAY}</li>
+              <li>Beauty Advisor: {DOCTOR_WA_DISPLAY}</li>
               <li>beautyrossa.id</li>
             </ul>
           </div>
@@ -391,16 +417,30 @@ export default function BeautyRossaStore() {
       </footer>
 
       {/* Tombol WhatsApp Mengambang */}
-      <a
-        href={`https://wa.me/${WA_NUMBER}`}
-        target="_blank"
-        rel="noopener noreferrer"
-        className="fixed bottom-6 right-6 z-30 flex items-center gap-2 bg-[#25D366] text-white px-4 py-3 rounded-full shadow-lg hover:scale-105 transition"
-        aria-label="Chat via WhatsApp"
-      >
-        <MessageCircle size={22} />
-        <span className="hidden sm:inline text-sm font-semibold pr-1">Chat Kami</span>
-      </a>
+      <div className="fixed bottom-6 right-6 z-30 flex flex-col items-end gap-3">
+        <a
+          href={`https://wa.me/${DOCTOR_WA_NUMBER}?text=${encodeURIComponent(
+            "Halo, saya ingin konsultasi dengan Beauty Advisor mengenai jenis kulit saya"
+          )}`}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="flex items-center gap-2 bg-[#2FA8E0] text-white px-4 py-3 rounded-full shadow-lg hover:scale-105 transition"
+          aria-label="Konsultasi Beauty Advisor via WhatsApp"
+        >
+          <Stethoscope size={20} />
+          <span className="hidden sm:inline text-sm font-semibold pr-1">Beauty Advisor</span>
+        </a>
+        <a
+          href={`https://wa.me/${WA_NUMBER}`}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="flex items-center gap-2 bg-[#25D366] text-white px-4 py-3 rounded-full shadow-lg hover:scale-105 transition"
+          aria-label="Chat Admin via WhatsApp"
+        >
+          <MessageCircle size={22} />
+          <span className="hidden sm:inline text-sm font-semibold pr-1">Chat Admin</span>
+        </a>
+      </div>
 
       {/* Cart / Checkout Drawer */}
       {cartOpen && (
