@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useEffect } from "react";
+import React, { useState, useMemo, useEffect, useCallback } from "react";
 import {
   ShoppingBag,
   X,
@@ -84,6 +84,21 @@ const CLINIC_SERVICES = [
   },
 ];
 
+/* Filter katalog premium - label sesuai brief, dipetakan ke kategori data asli
+   (Sabun = Facial Wash, Cream = Moisturizer, Lotion = Body Care).
+   "Sunscreen" tidak punya kategori tersendiri di data, jadi dicocokkan lewat nama produk. */
+const CATALOG_FILTERS = [
+  { label: "Semua", match: () => true },
+  { label: "Serum", match: (p) => p.cat === "Serum" },
+  { label: "Facial Wash", match: (p) => p.cat === "Sabun" },
+  { label: "Toner", match: (p) => p.cat === "Toner" },
+  { label: "Moisturizer", match: (p) => p.cat === "Cream" },
+  { label: "Sunscreen", match: (p) => p.name.toLowerCase().includes("sunscreen") },
+  { label: "Body Care", match: (p) => p.cat === "Lotion" },
+];
+
+const CATALOG_PAGE_SIZE = 12;
+
 const ABOUT_VALUES = [
   { title: "Personal", desc: "Rekomendasi disesuaikan dengan kebutuhan pelanggan." },
   { title: "Terpercaya", desc: "Informasi produk dan layanan disampaikan secara transparan." },
@@ -92,47 +107,90 @@ const ABOUT_VALUES = [
 
 const rupiah = (n) => "Rp" + n.toLocaleString("id-ID");
 
-function ProductCard({ product: p, onView, onAdd }) {
+const BADGE_STYLES = {
+  "Best Seller": "bg-[#B9897D] text-white",
+  New: "bg-[#282422] text-white",
+  Promo: "bg-[#E24B4A] text-white",
+  Limited: "bg-[#C4A46B] text-[#282422]",
+  BPOM: "bg-white text-[#282422] border border-[#E8E1DB]",
+};
+
+const ProductCard = React.memo(function ProductCard({ product: p, onView, onAdd }) {
   return (
-    <div className="group border border-[#E8E1DB] rounded-2xl overflow-hidden bg-white hover:border-[#B9897D]/50 hover:shadow-lg hover:-translate-y-1 transition-all duration-300">
-      <button
-        onClick={() => onView(p)}
-        className="block w-full text-left"
-        aria-label={`Lihat detail ${p.name}`}
-      >
-        <div className="relative aspect-square bg-gradient-to-br from-[#F6F0EA] to-[#EED9D6] overflow-hidden">
+    <div className="group relative border border-[#E8E1DB] rounded-2xl overflow-hidden bg-white hover:border-[#B9897D]/40 hover:shadow-xl transition-all duration-300 flex flex-col">
+      <div className="relative aspect-square bg-gradient-to-br from-[#F6F0EA] to-[#EED9D6] overflow-hidden">
+        {p.badges && p.badges.length > 0 && (
+          <div className="absolute top-2.5 left-2.5 z-10 flex flex-wrap gap-1.5">
+            {p.badges.map((b) => (
+              <span
+                key={b}
+                className={`text-[10px] font-semibold px-2 py-1 rounded-full ${BADGE_STYLES[b] || "bg-[#F6F0EA] text-[#282422]"}`}
+              >
+                {b}
+              </span>
+            ))}
+          </div>
+        )}
+        <button
+          onClick={() => onView(p)}
+          aria-label={`Lihat detail ${p.name}`}
+          className="absolute inset-0 w-full h-full cursor-pointer"
+        >
           <img
             src={`/images/${p.image}`}
             alt={p.name}
             loading="lazy"
-            className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+            className="absolute inset-0 w-full h-full object-cover group-hover:scale-[1.06] transition-transform duration-500 ease-out"
             onError={(e) => {
               e.currentTarget.style.display = "none";
             }}
           />
-        </div>
-        <div className="px-4 pt-4">
-          <div className="text-[10px] uppercase tracking-wider text-[#B9897D] mb-1">{p.cat}</div>
-          <h3 className="font-display text-base mb-1 group-hover:text-[#B9897D] transition line-clamp-1">
-            {p.name}
-          </h3>
-        </div>
-      </button>
-      <div className="px-4 pb-4 pt-1">
-        <div className="flex items-center justify-between gap-2">
-          <span className="font-semibold text-[#282422] text-sm">{rupiah(p.price)}</span>
+        </button>
+        {/* Tombol muncul halus saat hover (desktop) */}
+        <div className="hidden sm:flex absolute inset-x-0 bottom-0 translate-y-full group-hover:translate-y-0 opacity-0 group-hover:opacity-100 transition-all duration-300 ease-out gap-2 p-2.5 bg-gradient-to-t from-black/40 to-transparent">
           <button
-            onClick={() => onAdd(p.id)}
-            aria-label={`Tambah ${p.name} ke keranjang`}
-            className="text-xs border border-[#B9897D]/40 rounded-full px-3 py-1.5 hover:bg-[#B9897D] hover:text-white transition whitespace-nowrap"
+            onClick={() => onView(p)}
+            className="flex-1 text-xs font-semibold bg-white/95 text-[#282422] rounded-full py-2 hover:bg-white transition"
           >
-            + Keranjang
+            Detail
+          </button>
+          {p.price > 0 && (
+            <button
+              onClick={() => onAdd(p.id)}
+              aria-label={`Tambah ${p.name} ke keranjang`}
+              className="flex-1 text-xs font-semibold bg-[#B9897D] text-white rounded-full py-2 hover:bg-[#C4A46B] transition"
+            >
+              + Keranjang
+            </button>
+          )}
+        </div>
+      </div>
+
+      <button onClick={() => onView(p)} className="block w-full text-left px-4 pt-3.5" aria-label={`Lihat detail ${p.name}`}>
+        <div className="text-[10px] uppercase tracking-wider text-[#B9897D] mb-1">{p.cat}</div>
+        <h3 className="font-display text-base mb-1 group-hover:text-[#B9897D] transition line-clamp-1">
+          {p.name}
+        </h3>
+      </button>
+
+      <div className="px-4 pb-4 pt-1 mt-auto">
+        <div className="flex items-center justify-between gap-2">
+          <span className="font-semibold text-[#282422] text-sm">
+            {p.price > 0 ? rupiah(p.price) : "Hubungi Kami"}
+          </span>
+          {/* Tombol selalu tampil di mobile (tidak ada hover di layar sentuh) */}
+          <button
+            onClick={() => (p.price > 0 ? onAdd(p.id) : onView(p))}
+            aria-label={p.price > 0 ? `Tambah ${p.name} ke keranjang` : `Lihat detail ${p.name}`}
+            className="sm:hidden text-xs border border-[#B9897D]/40 rounded-full px-3 py-1.5 hover:bg-[#B9897D] hover:text-white transition whitespace-nowrap"
+          >
+            {p.price > 0 ? "+ Keranjang" : "Detail"}
           </button>
         </div>
       </div>
     </div>
   );
-}
+});
 
 const PRODUCTS = [
   { id: 1, name: "24K Gold Peptide Night Cream", cat: "Cream", desc: "Deskripsi menyusul", price: 220000, blob: "from-amber-100 to-yellow-100", image: "1.jpg" , hasPhoto: false },
@@ -230,17 +288,34 @@ export default function BeautyRossaStore() {
   const [orderNo, setOrderNo] = useState("");
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [floatingMenuOpen, setFloatingMenuOpen] = useState(false);
+  const [visibleCount, setVisibleCount] = useState(CATALOG_PAGE_SIZE);
 
   const featuredProducts = useMemo(
     () => PRODUCTS.filter((p) => p.hasPhoto && p.price > 0).slice(0, 8),
     []
   );
 
-  const filtered = PRODUCTS.filter((p) => {
-    const matchCat = category === "Semua" || p.cat === category;
-    const matchSearch = p.name.toLowerCase().includes(search.toLowerCase());
-    return matchCat && matchSearch;
-  });
+  const activeFilter = CATALOG_FILTERS.find((f) => f.label === category) || CATALOG_FILTERS[0];
+
+  const filtered = useMemo(() => {
+    const q = search.trim().toLowerCase();
+    return PRODUCTS.filter((p) => {
+      const matchCat = activeFilter.match(p);
+      if (!matchCat) return false;
+      if (!q) return true;
+      // Cari di nama produk, kategori asli, dan label filter (mis. "facial wash" -> Sabun)
+      const haystack = `${p.name} ${p.cat}`.toLowerCase();
+      if (haystack.includes(q)) return true;
+      const matchingFilterLabel = CATALOG_FILTERS.find((f) => f.label !== "Semua" && f.match(p) && f.label.toLowerCase().includes(q));
+      return Boolean(matchingFilterLabel);
+    });
+  }, [search, activeFilter]);
+
+  const visibleProducts = filtered.slice(0, visibleCount);
+
+  useEffect(() => {
+    setVisibleCount(CATALOG_PAGE_SIZE);
+  }, [category, search]);
 
   const cartItems = useMemo(() => {
     return Object.entries(cart)
@@ -251,7 +326,7 @@ export default function BeautyRossaStore() {
   const totalItems = cartItems.reduce((s, i) => s + i.qty, 0);
   const subtotal = cartItems.reduce((s, i) => s + i.qty * i.price, 0);
 
-  const addToCart = (id) => setCart((c) => ({ ...c, [id]: (c[id] || 0) + 1 }));
+  const addToCart = useCallback((id) => setCart((c) => ({ ...c, [id]: (c[id] || 0) + 1 })), []);
   const changeQty = (id, delta) =>
     setCart((c) => {
       const next = Math.max(0, (c[id] || 0) + delta);
@@ -698,79 +773,81 @@ export default function BeautyRossaStore() {
 
       {/* Katalog Lengkap */}
       <section id="semua-produk" className="max-w-6xl mx-auto px-6 py-14 sm:py-16">
-        <div className="mb-6">
-          <input
-            type="text"
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
-            placeholder="Cari produk, misal: serum, cream malam..."
-            className="w-full md:w-96 bg-[#F6F0EA] border border-[#E8E1DB] rounded-full px-5 py-2.5 text-sm focus:outline-none focus:border-[#B9897D] placeholder:text-[#6D6662]/60"
-          />
+        <div className="text-center max-w-xl mx-auto mb-8">
+          <h2 className="font-display text-3xl mb-2">Produk Pilihan Beauty Rossa</h2>
+          <p className="text-[#6D6662] text-sm leading-relaxed">
+            Temukan rangkaian skincare pilihan untuk membantu kebutuhan kulit Anda.
+          </p>
         </div>
-        <div className="flex items-center justify-between mb-8 flex-wrap gap-4">
-          <h2 className="font-display text-3xl">Semua Produk</h2>
-          <div className="flex gap-2 flex-wrap">
-            {["Semua", "Cream", "Serum", "Toner", "Sabun", "Lotion", "Cleansing", "Gel"].map((c) => (
+
+        <div className="mb-5 flex justify-center">
+          <div className="relative w-full max-w-md">
+            <Search size={16} className="absolute left-4 top-1/2 -translate-y-1/2 text-[#6D6662]/60" />
+            <input
+              type="text"
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+              placeholder="Cari produk, kategori, atau kebutuhan kulit..."
+              aria-label="Cari produk"
+              className="w-full bg-[#F6F0EA] border border-[#E8E1DB] rounded-full pl-10 pr-5 py-2.5 text-sm focus:outline-none focus:border-[#B9897D] placeholder:text-[#6D6662]/60"
+            />
+          </div>
+        </div>
+
+        {/* Filter bar premium: horizontal scroll di mobile, wrap di desktop */}
+        <div className="mb-8 -mx-6 px-6 sm:mx-0 sm:px-0">
+          <div className="flex sm:flex-wrap sm:justify-center gap-2 overflow-x-auto sm:overflow-visible pb-2 sm:pb-0 no-scrollbar">
+            {CATALOG_FILTERS.map((f) => (
               <button
-                key={c}
-                onClick={() => setCategory(c)}
-                className={`px-4 py-1.5 rounded-full text-sm border transition ${
-                  category === c
-                    ? "bg-[#B9897D] text-white border-[#B9897D] font-semibold"
-                    : "border-[#E8E1DB] text-[#282422]/70 hover:border-[#B9897D]/60"
+                key={f.label}
+                onClick={() => setCategory(f.label)}
+                aria-pressed={category === f.label}
+                className={`flex-shrink-0 px-4 py-2 rounded-full text-sm border transition-all duration-200 ${
+                  category === f.label
+                    ? "bg-[#B9897D] text-white border-[#B9897D] font-semibold shadow-sm"
+                    : "border-[#E8E1DB] text-[#282422]/70 hover:border-[#B9897D]/60 hover:text-[#B9897D]"
                 }`}
               >
-                {c}
+                {f.label}
               </button>
             ))}
           </div>
         </div>
 
-        {filtered.length === 0 && (
-          <p className="text-center text-[#6D6662] py-16">
-            Produk tidak ditemukan. Coba kata kunci atau kategori lain.
-          </p>
-        )}
-
-        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          {filtered.map((p) => (
-            <div key={p.id}>
-              {p.price > 0 ? (
-                <ProductCard product={p} onView={setDetailProduct} onAdd={addToCart} />
-              ) : (
-                <div className="group border border-[#E8E1DB] rounded-2xl overflow-hidden bg-white">
-                  <button
-                    onClick={() => setDetailProduct(p)}
-                    className="block w-full text-left"
-                    aria-label={`Lihat detail ${p.name}`}
-                  >
-                    <div className="relative aspect-square bg-gradient-to-br from-[#F6F0EA] to-[#EED9D6] overflow-hidden">
-                      <img
-                        src={`/images/${p.image}`}
-                        alt={p.name}
-                        loading="lazy"
-                        className="absolute inset-0 w-full h-full object-cover"
-                        onError={(e) => {
-                          e.currentTarget.style.display = "none";
-                        }}
-                      />
-                    </div>
-                    <div className="px-4 pt-4">
-                      <div className="text-[10px] uppercase tracking-wider text-[#B9897D] mb-1">{p.cat}</div>
-                      <h3 className="font-display text-base mb-1 line-clamp-1">{p.name}</h3>
-                    </div>
-                  </button>
-                  <div className="px-4 pb-4 pt-1 flex items-center justify-between gap-2">
-                    <span className="text-xs text-[#6D6662]">Hubungi Kami</span>
-                    <span className="text-xs border border-[#E8E1DB] text-[#6D6662]/70 rounded-full px-3 py-1.5 whitespace-nowrap">
-                      Segera Hadir
-                    </span>
-                  </div>
-                </div>
-              )}
+        {filtered.length === 0 ? (
+          <div className="text-center py-16">
+            <p className="text-[#6D6662] mb-5">Tidak menemukan produk.</p>
+            <a
+              href={`https://wa.me/${DOCTOR_WA_NUMBER}?text=${encodeURIComponent(
+                `Halo Beauty Rossa,\nSaya mencari produk terkait "${search || category}" tapi tidak menemukannya di website. Mohon rekomendasinya.\nTerima kasih.`
+              )}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 bg-[#B9897D] text-white font-semibold px-6 py-3 rounded-full hover:bg-[#C4A46B] transition"
+            >
+              <MessageCircle size={16} /> Konsultasi Beauty Advisor
+            </a>
+          </div>
+        ) : (
+          <>
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
+              {visibleProducts.map((p) => (
+                <ProductCard key={p.id} product={p} onView={setDetailProduct} onAdd={addToCart} />
+              ))}
             </div>
-          ))}
-        </div>
+
+            {visibleCount < filtered.length && (
+              <div className="text-center mt-10">
+                <button
+                  onClick={() => setVisibleCount((c) => c + CATALOG_PAGE_SIZE)}
+                  className="inline-flex items-center gap-2 border border-[#282422]/20 text-[#282422] font-semibold px-7 py-3 rounded-full hover:bg-[#F6F0EA] transition"
+                >
+                  Muat Lebih Banyak
+                </button>
+              </div>
+            )}
+          </>
+        )}
       </section>
 
       {/* Footer */}
