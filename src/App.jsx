@@ -1,4 +1,5 @@
 import React, { useState, useMemo, useEffect, useCallback } from "react";
+import { supabase } from "./lib/supabaseClient.js";
 import {
   ShoppingBag,
   X,
@@ -286,6 +287,8 @@ export default function BeautyRossaStore() {
   const [step, setStep] = useState("cart"); // cart | checkout | success
   const [form, setForm] = useState({ nama: "", hp: "", alamat: "", metode: "Transfer Bank", catatan: "" });
   const [orderNo, setOrderNo] = useState("");
+  const [checkoutLoading, setCheckoutLoading] = useState(false);
+  const [checkoutError, setCheckoutError] = useState("");
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [floatingMenuOpen, setFloatingMenuOpen] = useState(false);
   const [visibleCount, setVisibleCount] = useState(CATALOG_PAGE_SIZE);
@@ -364,9 +367,46 @@ export default function BeautyRossaStore() {
     document.getElementById("semua-produk")?.scrollIntoView({ behavior: "smooth" });
   };
 
-  const submitOrder = (e) => {
+  const submitOrder = async (e) => {
     e.preventDefault();
-    const no = "BR" + Math.floor(100000 + Math.random() * 900000);
+    setCheckoutError("");
+    setCheckoutLoading(true);
+
+    const items = cartItems.map((item) => ({
+      sku: `BR-${String(item.id).padStart(3, "0")}`,
+      quantity: item.qty,
+    }));
+
+    const { data, error } = await supabase.rpc("create_order", {
+      p_customer_name: form.nama,
+      p_customer_whatsapp: form.hp,
+      p_customer_email: null,
+      p_address: form.alamat,
+      p_payment_method: form.metode,
+      p_customer_note: form.catatan || null,
+      p_items: items,
+    });
+
+    setCheckoutLoading(false);
+
+    if (error) {
+      // Pesan dari database (raise exception) tampil apa adanya - sudah dalam Bahasa Indonesia
+      setCheckoutError(
+        error.message?.replace(/^.*?: /, "") ||
+          "Gagal menyimpan pesanan. Periksa koneksi internet dan coba lagi."
+      );
+      return;
+    }
+
+    // RPC dengan RETURN TABLE mengembalikan array berisi 1 baris
+    const result = Array.isArray(data) ? data[0] : data;
+    const no = result?.order_number;
+
+    if (!no) {
+      setCheckoutError("Pesanan gagal diproses. Silakan coba lagi atau hubungi admin.");
+      return;
+    }
+
     setOrderNo(no);
 
     const itemLines = cartItems
@@ -1145,11 +1185,18 @@ export default function BeautyRossaStore() {
                   </div>
                 </div>
 
+                {checkoutError && (
+                  <p role="alert" className="text-sm text-red-600 bg-red-50 border border-red-200 rounded-lg px-3 py-2">
+                    {checkoutError}
+                  </p>
+                )}
+
                 <button
                   type="submit"
-                  className="w-full bg-[#B9897D] text-white font-semibold py-3 rounded-full hover:bg-[#C4A46B] transition mt-2"
+                  disabled={checkoutLoading}
+                  className="w-full bg-[#B9897D] text-white font-semibold py-3 rounded-full hover:bg-[#C4A46B] transition mt-2 disabled:opacity-60"
                 >
-                  Buat Pesanan
+                  {checkoutLoading ? "Menyimpan Pesanan..." : "Buat Pesanan"}
                 </button>
                 <button
                   type="button"
@@ -1168,10 +1215,9 @@ export default function BeautyRossaStore() {
                 </div>
                 <h4 className="font-display text-2xl">Terima kasih, {form.nama.split(" ")[0]}!</h4>
                 <p className="text-sm text-[#6D6662] max-w-xs">
-                  Pesananmu dengan nomor <span className="text-[#B9897D] font-semibold">{orderNo}</span>{" "}
-                  sudah disiapkan. Tab WhatsApp seharusnya sudah terbuka dengan rincian pesananmu &mdash;
-                  tinggal klik <strong>Kirim</strong> di WhatsApp untuk menyelesaikan pemesanan. Pesanan
-                  baru dianggap berhasil setelah pesan WhatsApp terkirim.
+                  Pesanan Anda dengan nomor <span className="text-[#B9897D] font-semibold">{orderNo}</span>{" "}
+                  telah dicatat. Silakan lanjutkan ke WhatsApp untuk konfirmasi. Tab WhatsApp seharusnya
+                  sudah terbuka dengan rincian pesananmu &mdash; tinggal klik <strong>Kirim</strong>.
                 </p>
                 <div className="text-xs text-[#6D6662]">
                   Kalau WhatsApp tidak otomatis terbuka, klik tombol di bawah ini:
