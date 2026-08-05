@@ -13,144 +13,227 @@ import {
   Stethoscope,
   Truck,
   MapPin,
+  Menu,
+  Search,
+  Droplet,
+  Sun,
+  Moon,
+  Sparkle,
+  CircleDot,
+  Wind,
+  Flower2,
 } from "lucide-react";
 
+/* ============================================================
+   KONSTANTA BRAND
+   ============================================================ */
 const WA_NUMBER = "62895392141015";
 const WA_DISPLAY = "+62 895-3921-41015";
 const DOCTOR_WA_NUMBER = "6285337352283";
 const DOCTOR_WA_DISPLAY = "+62 853-3735-2283";
 
-const HERO_SLIDES = [
-  {
-    tag: "Rangkaian Skincare Pilihan",
-    title: "Kilau alami,",
-    accent: "gaya abadi.",
-    desc: "Rangkaian skincare Beauty Rossa - diformulasikan untuk kulit yang bercahaya dan tampilan yang percaya diri, setiap hari.",
-  },
-  {
-    tag: "Klinik Kecantikan Resmi",
-    title: "Konsultasi dokter,",
-    accent: "hasil nyata.",
-    desc: "Didukung klinik kecantikan resmi dengan dokter berpengalaman, siap membantu perjalanan rawatan kulitmu.",
-  },
-  {
-    tag: "82 Produk Pilihan",
-    title: "Satu tempat,",
-    accent: "semua kebutuhan.",
-    desc: "Dari cream, serum, toner, hingga cleansing - koleksi lengkap untuk rutinitas perawatan kulitmu.",
-  },
+const NAV_LINKS = [
+  { label: "Produk", href: "#produk" },
+  { label: "Solusi Kulit", href: "#solusi-kulit" },
+  { label: "Klinik", href: "#klinik" },
+  { label: "Treatment", href: "#klinik" },
+  { label: "Tentang Kami", href: "#tentang" },
 ];
 
 const TRUST_BADGES = [
-  { icon: ShieldCheck, label: "100% Original" },
+  { icon: ShieldCheck, label: "Produk Original" },
+  { icon: Sparkle, label: "Produk Berizin BPOM" },
   {
     icon: Stethoscope,
-    label: "Konsultasi Beauty Rossa Advisor",
+    label: "Konsultasi Beauty Advisor",
     link: `https://wa.me/${DOCTOR_WA_NUMBER}?text=${encodeURIComponent(
       "Halo Beauty Rossa,\nSaya ingin melakukan konsultasi mengenai kondisi kulit saya. Mohon dibantu informasi konsultasi dan prosedurnya.\nTerima kasih."
     )}`,
   },
-  { icon: Truck, label: "Kirim ke Seluruh Indonesia" },
-  { icon: MapPin, label: "Klinik Resmi Malang" },
+  { icon: Truck, label: "Pengiriman Seluruh Indonesia" },
 ];
 
-const PRODUCTS = [
-  { id: 1, name: "24K Gold Peptide Night Cream", cat: "Cream", desc: "Deskripsi menyusul", price: 220000, blob: "from-amber-100 to-yellow-100", image: "1.jpg" },
-  { id: 2, name: "Acne Care Lightening Serum", cat: "Serum", desc: "Deskripsi menyusul", price: 300000, blob: "from-emerald-100 to-teal-100", image: "2.jpg" },
-  { id: 3, name: "Alpha Collagen Whitening Serum 10 ML", cat: "Serum", desc: "Deskripsi menyusul", price: 241000, blob: "from-emerald-100 to-teal-100", image: "3.jpg" },
-  { id: 4, name: "Anti Acne Lightening Serum", cat: "Serum", desc: "Deskripsi menyusul", price: 263000, blob: "from-emerald-100 to-teal-100", image: "4.jpg" },
-  { id: 5, name: "Aqua Collagen Brightening Night Cream", cat: "Cream", desc: "Deskripsi menyusul", price: 260000, blob: "from-amber-100 to-yellow-100", image: "5.jpg" },
-  { id: 6, name: "Aquabright Night Cream", cat: "Cream", desc: "Deskripsi menyusul", price: 220000, blob: "from-amber-100 to-yellow-100", image: "6.jpg" },
-  { id: 7, name: "Aromatherapy Moist Cleansing Milk", cat: "Cleansing", desc: "Deskripsi menyusul", price: 125400, blob: "from-rose-100 to-orange-100", image: "7.jpg" },
-  { id: 8, name: "Bebe Cream", cat: "Cream", desc: "Deskripsi menyusul", price: 289000, blob: "from-amber-100 to-yellow-100", image: "8.jpg" },
-  { id: 9, name: "Blue Jelly", cat: "Serum", desc: "Deskripsi menyusul", price: 241000, blob: "from-emerald-100 to-teal-100", image: "9.jpg" },
-  { id: 10, name: "Brightening Shower Gel", cat: "Sabun", desc: "Deskripsi menyusul", price: 331000, blob: "from-sky-100 to-blue-100", image: "10_BRIGHTENING_SHOWER_GEL_500_ml_.png" },
-  { id: 11, name: "Chamo Gentle Milk Cleanser Beauty", cat: "Cleansing", desc: "Deskripsi menyusul", price: 81400, blob: "from-rose-100 to-orange-100", image: "11.jpg" },
-  { id: 12, name: "Clearskin Lotion 2", cat: "Lotion", desc: "Deskripsi menyusul", price: 236000, blob: "from-purple-100 to-pink-100", image: "12.jpg" },
-  { id: 13, name: "Collagenix Firming Cream", cat: "Cream", desc: "Deskripsi menyusul", price: 236000, blob: "from-amber-100 to-yellow-100", image: "13.jpg" },
-  { id: 14, name: "Cream Malam", cat: "Cream", desc: "Deskripsi menyusul", price: 127600, blob: "from-amber-100 to-yellow-100", image: "14.jpg" },
-  { id: 15, name: "Cream Pagi A", cat: "Cream", desc: "Deskripsi menyusul", price: 121000, blob: "from-amber-100 to-yellow-100", image: "15.jpg" },
-  { id: 16, name: "Cream Pagi Platinum", cat: "Cream", desc: "Deskripsi menyusul", price: 210000, blob: "from-amber-100 to-yellow-100", image: "16.jpg" },
-  { id: 17, name: "Cream Pagi Seri II", cat: "Cream", desc: "Deskripsi menyusul", price: 168000, blob: "from-amber-100 to-yellow-100", image: "17.jpg" },
-  { id: 18, name: "Day Cream 3", cat: "Cream", desc: "Deskripsi menyusul", price: 132000, blob: "from-amber-100 to-yellow-100", image: "18.jpg" },
-  { id: 19, name: "Day Cream Luxury", cat: "Cream", desc: "Deskripsi menyusul", price: 169400, blob: "from-amber-100 to-yellow-100", image: "19.jpg" },
-  { id: 20, name: "Day Cream Luxury 2 With Niacinamide & UV Filter", cat: "Cream", desc: "Deskripsi menyusul", price: 176000, blob: "from-amber-100 to-yellow-100", image: "20.jpg" },
-  { id: 21, name: "Day Cream Octadecenedioic Acid", cat: "Cream", desc: "Deskripsi menyusul", price: 168000, blob: "from-amber-100 to-yellow-100", image: "21.jpg" },
-  { id: 22, name: "Day Cream Stearyl Glycrrhetinate", cat: "Cream", desc: "Deskripsi menyusul", price: 210000, blob: "from-amber-100 to-yellow-100", image: "22.jpg" },
-  { id: 23, name: "Diamond Jelly", cat: "Serum", desc: "Deskripsi menyusul", price: 460000, blob: "from-emerald-100 to-teal-100", image: "23.jpg" },
-  { id: 24, name: "Dry Skin Face Wash", cat: "Sabun", desc: "Deskripsi menyusul", price: 84000, blob: "from-sky-100 to-blue-100", image: "24.jpg" },
-  { id: 25, name: "Easy Foundation", cat: "Cream", desc: "Deskripsi menyusul", price: 171000, blob: "from-amber-100 to-yellow-100", image: "25.jpg" },
-  { id: 26, name: "Ectoin & Soothing Lotion", cat: "Serum", desc: "Deskripsi menyusul", price: 188000, blob: "from-emerald-100 to-teal-100", image: "26.jpg" },
-  { id: 27, name: "Eye Cream Peptide", cat: "Cream", desc: "Deskripsi menyusul", price: 200000, blob: "from-amber-100 to-yellow-100", image: "27.jpg" },
-  { id: 28, name: "Facial Foam Brightening Tube", cat: "Sabun", desc: "Deskripsi menyusul", price: 176000, blob: "from-sky-100 to-blue-100", image: "28.jpg" },
-  { id: 29, name: "Facial Wash 200 ML", cat: "Sabun", desc: "Deskripsi menyusul", price: 99000, blob: "from-sky-100 to-blue-100", image: "29__FACIAL_WASH_200_ML_.png" },
-  { id: 30, name: "Facial Wash Grape Seed 200 ML", cat: "Sabun", desc: "Deskripsi menyusul", price: 176000, blob: "from-sky-100 to-blue-100", image: "30.jpg" },
-  { id: 31, name: "Glutathione Lightening Body Cream", cat: "Cream", desc: "Deskripsi menyusul", price: 394000, blob: "from-amber-100 to-yellow-100", image: "31.jpg" },
-  { id: 32, name: "Green Jelly", cat: "Serum", desc: "Deskripsi menyusul", price: 220000, blob: "from-emerald-100 to-teal-100", image: "32.jpg" },
-  { id: 33, name: "Hyal-c Serum", cat: "Serum", desc: "Deskripsi menyusul", price: 300000, blob: "from-emerald-100 to-teal-100", image: "33.jpg" },
-  { id: 34, name: "Hydrating & Calming Serum", cat: "Serum", desc: "Deskripsi menyusul", price: 425000, blob: "from-emerald-100 to-teal-100", image: "34.jpg" },
-  { id: 35, name: "Instant Bright Body Lotion", cat: "Lotion", desc: "Deskripsi menyusul", price: 264000, blob: "from-purple-100 to-pink-100", image: "35.jpg" },
-  { id: 36, name: "Luxury Acne Face Wash", cat: "Sabun", desc: "Deskripsi menyusul", price: 92400, blob: "from-sky-100 to-blue-100", image: "36.jpg" },
-  { id: 37, name: "Luxury All Skin Facial Wash", cat: "Sabun", desc: "Deskripsi menyusul", price: 92400, blob: "from-sky-100 to-blue-100", image: "37.jpg" },
-  { id: 38, name: "Luxury Night Cream", cat: "Cream", desc: "Deskripsi menyusul", price: 176000, blob: "from-amber-100 to-yellow-100", image: "38.jpg" },
-  { id: 39, name: "Maintenance & Conditioning Night Cream", cat: "Cream", desc: "Deskripsi menyusul", price: 158000, blob: "from-amber-100 to-yellow-100", image: "39.jpg" },
-  { id: 40, name: "Milky Bright BB Cream", cat: "Cream", desc: "Deskripsi menyusul", price: 127600, blob: "from-amber-100 to-yellow-100", image: "40.jpg" },
-  { id: 41, name: "Mulberry Soothing Toner", cat: "Toner", desc: "Deskripsi menyusul", price: 97900, blob: "from-cyan-100 to-sky-100", image: "41.jpg" },
-  { id: 42, name: "Oily Bar Soap", cat: "Sabun", desc: "Deskripsi menyusul", price: 60000, blob: "from-sky-100 to-blue-100", image: "42.jpg" },
-  { id: 43, name: "Orange Oil Facial Wash", cat: "Sabun", desc: "Deskripsi menyusul", price: 142000, blob: "from-sky-100 to-blue-100", image: "43.jpg" },
-  { id: 44, name: "Radiant Day Cream", cat: "Cream", desc: "Deskripsi menyusul", price: 121000, blob: "from-amber-100 to-yellow-100", image: "44.jpg" },
-  { id: 45, name: "Resveratrol Retinol Night Cream", cat: "Cream", desc: "Deskripsi menyusul", price: 220000, blob: "from-amber-100 to-yellow-100", image: "45.jpg" },
-  { id: 46, name: "Sea Fern & Peptide Night Cream", cat: "Cream", desc: "Deskripsi menyusul", price: 127600, blob: "from-amber-100 to-yellow-100", image: "46.jpg" },
-  { id: 47, name: "Sea Fern & Retinol Night Cream", cat: "Cream", desc: "Deskripsi menyusul", price: 315000, blob: "from-amber-100 to-yellow-100", image: "47.jpg" },
-  { id: 48, name: "Serum Acne", cat: "Serum", desc: "Deskripsi menyusul", price: 138600, blob: "from-emerald-100 to-teal-100", image: "48.jpg" },
-  { id: 49, name: "Serum Radiant Whitening", cat: "Serum", desc: "Deskripsi menyusul", price: 138600, blob: "from-emerald-100 to-teal-100", image: "49.jpg" },
-  { id: 50, name: "Serum Spot", cat: "Serum", desc: "Deskripsi menyusul", price: 212300, blob: "from-emerald-100 to-teal-100", image: "50.jpg" },
-  { id: 51, name: "Serum Vit C", cat: "Serum", desc: "Deskripsi menyusul", price: 212300, blob: "from-emerald-100 to-teal-100", image: "51.jpg" },
-  { id: 52, name: "Serum Whitening Mulberry", cat: "Serum", desc: "Deskripsi menyusul", price: 399000, blob: "from-emerald-100 to-teal-100", image: "52.jpg" },
-  { id: 53, name: "Sparkling Brightening Shower Gel", cat: "Sabun", desc: "Deskripsi menyusul", price: 161700, blob: "from-sky-100 to-blue-100", image: "53.jpg" },
-  { id: 54, name: "Sunscreen Foundation", cat: "Cream", desc: "Deskripsi menyusul", price: 150000, blob: "from-amber-100 to-yellow-100", image: "54.jpg" },
-  { id: 55, name: "Teatree Soothing Acne Toner", cat: "Toner", desc: "Deskripsi menyusul", price: 115500, blob: "from-cyan-100 to-sky-100", image: "55.jpg" },
-  { id: 56, name: "Toner Anti Acne + AHA & BHA 200 ML", cat: "Toner", desc: "Deskripsi menyusul", price: 484000, blob: "from-cyan-100 to-sky-100", image: "56.jpg" },
-  { id: 57, name: "Toner Anti Aging Acetyl Hexapeptide 200 ML", cat: "Toner", desc: "Deskripsi menyusul", price: 484000, blob: "from-cyan-100 to-sky-100", image: "57.jpg" },
-  { id: 58, name: "Toner Tranexamide Acid 200 ML", cat: "Toner", desc: "Deskripsi menyusul", price: 528000, blob: "from-cyan-100 to-sky-100", image: "58.jpg" },
-  { id: 59, name: "Ultra Mild Bird's Nest Face Wash", cat: "Sabun", desc: "Deskripsi menyusul", price: 84000, blob: "from-sky-100 to-blue-100", image: "59.jpg" },
-  { id: 60, name: "Vitamin C Moisturizer Cream", cat: "Cream", desc: "Deskripsi menyusul", price: 121000, blob: "from-amber-100 to-yellow-100", image: "60.jpg" },
-  { id: 61, name: "Vitamin C & Collagen Shower Gel", cat: "Sabun", desc: "Deskripsi menyusul", price: 172900, blob: "from-sky-100 to-blue-100", image: "61.jpg" },
-  { id: 62, name: "Vitamin C Booster Serum With Ferulic Acid & Vitamin E", cat: "Serum", desc: "Deskripsi menyusul", price: 460000, blob: "from-emerald-100 to-teal-100", image: "62.jpg" },
-  { id: 63, name: "Vitamin C Calming Serum", cat: "Serum", desc: "Deskripsi menyusul", price: 788000, blob: "from-emerald-100 to-teal-100", image: "63.jpg" },
-  { id: 64, name: "Whitening Night Cream With AHA", cat: "Cream", desc: "Deskripsi menyusul", price: 210000, blob: "from-amber-100 to-yellow-100", image: "64.jpg" },
-  { id: 65, name: "Zinc Day Cream", cat: "Cream", desc: "Deskripsi menyusul", price: 127600, blob: "from-amber-100 to-yellow-100", image: "65.jpg" },
-  { id: 66, name: "Easy Sunscreen", cat: "Cream", desc: "Deskripsi menyusul", price: 150000, blob: "from-amber-100 to-yellow-100", image: "66.jpg" },
-  { id: 67, name: "Vitamin C Brightening Serum", cat: "Serum", desc: "Deskripsi menyusul", price: 788000, blob: "from-emerald-100 to-teal-100", image: "67.jpg" },
-  { id: 68, name: "Hydrating & Calming Serum", cat: "Serum", desc: "Deskripsi menyusul", price: 425000, blob: "from-emerald-100 to-teal-100", image: "68.jpg" },
-  { id: 69, name: "Milky Day Cream- Ivory", cat: "Cream", desc: "Deskripsi menyusul", price: 0, blob: "from-amber-100 to-yellow-100", image: "69.jpg" },
-  { id: 70, name: "Make Up Remover Balm", cat: "Cream", desc: "Deskripsi menyusul", price: 0, blob: "from-amber-100 to-yellow-100", image: "70.jpg" },
-  { id: 71, name: "Hyaluronic Acid + Caviar Serum", cat: "Serum", desc: "Deskripsi menyusul", price: 425000, blob: "from-emerald-100 to-teal-100", image: "71.jpg" },
-  { id: 72, name: "Luxury All Skin Facial Wash", cat: "Sabun", desc: "Deskripsi menyusul", price: 92400, blob: "from-sky-100 to-blue-100", image: "72.jpg" },
-  { id: 73, name: "Mulberry Soothing Toner", cat: "Toner", desc: "Deskripsi menyusul", price: 97900, blob: "from-cyan-100 to-sky-100", image: "73.jpg" },
-  { id: 74, name: "Night Cream Luxury", cat: "Cream", desc: "Deskripsi menyusul", price: 176000, blob: "from-amber-100 to-yellow-100", image: "74.jpg" },
-  { id: 75, name: "Facial Cleanser Brightening", cat: "Cleansing", desc: "Deskripsi menyusul", price: 0, blob: "from-rose-100 to-orange-100", image: "75.jpg" },
-  { id: 76, name: "AHA BHA Acne Brightening Toner", cat: "Toner", desc: "Deskripsi menyusul", price: 0, blob: "from-cyan-100 to-sky-100", image: "76.jpg" },
-  { id: 77, name: "Antiaging & Dark Spot Toner", cat: "Toner", desc: "Deskripsi menyusul", price: 0, blob: "from-cyan-100 to-sky-100", image: "77.jpg" },
-  { id: 78, name: "Tranexamic Acid 3% Brightening Toner", cat: "Toner", desc: "Deskripsi menyusul", price: 0, blob: "from-cyan-100 to-sky-100", image: "78.jpg" },
-  { id: 79, name: "Triple Active Whitening Body Lotion", cat: "Lotion", desc: "Deskripsi menyusul", price: 413000, blob: "from-purple-100 to-pink-100", image: "79.jpg" },
-  { id: 80, name: "Night Cream 2", cat: "Cream", desc: "Deskripsi menyusul", price: 220000, blob: "from-amber-100 to-yellow-100", image: "80.jpg" },
-  { id: 81, name: "Acnezone Mattifying Gel", cat: "Gel", desc: "Deskripsi menyusul", price: 220000, blob: "from-lime-100 to-emerald-100", image: "81.jpg" },
-  { id: 82, name: "Grape Seed Oil Cleansing Milk", cat: "Cleansing", desc: "Deskripsi menyusul", price: 0, blob: "from-rose-100 to-orange-100", image: "82.jpg" },
+/* Kategori kebutuhan kulit -> keyword pencocokan ke nama/kategori produk yang ada */
+const SKIN_CONCERNS = [
+  { label: "Jerawat", icon: CircleDot, keywords: ["acne"] },
+  { label: "Kulit Kusam", icon: Sun, keywords: ["brightening", "bright", "radiant"] },
+  { label: "Flek & Noda Hitam", icon: Sparkle, keywords: ["whitening", "spot", "dark spot", "tranexamic"] },
+  { label: "Kulit Kering", icon: Droplet, keywords: ["hydrating", "moisturizer", "hyaluronic"] },
+  { label: "Kulit Berminyak", icon: Wind, keywords: ["oily", "mattifying", "gel"] },
+  { label: "Kulit Sensitif", icon: Flower2, keywords: ["calming", "soothing", "sensitive", "ectoin"] },
+  { label: "Pori-Pori", icon: CircleDot, keywords: ["pore", "clearskin"] },
+  { label: "Anti-Aging", icon: Moon, keywords: ["collagen", "peptide", "retinol", "anti aging", "antiaging", "firming"] },
+];
+
+const CLINIC_SERVICES = [
+  {
+    title: "Konsultasi Kulit",
+    desc: "Diskusi kebutuhan dan kondisi kulit bersama tim Beauty Rossa sebelum menentukan produk atau treatment.",
+  },
+  {
+    title: "Facial Treatment",
+    desc: "Perawatan wajah dasar untuk membersihkan dan menyegarkan kulit secara menyeluruh.",
+  },
+  {
+    title: "Perawatan Jerawat",
+    desc: "Penanganan kulit berjerawat disesuaikan dengan tingkat dan jenis kondisi kulit.",
+  },
+  {
+    title: "Perawatan Brightening",
+    desc: "Treatment untuk membantu kulit tampak lebih cerah dan merata.",
+  },
+];
+
+const ABOUT_VALUES = [
+  { title: "Personal", desc: "Rekomendasi disesuaikan dengan kebutuhan pelanggan." },
+  { title: "Terpercaya", desc: "Informasi produk dan layanan disampaikan secara transparan." },
+  { title: "Terintegrasi", desc: "Produk, konsultasi, dan layanan klinik berada dalam satu ekosistem." },
 ];
 
 const rupiah = (n) => "Rp" + n.toLocaleString("id-ID");
 
+function ProductCard({ product: p, onView, onAdd }) {
+  return (
+    <div className="group border border-[#E8E1DB] rounded-2xl overflow-hidden bg-white hover:border-[#B9897D]/50 hover:shadow-lg hover:-translate-y-1 transition-all duration-300">
+      <button
+        onClick={() => onView(p)}
+        className="block w-full text-left"
+        aria-label={`Lihat detail ${p.name}`}
+      >
+        <div className="relative aspect-square bg-gradient-to-br from-[#F6F0EA] to-[#EED9D6] overflow-hidden">
+          <img
+            src={`/images/${p.image}`}
+            alt={p.name}
+            loading="lazy"
+            className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+            onError={(e) => {
+              e.currentTarget.style.display = "none";
+            }}
+          />
+        </div>
+        <div className="px-4 pt-4">
+          <div className="text-[10px] uppercase tracking-wider text-[#B9897D] mb-1">{p.cat}</div>
+          <h3 className="font-display text-base mb-1 group-hover:text-[#B9897D] transition line-clamp-1">
+            {p.name}
+          </h3>
+        </div>
+      </button>
+      <div className="px-4 pb-4 pt-1">
+        <div className="flex items-center justify-between gap-2">
+          <span className="font-semibold text-[#282422] text-sm">{rupiah(p.price)}</span>
+          <button
+            onClick={() => onAdd(p.id)}
+            aria-label={`Tambah ${p.name} ke keranjang`}
+            className="text-xs border border-[#B9897D]/40 rounded-full px-3 py-1.5 hover:bg-[#B9897D] hover:text-white transition whitespace-nowrap"
+          >
+            + Keranjang
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+const PRODUCTS = [
+  { id: 1, name: "24K Gold Peptide Night Cream", cat: "Cream", desc: "Deskripsi menyusul", price: 220000, blob: "from-amber-100 to-yellow-100", image: "1.jpg" , hasPhoto: false },
+  { id: 2, name: "Acne Care Lightening Serum", cat: "Serum", desc: "Deskripsi menyusul", price: 300000, blob: "from-emerald-100 to-teal-100", image: "2.jpg" , hasPhoto: false },
+  { id: 3, name: "Alpha Collagen Whitening Serum 10 ML", cat: "Serum", desc: "Deskripsi menyusul", price: 241000, blob: "from-emerald-100 to-teal-100", image: "3.jpg" , hasPhoto: false },
+  { id: 4, name: "Anti Acne Lightening Serum", cat: "Serum", desc: "Deskripsi menyusul", price: 263000, blob: "from-emerald-100 to-teal-100", image: "4.jpg" , hasPhoto: false },
+  { id: 5, name: "Aqua Collagen Brightening Night Cream", cat: "Cream", desc: "Deskripsi menyusul", price: 260000, blob: "from-amber-100 to-yellow-100", image: "5.jpg" , hasPhoto: false },
+  { id: 6, name: "Aquabright Night Cream", cat: "Cream", desc: "Deskripsi menyusul", price: 220000, blob: "from-amber-100 to-yellow-100", image: "6.jpg" , hasPhoto: false },
+  { id: 7, name: "Aromatherapy Moist Cleansing Milk", cat: "Cleansing", desc: "Deskripsi menyusul", price: 125400, blob: "from-rose-100 to-orange-100", image: "7.jpg" , hasPhoto: false },
+  { id: 8, name: "Bebe Cream", cat: "Cream", desc: "Deskripsi menyusul", price: 289000, blob: "from-amber-100 to-yellow-100", image: "8.jpg" , hasPhoto: false },
+  { id: 9, name: "Blue Jelly", cat: "Serum", desc: "Deskripsi menyusul", price: 241000, blob: "from-emerald-100 to-teal-100", image: "9.jpg" , hasPhoto: false },
+  { id: 10, name: "Brightening Shower Gel", cat: "Sabun", desc: "Deskripsi menyusul", price: 331000, blob: "from-sky-100 to-blue-100", image: "10_BRIGHTENING_SHOWER_GEL_500_ml_.png" , hasPhoto: true },
+  { id: 11, name: "Chamo Gentle Milk Cleanser Beauty", cat: "Cleansing", desc: "Deskripsi menyusul", price: 81400, blob: "from-rose-100 to-orange-100", image: "11.jpg" , hasPhoto: false },
+  { id: 12, name: "Clearskin Lotion 2", cat: "Lotion", desc: "Deskripsi menyusul", price: 236000, blob: "from-purple-100 to-pink-100", image: "12.jpg" , hasPhoto: false },
+  { id: 13, name: "Collagenix Firming Cream", cat: "Cream", desc: "Deskripsi menyusul", price: 236000, blob: "from-amber-100 to-yellow-100", image: "13.jpg" , hasPhoto: false },
+  { id: 14, name: "Cream Malam", cat: "Cream", desc: "Deskripsi menyusul", price: 127600, blob: "from-amber-100 to-yellow-100", image: "14.jpg" , hasPhoto: false },
+  { id: 15, name: "Cream Pagi A", cat: "Cream", desc: "Deskripsi menyusul", price: 121000, blob: "from-amber-100 to-yellow-100", image: "15.jpg" , hasPhoto: false },
+  { id: 16, name: "Cream Pagi Platinum", cat: "Cream", desc: "Deskripsi menyusul", price: 210000, blob: "from-amber-100 to-yellow-100", image: "16.jpg" , hasPhoto: false },
+  { id: 17, name: "Cream Pagi Seri II", cat: "Cream", desc: "Deskripsi menyusul", price: 168000, blob: "from-amber-100 to-yellow-100", image: "17.jpg" , hasPhoto: false },
+  { id: 18, name: "Day Cream 3", cat: "Cream", desc: "Deskripsi menyusul", price: 132000, blob: "from-amber-100 to-yellow-100", image: "18.jpg" , hasPhoto: false },
+  { id: 19, name: "Day Cream Luxury", cat: "Cream", desc: "Deskripsi menyusul", price: 169400, blob: "from-amber-100 to-yellow-100", image: "19.jpg" , hasPhoto: false },
+  { id: 20, name: "Day Cream Luxury 2 With Niacinamide & UV Filter", cat: "Cream", desc: "Deskripsi menyusul", price: 176000, blob: "from-amber-100 to-yellow-100", image: "20.jpg" , hasPhoto: false },
+  { id: 21, name: "Day Cream Octadecenedioic Acid", cat: "Cream", desc: "Deskripsi menyusul", price: 168000, blob: "from-amber-100 to-yellow-100", image: "21.jpg" , hasPhoto: false },
+  { id: 22, name: "Day Cream Stearyl Glycrrhetinate", cat: "Cream", desc: "Deskripsi menyusul", price: 210000, blob: "from-amber-100 to-yellow-100", image: "22.jpg" , hasPhoto: false },
+  { id: 23, name: "Diamond Jelly", cat: "Serum", desc: "Deskripsi menyusul", price: 460000, blob: "from-emerald-100 to-teal-100", image: "23.jpg" , hasPhoto: false },
+  { id: 24, name: "Dry Skin Face Wash", cat: "Sabun", desc: "Deskripsi menyusul", price: 84000, blob: "from-sky-100 to-blue-100", image: "24.jpg" , hasPhoto: false },
+  { id: 25, name: "Easy Foundation", cat: "Cream", desc: "Deskripsi menyusul", price: 171000, blob: "from-amber-100 to-yellow-100", image: "25.jpg" , hasPhoto: false },
+  { id: 26, name: "Ectoin & Soothing Lotion", cat: "Serum", desc: "Deskripsi menyusul", price: 188000, blob: "from-emerald-100 to-teal-100", image: "26.jpg" , hasPhoto: false },
+  { id: 27, name: "Eye Cream Peptide", cat: "Cream", desc: "Deskripsi menyusul", price: 200000, blob: "from-amber-100 to-yellow-100", image: "27.jpg" , hasPhoto: false },
+  { id: 28, name: "Facial Foam Brightening Tube", cat: "Sabun", desc: "Deskripsi menyusul", price: 176000, blob: "from-sky-100 to-blue-100", image: "28.jpg" , hasPhoto: false },
+  { id: 29, name: "Facial Wash 200 ML", cat: "Sabun", desc: "Deskripsi menyusul", price: 99000, blob: "from-sky-100 to-blue-100", image: "29__FACIAL_WASH_200_ML_.png" , hasPhoto: true },
+  { id: 30, name: "Facial Wash Grape Seed 200 ML", cat: "Sabun", desc: "Deskripsi menyusul", price: 176000, blob: "from-sky-100 to-blue-100", image: "30.jpg" , hasPhoto: false },
+  { id: 31, name: "Glutathione Lightening Body Cream", cat: "Cream", desc: "Deskripsi menyusul", price: 394000, blob: "from-amber-100 to-yellow-100", image: "31.jpg" , hasPhoto: false },
+  { id: 32, name: "Green Jelly", cat: "Serum", desc: "Deskripsi menyusul", price: 220000, blob: "from-emerald-100 to-teal-100", image: "32.jpg" , hasPhoto: false },
+  { id: 33, name: "Hyal-c Serum", cat: "Serum", desc: "Deskripsi menyusul", price: 300000, blob: "from-emerald-100 to-teal-100", image: "33.jpg" , hasPhoto: false },
+  { id: 34, name: "Hydrating & Calming Serum", cat: "Serum", desc: "Deskripsi menyusul", price: 425000, blob: "from-emerald-100 to-teal-100", image: "34.jpg" , hasPhoto: false },
+  { id: 35, name: "Instant Bright Body Lotion", cat: "Lotion", desc: "Deskripsi menyusul", price: 264000, blob: "from-purple-100 to-pink-100", image: "35.jpg" , hasPhoto: false },
+  { id: 36, name: "Luxury Acne Face Wash", cat: "Sabun", desc: "Deskripsi menyusul", price: 92400, blob: "from-sky-100 to-blue-100", image: "36.jpg" , hasPhoto: false },
+  { id: 37, name: "Luxury All Skin Facial Wash", cat: "Sabun", desc: "Deskripsi menyusul", price: 92400, blob: "from-sky-100 to-blue-100", image: "37.jpg" , hasPhoto: false },
+  { id: 38, name: "Luxury Night Cream", cat: "Cream", desc: "Deskripsi menyusul", price: 176000, blob: "from-amber-100 to-yellow-100", image: "38.jpg" , hasPhoto: false },
+  { id: 39, name: "Maintenance & Conditioning Night Cream", cat: "Cream", desc: "Deskripsi menyusul", price: 158000, blob: "from-amber-100 to-yellow-100", image: "39.jpg" , hasPhoto: false },
+  { id: 40, name: "Milky Bright BB Cream", cat: "Cream", desc: "Deskripsi menyusul", price: 127600, blob: "from-amber-100 to-yellow-100", image: "40.jpg" , hasPhoto: false },
+  { id: 41, name: "Mulberry Soothing Toner", cat: "Toner", desc: "Deskripsi menyusul", price: 97900, blob: "from-cyan-100 to-sky-100", image: "41.jpg" , hasPhoto: false },
+  { id: 42, name: "Oily Bar Soap", cat: "Sabun", desc: "Deskripsi menyusul", price: 60000, blob: "from-sky-100 to-blue-100", image: "42.jpg" , hasPhoto: false },
+  { id: 43, name: "Orange Oil Facial Wash", cat: "Sabun", desc: "Deskripsi menyusul", price: 142000, blob: "from-sky-100 to-blue-100", image: "43.jpg" , hasPhoto: false },
+  { id: 44, name: "Radiant Day Cream", cat: "Cream", desc: "Deskripsi menyusul", price: 121000, blob: "from-amber-100 to-yellow-100", image: "44.jpg" , hasPhoto: false },
+  { id: 45, name: "Resveratrol Retinol Night Cream", cat: "Cream", desc: "Deskripsi menyusul", price: 220000, blob: "from-amber-100 to-yellow-100", image: "45.jpg" , hasPhoto: false },
+  { id: 46, name: "Sea Fern & Peptide Night Cream", cat: "Cream", desc: "Deskripsi menyusul", price: 127600, blob: "from-amber-100 to-yellow-100", image: "46.jpg" , hasPhoto: false },
+  { id: 47, name: "Sea Fern & Retinol Night Cream", cat: "Cream", desc: "Deskripsi menyusul", price: 315000, blob: "from-amber-100 to-yellow-100", image: "47.jpg" , hasPhoto: false },
+  { id: 48, name: "Serum Acne", cat: "Serum", desc: "Deskripsi menyusul", price: 138600, blob: "from-emerald-100 to-teal-100", image: "48.jpg" , hasPhoto: false },
+  { id: 49, name: "Serum Radiant Whitening", cat: "Serum", desc: "Deskripsi menyusul", price: 138600, blob: "from-emerald-100 to-teal-100", image: "49.jpg" , hasPhoto: false },
+  { id: 50, name: "Serum Spot", cat: "Serum", desc: "Deskripsi menyusul", price: 212300, blob: "from-emerald-100 to-teal-100", image: "50.jpg" , hasPhoto: false },
+  { id: 51, name: "Serum Vit C", cat: "Serum", desc: "Deskripsi menyusul", price: 212300, blob: "from-emerald-100 to-teal-100", image: "51.jpg" , hasPhoto: false },
+  { id: 52, name: "Serum Whitening Mulberry", cat: "Serum", desc: "Deskripsi menyusul", price: 399000, blob: "from-emerald-100 to-teal-100", image: "52.jpg" , hasPhoto: false },
+  { id: 53, name: "Sparkling Brightening Shower Gel", cat: "Sabun", desc: "Deskripsi menyusul", price: 161700, blob: "from-sky-100 to-blue-100", image: "53.jpg" , hasPhoto: false },
+  { id: 54, name: "Sunscreen Foundation", cat: "Cream", desc: "Deskripsi menyusul", price: 150000, blob: "from-amber-100 to-yellow-100", image: "54.jpg" , hasPhoto: false },
+  { id: 55, name: "Teatree Soothing Acne Toner", cat: "Toner", desc: "Deskripsi menyusul", price: 115500, blob: "from-cyan-100 to-sky-100", image: "55.jpg" , hasPhoto: false },
+  { id: 56, name: "Toner Anti Acne + AHA & BHA 200 ML", cat: "Toner", desc: "Deskripsi menyusul", price: 484000, blob: "from-cyan-100 to-sky-100", image: "56.jpg" , hasPhoto: false },
+  { id: 57, name: "Toner Anti Aging Acetyl Hexapeptide 200 ML", cat: "Toner", desc: "Deskripsi menyusul", price: 484000, blob: "from-cyan-100 to-sky-100", image: "57.jpg" , hasPhoto: false },
+  { id: 58, name: "Toner Tranexamide Acid 200 ML", cat: "Toner", desc: "Deskripsi menyusul", price: 528000, blob: "from-cyan-100 to-sky-100", image: "58.jpg" , hasPhoto: false },
+  { id: 59, name: "Ultra Mild Bird's Nest Face Wash", cat: "Sabun", desc: "Deskripsi menyusul", price: 84000, blob: "from-sky-100 to-blue-100", image: "59.jpg" , hasPhoto: false },
+  { id: 60, name: "Vitamin C Moisturizer Cream", cat: "Cream", desc: "Deskripsi menyusul", price: 121000, blob: "from-amber-100 to-yellow-100", image: "60.jpg" , hasPhoto: false },
+  { id: 61, name: "Vitamin C & Collagen Shower Gel", cat: "Sabun", desc: "Deskripsi menyusul", price: 172900, blob: "from-sky-100 to-blue-100", image: "61.jpg" , hasPhoto: false },
+  { id: 62, name: "Vitamin C Booster Serum With Ferulic Acid & Vitamin E", cat: "Serum", desc: "Deskripsi menyusul", price: 460000, blob: "from-emerald-100 to-teal-100", image: "62.jpg" , hasPhoto: false },
+  { id: 63, name: "Vitamin C Calming Serum", cat: "Serum", desc: "Deskripsi menyusul", price: 788000, blob: "from-emerald-100 to-teal-100", image: "63.jpg" , hasPhoto: false },
+  { id: 64, name: "Whitening Night Cream With AHA", cat: "Cream", desc: "Deskripsi menyusul", price: 210000, blob: "from-amber-100 to-yellow-100", image: "64.jpg" , hasPhoto: false },
+  { id: 65, name: "Zinc Day Cream", cat: "Cream", desc: "Deskripsi menyusul", price: 127600, blob: "from-amber-100 to-yellow-100", image: "65.jpg" , hasPhoto: false },
+  { id: 66, name: "Easy Sunscreen", cat: "Cream", desc: "Deskripsi menyusul", price: 150000, blob: "from-amber-100 to-yellow-100", image: "66.jpg" , hasPhoto: false },
+  { id: 67, name: "Vitamin C Brightening Serum", cat: "Serum", desc: "Deskripsi menyusul", price: 788000, blob: "from-emerald-100 to-teal-100", image: "67.jpg" , hasPhoto: false },
+  { id: 68, name: "Hydrating & Calming Serum", cat: "Serum", desc: "Deskripsi menyusul", price: 425000, blob: "from-emerald-100 to-teal-100", image: "68.jpg" , hasPhoto: false },
+  { id: 69, name: "Milky Day Cream- Ivory", cat: "Cream", desc: "Deskripsi menyusul", price: 0, blob: "from-amber-100 to-yellow-100", image: "69.jpg" , hasPhoto: false },
+  { id: 70, name: "Make Up Remover Balm", cat: "Cream", desc: "Deskripsi menyusul", price: 0, blob: "from-amber-100 to-yellow-100", image: "70.jpg" , hasPhoto: false },
+  { id: 71, name: "Hyaluronic Acid + Caviar Serum", cat: "Serum", desc: "Deskripsi menyusul", price: 425000, blob: "from-emerald-100 to-teal-100", image: "71.jpg" , hasPhoto: false },
+  { id: 72, name: "Luxury All Skin Facial Wash", cat: "Sabun", desc: "Deskripsi menyusul", price: 92400, blob: "from-sky-100 to-blue-100", image: "72.jpg" , hasPhoto: false },
+  { id: 73, name: "Mulberry Soothing Toner", cat: "Toner", desc: "Deskripsi menyusul", price: 97900, blob: "from-cyan-100 to-sky-100", image: "73.jpg" , hasPhoto: false },
+  { id: 74, name: "Night Cream Luxury", cat: "Cream", desc: "Deskripsi menyusul", price: 176000, blob: "from-amber-100 to-yellow-100", image: "74.jpg" , hasPhoto: false },
+  { id: 75, name: "Facial Cleanser Brightening", cat: "Cleansing", desc: "Deskripsi menyusul", price: 0, blob: "from-rose-100 to-orange-100", image: "75.jpg" , hasPhoto: false },
+  { id: 76, name: "AHA BHA Acne Brightening Toner", cat: "Toner", desc: "Deskripsi menyusul", price: 0, blob: "from-cyan-100 to-sky-100", image: "76.jpg" , hasPhoto: false },
+  { id: 77, name: "Antiaging & Dark Spot Toner", cat: "Toner", desc: "Deskripsi menyusul", price: 0, blob: "from-cyan-100 to-sky-100", image: "77.jpg" , hasPhoto: false },
+  { id: 78, name: "Tranexamic Acid 3% Brightening Toner", cat: "Toner", desc: "Deskripsi menyusul", price: 0, blob: "from-cyan-100 to-sky-100", image: "78.jpg" , hasPhoto: false },
+  { id: 79, name: "Triple Active Whitening Body Lotion", cat: "Lotion", desc: "Deskripsi menyusul", price: 413000, blob: "from-purple-100 to-pink-100", image: "79.jpg" , hasPhoto: false },
+  { id: 80, name: "Night Cream 2", cat: "Cream", desc: "Deskripsi menyusul", price: 220000, blob: "from-amber-100 to-yellow-100", image: "80.jpg" , hasPhoto: false },
+  { id: 81, name: "Acnezone Mattifying Gel", cat: "Gel", desc: "Deskripsi menyusul", price: 220000, blob: "from-lime-100 to-emerald-100", image: "81.jpg" , hasPhoto: false },
+  { id: 82, name: "Grape Seed Oil Cleansing Milk", cat: "Cleansing", desc: "Deskripsi menyusul", price: 0, blob: "from-rose-100 to-orange-100", image: "82.jpg" , hasPhoto: false },
+];
+
 export default function BeautyRossaStore() {
   const [category, setCategory] = useState("Semua");
   const [search, setSearch] = useState("");
-  const [slide, setSlide] = useState(0);
   const [detailProduct, setDetailProduct] = useState(null);
   const [cart, setCart] = useState({}); // id -> qty
   const [cartOpen, setCartOpen] = useState(false);
   const [step, setStep] = useState("cart"); // cart | checkout | success
-  const [form, setForm] = useState({ nama: "", hp: "", alamat: "", metode: "Transfer Bank" });
+  const [form, setForm] = useState({ nama: "", hp: "", alamat: "", metode: "Transfer Bank", catatan: "" });
   const [orderNo, setOrderNo] = useState("");
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
+  const featuredProducts = useMemo(
+    () => PRODUCTS.filter((p) => p.hasPhoto && p.price > 0).slice(0, 8),
+    []
+  );
 
   const filtered = PRODUCTS.filter((p) => {
     const matchCat = category === "Semua" || p.cat === category;
@@ -166,8 +249,6 @@ export default function BeautyRossaStore() {
 
   const totalItems = cartItems.reduce((s, i) => s + i.qty, 0);
   const subtotal = cartItems.reduce((s, i) => s + i.qty * i.price, 0);
-  const ongkir = subtotal > 0 ? 15000 : 0;
-  const total = subtotal + ongkir;
 
   const addToCart = (id) => setCart((c) => ({ ...c, [id]: (c[id] || 0) + 1 }));
   const changeQty = (id, delta) =>
@@ -178,10 +259,11 @@ export default function BeautyRossaStore() {
   const removeItem = (id) => setCart((c) => ({ ...c, [id]: 0 }));
 
   useEffect(() => {
-    const timer = setInterval(() => {
-      setSlide((s) => (s + 1) % HERO_SLIDES.length);
-    }, 5000);
-    return () => clearInterval(timer);
+    const onKeyDown = (e) => {
+      if (e.key === "Escape") setMobileMenuOpen(false);
+    };
+    window.addEventListener("keydown", onKeyDown);
+    return () => window.removeEventListener("keydown", onKeyDown);
   }, []);
 
   const openCart = () => {
@@ -189,12 +271,25 @@ export default function BeautyRossaStore() {
     setCartOpen(true);
   };
 
+  const goToConcern = (concern) => {
+    const kw = concern.keywords.find((k) =>
+      PRODUCTS.some((p) => p.name.toLowerCase().includes(k))
+    );
+    if (!kw) {
+      const msg = `Halo Beauty Rossa,\nSaya ingin rekomendasi produk untuk kebutuhan kulit: ${concern.label}.\nMohon bantuannya.\nTerima kasih.`;
+      window.open(`https://wa.me/${DOCTOR_WA_NUMBER}?text=${encodeURIComponent(msg)}`, "_blank");
+      return;
+    }
+    setSearch(kw);
+    setCategory("Semua");
+    document.getElementById("semua-produk")?.scrollIntoView({ behavior: "smooth" });
+  };
+
   const submitOrder = (e) => {
     e.preventDefault();
     const no = "BR" + Math.floor(100000 + Math.random() * 900000);
     setOrderNo(no);
 
-    // Susun rincian pesanan untuk dikirim ke WhatsApp admin
     const itemLines = cartItems
       .map((item) => `- ${item.name} x${item.qty} = ${rupiah(item.qty * item.price)}`)
       .join("\n");
@@ -205,11 +300,11 @@ export default function BeautyRossaStore() {
       `Nama: ${form.nama}\n` +
       `No. HP: ${form.hp}\n` +
       `Alamat: ${form.alamat}\n` +
-      `Metode Bayar: ${form.metode}\n\n` +
+      `Metode Bayar: ${form.metode}\n` +
+      `Catatan: ${form.catatan || "-"}\n\n` +
       `Rincian Produk:\n${itemLines}\n\n` +
       `Subtotal: ${rupiah(subtotal)}\n` +
-      `Ongkos Kirim: ${rupiah(ongkir)}\n` +
-      `Total: ${rupiah(total)}`;
+      `Ongkos Kirim: akan dikonfirmasi oleh admin`;
 
     const waUrl = `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(message)}`;
     window.open(waUrl, "_blank");
@@ -221,72 +316,190 @@ export default function BeautyRossaStore() {
     setCart({});
     setCartOpen(false);
     setStep("cart");
-    setForm({ nama: "", hp: "", alamat: "", metode: "Transfer Bank" });
+    setForm({ nama: "", hp: "", alamat: "", metode: "Transfer Bank", catatan: "" });
+  };
+
+  const [headerSearchOpen, setHeaderSearchOpen] = useState(false);
+  const [headerSearchValue, setHeaderSearchValue] = useState("");
+
+  const submitHeaderSearch = (e) => {
+    e.preventDefault();
+    setSearch(headerSearchValue);
+    setCategory("Semua");
+    setMobileMenuOpen(false);
+    setHeaderSearchOpen(false);
+    document.getElementById("semua-produk")?.scrollIntoView({ behavior: "smooth" });
   };
 
   return (
-    <div className="font-body min-h-screen bg-[#FFFFFF] text-[#1F2937]">
-      {/* Header */}
-      <header className="sticky top-0 z-30 bg-[#FFFFFF]/90 backdrop-blur border-b border-[#2FA8E0]/20">
-        <div className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
-          <div className="flex items-center">
-            <img src="/images/logo.png" alt="Beauty Rossa" className="h-16 w-auto object-contain" />
-          </div>
-          <button
-            onClick={openCart}
-            className="relative flex items-center gap-2 border border-[#2FA8E0]/50 rounded-full px-4 py-2 text-sm hover:bg-[#2FA8E0]/10 transition"
-          >
-            <ShoppingBag size={16} className="text-[#2FA8E0]" />
-            <span className="hidden sm:inline">Keranjang</span>
-            {totalItems > 0 && (
-              <span className="absolute -top-2 -right-2 bg-[#2FA8E0] text-white text-xs w-5 h-5 rounded-full flex items-center justify-center font-semibold">
-                {totalItems}
-              </span>
-            )}
-          </button>
-        </div>
-      </header>
+    <div className="font-body min-h-screen bg-[#FFFDF9] text-[#282422]">
+      {/* Promo Bar */}
+      <div className="bg-[#282422] text-[#FFFDF9] text-center text-xs sm:text-sm py-2 px-4 tracking-wide">
+        Konsultasi Beauty Advisor Gratis &middot; Pengiriman Seluruh Indonesia
+      </div>
 
-      {/* Hero Carousel */}
-      <section className="max-w-6xl mx-auto px-6 pt-16 pb-12 grid md:grid-cols-2 gap-10 items-center">
-        <div key={slide} className="animate-[fadeIn_0.4s_ease]">
-          <div className="flex items-center gap-2 text-[#2FA8E0] text-xs tracking-[0.2em] uppercase mb-4">
-            <Sparkles size={14} /> {HERO_SLIDES[slide].tag}
-          </div>
-          <h1 className="font-display text-5xl md:text-6xl leading-tight mb-6 text-[#1F2937]">
-            {HERO_SLIDES[slide].title}
-            <br />
-            <span className="gold-text italic">{HERO_SLIDES[slide].accent}</span>
-          </h1>
-          <p className="text-[#1F2937]/70 max-w-md mb-8 leading-relaxed">{HERO_SLIDES[slide].desc}</p>
+      {/* Header */}
+      <header className="sticky top-0 z-40 bg-[#FFFDF9]/95 backdrop-blur border-b border-[#E8E1DB] transition-shadow">
+        <div className="max-w-6xl mx-auto px-6 py-3 flex items-center justify-between gap-4">
           <div className="flex items-center gap-6">
             <button
-              onClick={() => document.getElementById("katalog")?.scrollIntoView({ behavior: "smooth" })}
-              className="inline-flex items-center gap-2 bg-[#2FA8E0] text-white font-semibold px-6 py-3 rounded-full hover:bg-[#6FBF3F] transition"
+              className="lg:hidden p-2 -ml-2 text-[#282422]"
+              onClick={() => setMobileMenuOpen(true)}
+              aria-label="Buka menu"
             >
-              Lihat Katalog <ChevronRight size={16} />
+              <Menu size={22} />
             </button>
-            <div className="flex gap-2">
-              {HERO_SLIDES.map((_, i) => (
-                <button
-                  key={i}
-                  onClick={() => setSlide(i)}
-                  aria-label={`Slide ${i + 1}`}
-                  className={`w-2 h-2 rounded-full transition ${i === slide ? "bg-[#2FA8E0] w-6" : "bg-[#2FA8E0]/25"}`}
-                />
-              ))}
-            </div>
+            <a href="#" className="flex items-center">
+              <img src="/images/logo.png" alt="Beauty Rossa" className="h-12 w-auto object-contain" />
+            </a>
+          </div>
+
+          <nav className="hidden lg:flex items-center gap-7">
+            {NAV_LINKS.map((link) => (
+              <a
+                key={link.label}
+                href={link.href}
+                className="text-sm text-[#282422]/80 hover:text-[#B9897D] transition"
+              >
+                {link.label}
+              </a>
+            ))}
+            <a
+              href={`https://wa.me/${DOCTOR_WA_NUMBER}?text=${encodeURIComponent(
+                "Halo Beauty Rossa,\nSaya ingin melakukan konsultasi mengenai kondisi kulit saya. Mohon dibantu informasi konsultasi dan prosedurnya.\nTerima kasih."
+              )}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-sm text-[#282422]/80 hover:text-[#B9897D] transition"
+            >
+              Konsultasi
+            </a>
+          </nav>
+
+          <div className="flex items-center gap-2">
+            <button
+              onClick={() => setHeaderSearchOpen((s) => !s)}
+              aria-label="Cari produk"
+              className="p-2 rounded-full hover:bg-[#F6F0EA] transition text-[#282422]"
+            >
+              <Search size={19} />
+            </button>
+            <button
+              onClick={openCart}
+              aria-label="Buka keranjang"
+              className="relative flex items-center gap-2 border border-[#B9897D]/50 rounded-full px-4 py-2 text-sm hover:bg-[#B9897D]/10 transition"
+            >
+              <ShoppingBag size={16} className="text-[#B9897D]" />
+              <span className="hidden sm:inline">Keranjang</span>
+              {totalItems > 0 && (
+                <span className="absolute -top-2 -right-2 bg-[#B9897D] text-white text-xs w-5 h-5 rounded-full flex items-center justify-center font-semibold">
+                  {totalItems}
+                </span>
+              )}
+            </button>
           </div>
         </div>
-        <div className="relative aspect-square rounded-full bg-gradient-to-br from-[#DFF3D8] via-[#2FA8E0]/20 to-[#EAF6FD] flex items-center justify-center border border-[#2FA8E0]/30">
-          <div className="absolute inset-6 rounded-full border border-[#2FA8E0]/20" />
-          <img src="/images/logo.png" alt="Beauty Rossa" className="w-2/3 h-2/3 object-contain drop-shadow-lg" />
+
+        {headerSearchOpen && (
+          <form onSubmit={submitHeaderSearch} className="border-t border-[#E8E1DB] px-6 py-3 max-w-6xl mx-auto">
+            <input
+              autoFocus
+              type="text"
+              value={headerSearchValue}
+              onChange={(e) => setHeaderSearchValue(e.target.value)}
+              placeholder="Cari produk, misal: serum, cream malam..."
+              className="w-full bg-[#F6F0EA] border border-[#E8E1DB] rounded-full px-5 py-2.5 text-sm focus:outline-none focus:border-[#B9897D] placeholder:text-[#6D6662]/60"
+            />
+          </form>
+        )}
+      </header>
+
+      {/* Mobile Menu */}
+      {mobileMenuOpen && (
+        <div className="fixed inset-0 z-50 lg:hidden">
+          <div className="absolute inset-0 bg-black/50" onClick={() => setMobileMenuOpen(false)} />
+          <div className="absolute top-0 left-0 bottom-0 w-72 bg-[#FFFDF9] shadow-xl p-6 flex flex-col gap-1">
+            <div className="flex items-center justify-between mb-6">
+              <img src="/images/logo.png" alt="Beauty Rossa" className="h-10 w-auto object-contain" />
+              <button onClick={() => setMobileMenuOpen(false)} aria-label="Tutup menu" className="p-2">
+                <X size={20} />
+              </button>
+            </div>
+            {NAV_LINKS.map((link) => (
+              <a
+                key={link.label}
+                href={link.href}
+                onClick={() => setMobileMenuOpen(false)}
+                className="py-3 text-base text-[#282422] border-b border-[#E8E1DB]"
+              >
+                {link.label}
+              </a>
+            ))}
+            <a
+              href={`https://wa.me/${DOCTOR_WA_NUMBER}?text=${encodeURIComponent(
+                "Halo Beauty Rossa,\nSaya ingin melakukan konsultasi mengenai kondisi kulit saya. Mohon dibantu informasi konsultasi dan prosedurnya.\nTerima kasih."
+              )}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={() => setMobileMenuOpen(false)}
+              className="py-3 text-base text-[#B9897D] font-semibold"
+            >
+              Konsultasi
+            </a>
+          </div>
+        </div>
+      )}
+
+      {/* Hero */}
+      <section className="max-w-6xl mx-auto px-6 pt-12 pb-14 grid lg:grid-cols-2 gap-10 items-center">
+        <div>
+          <div className="text-xs tracking-[0.25em] uppercase text-[#B9897D] mb-4 font-semibold">
+            Skincare &amp; Klinik Kecantikan
+          </div>
+          <h1 className="font-display text-4xl sm:text-5xl leading-tight mb-5 text-[#282422]">
+            Perawatan Kulit yang Lebih Personal untuk Kecantikan Anda
+          </h1>
+          <p className="text-[#6D6662] max-w-md mb-8 leading-relaxed">
+            Temukan skincare Beauty Rossa, konsultasi Beauty Advisor, dan perawatan klinik yang
+            disesuaikan dengan kebutuhan kulit Anda.
+          </p>
+          <div className="flex flex-wrap items-center gap-4 mb-8">
+            <a
+              href="#produk"
+              className="inline-flex items-center gap-2 bg-[#B9897D] text-white font-semibold px-6 py-3 rounded-full hover:bg-[#C4A46B] transition"
+            >
+              Belanja Produk <ChevronRight size={16} />
+            </a>
+            <a
+              href={`https://wa.me/${DOCTOR_WA_NUMBER}?text=${encodeURIComponent(
+                "Halo Beauty Rossa,\nSaya ingin konsultasi gratis mengenai kondisi kulit saya.\nTerima kasih."
+              )}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 border border-[#282422]/20 text-[#282422] font-semibold px-6 py-3 rounded-full hover:bg-[#F6F0EA] transition"
+            >
+              Konsultasi Gratis
+            </a>
+          </div>
+          <div className="flex flex-wrap gap-x-6 gap-y-2 text-xs text-[#6D6662]">
+            <span>Produk berizin BPOM</span>
+            <span>Konsultasi personal</span>
+            <span>Pengiriman seluruh Indonesia</span>
+            <span>Klinik Beauty Rossa</span>
+          </div>
+        </div>
+        <div className="relative aspect-square max-h-[420px] mx-auto w-full rounded-3xl bg-gradient-to-br from-[#F6F0EA] via-[#EED9D6] to-[#F6F0EA] flex items-center justify-center border border-[#E8E1DB]">
+          <img
+            src="/images/logo.png"
+            alt="Beauty Rossa"
+            className="w-1/2 h-1/2 object-contain drop-shadow-md"
+          />
         </div>
       </section>
 
-      {/* Trust Badges */}
-      <section className="max-w-6xl mx-auto px-6 pb-16">
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 border-t border-b border-[#2FA8E0]/10 py-6">
+      {/* Trust Bar */}
+      <section className="max-w-6xl mx-auto px-6 pb-14">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 border-t border-b border-[#E8E1DB] py-6">
           {TRUST_BADGES.map((b, i) =>
             b.link ? (
               <a
@@ -296,47 +509,181 @@ export default function BeautyRossaStore() {
                 rel="noopener noreferrer"
                 className="flex items-center gap-2.5 group cursor-pointer"
               >
-                <div className="w-9 h-9 rounded-full bg-[#F4FAFD] flex items-center justify-center flex-shrink-0 group-hover:bg-[#2FA8E0]/10 transition">
-                  <b.icon size={16} className="text-[#2FA8E0]" />
+                <div className="w-9 h-9 rounded-full bg-[#F6F0EA] flex items-center justify-center flex-shrink-0 group-hover:bg-[#B9897D]/10 transition">
+                  <b.icon size={16} className="text-[#B9897D]" />
                 </div>
-                <span className="text-xs text-[#1F2937]/70 leading-tight group-hover:text-[#2FA8E0] transition underline decoration-dotted">
+                <span className="text-xs text-[#282422]/75 leading-tight group-hover:text-[#B9897D] transition">
                   {b.label}
                 </span>
               </a>
             ) : (
               <div key={i} className="flex items-center gap-2.5">
-                <div className="w-9 h-9 rounded-full bg-[#F4FAFD] flex items-center justify-center flex-shrink-0">
-                  <b.icon size={16} className="text-[#2FA8E0]" />
+                <div className="w-9 h-9 rounded-full bg-[#F6F0EA] flex items-center justify-center flex-shrink-0">
+                  <b.icon size={16} className="text-[#B9897D]" />
                 </div>
-                <span className="text-xs text-[#1F2937]/70 leading-tight">{b.label}</span>
+                <span className="text-xs text-[#282422]/75 leading-tight">{b.label}</span>
               </div>
             )
           )}
         </div>
       </section>
 
-      {/* Katalog */}
-      <section id="katalog" className="max-w-6xl mx-auto px-6 pb-24">
+      {/* Solusi Kulit */}
+      <section id="solusi-kulit" className="max-w-6xl mx-auto px-6 pb-16">
+        <div className="text-center max-w-xl mx-auto mb-10">
+          <h2 className="font-display text-3xl mb-3">Temukan Perawatan Berdasarkan Kebutuhan Kulit</h2>
+          <p className="text-[#6D6662] text-sm leading-relaxed">
+            Pilih kebutuhan utama kulit Anda untuk menemukan produk atau mendapatkan rekomendasi yang
+            lebih personal.
+          </p>
+        </div>
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
+          {SKIN_CONCERNS.map((concern) => (
+            <button
+              key={concern.label}
+              onClick={() => goToConcern(concern)}
+              className="flex flex-col items-center gap-3 border border-[#E8E1DB] rounded-2xl py-6 px-3 bg-white hover:border-[#B9897D]/50 hover:shadow-md transition text-center"
+            >
+              <div className="w-11 h-11 rounded-full bg-[#F6F0EA] flex items-center justify-center">
+                <concern.icon size={19} className="text-[#B9897D]" />
+              </div>
+              <span className="text-sm font-medium text-[#282422]">{concern.label}</span>
+            </button>
+          ))}
+        </div>
+      </section>
+
+      {/* Produk Unggulan */}
+      <section id="produk" className="max-w-6xl mx-auto px-6 pb-20">
+        <div className="text-center max-w-xl mx-auto mb-10">
+          <h2 className="font-display text-3xl mb-3">Produk Pilihan Beauty Rossa</h2>
+          <p className="text-[#6D6662] text-sm leading-relaxed">
+            Pilihan skincare untuk melengkapi rutinitas perawatan kulit Anda.
+          </p>
+        </div>
+
+        {featuredProducts.length > 0 ? (
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-10">
+            {featuredProducts.map((p) => (
+              <ProductCard key={p.id} product={p} onView={setDetailProduct} onAdd={addToCart} />
+            ))}
+          </div>
+        ) : (
+          <p className="text-center text-[#6D6662] text-sm mb-10">
+            Foto produk sedang dilengkapi. Lihat katalog lengkap di bawah untuk sementara.
+          </p>
+        )}
+
+        <div className="text-center">
+          <a
+            href="#semua-produk"
+            className="inline-flex items-center gap-2 border border-[#282422]/20 text-[#282422] font-semibold px-6 py-3 rounded-full hover:bg-[#F6F0EA] transition"
+          >
+            Lihat Semua Produk <ChevronRight size={16} />
+          </a>
+        </div>
+      </section>
+
+      {/* Beauty Advisor */}
+      <section className="bg-[#F6F0EA] py-16">
+        <div className="max-w-4xl mx-auto px-6 text-center">
+          <h2 className="font-display text-3xl mb-4">Bingung Memilih Skincare yang Tepat?</h2>
+          <p className="text-[#6D6662] leading-relaxed mb-2 max-w-2xl mx-auto">
+            Beauty Advisor Beauty Rossa siap membantu memahami kebutuhan kulit Anda dan memberikan
+            rekomendasi produk berdasarkan informasi yang Anda sampaikan.
+          </p>
+          <p className="text-xs text-[#6D6662]/70 mb-8">
+            Beauty Advisor memberikan informasi dan rekomendasi penggunaan produk, bukan diagnosis medis.
+          </p>
+          <a
+            href={`https://wa.me/${DOCTOR_WA_NUMBER}?text=${encodeURIComponent(
+              "Halo Beauty Rossa,\nSaya ingin melakukan konsultasi mengenai kondisi kulit saya. Mohon dibantu informasi konsultasi dan prosedurnya.\nTerima kasih."
+            )}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 bg-[#B9897D] text-white font-semibold px-7 py-3 rounded-full hover:bg-[#C4A46B] transition"
+          >
+            <MessageCircle size={17} /> Chat Beauty Advisor
+          </a>
+        </div>
+      </section>
+
+      {/* Tentang Beauty Rossa */}
+      <section id="tentang" className="max-w-6xl mx-auto px-6 py-20">
+        <div className="text-center max-w-2xl mx-auto mb-12">
+          <h2 className="font-display text-3xl mb-4">Kecantikan yang Berawal dari Perawatan yang Tepat</h2>
+          <p className="text-[#6D6662] leading-relaxed">
+            Beauty Rossa menghadirkan produk skincare dan layanan kecantikan yang berfokus pada
+            kebutuhan setiap pelanggan. Kami menggabungkan pengalaman klinik, konsultasi yang lebih
+            personal, dan pilihan produk untuk membantu pelanggan membangun rutinitas perawatan kulit
+            yang lebih terarah.
+          </p>
+        </div>
+        <div className="grid sm:grid-cols-3 gap-6">
+          {ABOUT_VALUES.map((v) => (
+            <div key={v.title} className="text-center border border-[#E8E1DB] rounded-2xl p-8 bg-white">
+              <h3 className="font-display text-xl mb-2 text-[#B9897D]">{v.title}</h3>
+              <p className="text-sm text-[#6D6662] leading-relaxed">{v.desc}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* Klinik & Treatment */}
+      <section id="klinik" className="bg-[#282422] text-[#FFFDF9] py-20">
+        <div className="max-w-6xl mx-auto px-6">
+          <div className="text-center max-w-2xl mx-auto mb-12">
+            <h2 className="font-display text-3xl mb-4">Perawatan Profesional di Klinik Beauty Rossa</h2>
+            <p className="text-[#FFFDF9]/70 leading-relaxed">
+              Temukan layanan konsultasi dan treatment kecantikan bersama tim Beauty Rossa sesuai
+              kebutuhan pelanggan.
+            </p>
+          </div>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5 mb-10">
+            {CLINIC_SERVICES.map((s) => (
+              <div key={s.title} className="border border-[#FFFDF9]/15 rounded-2xl p-6">
+                <h3 className="font-display text-lg mb-2 text-[#C4A46B]">{s.title}</h3>
+                <p className="text-sm text-[#FFFDF9]/70 leading-relaxed">{s.desc}</p>
+              </div>
+            ))}
+          </div>
+          <div className="text-center">
+            <a
+              href={`https://wa.me/${DOCTOR_WA_NUMBER}?text=${encodeURIComponent(
+                "Halo Beauty Rossa,\nSaya ingin melakukan booking treatment di klinik.\nMohon informasi jadwal yang tersedia.\nTerima kasih."
+              )}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 bg-[#C4A46B] text-[#282422] font-semibold px-7 py-3 rounded-full hover:opacity-90 transition"
+            >
+              Booking Treatment <ChevronRight size={16} />
+            </a>
+          </div>
+        </div>
+      </section>
+
+      {/* Katalog Lengkap */}
+      <section id="semua-produk" className="max-w-6xl mx-auto px-6 py-20">
         <div className="mb-6">
           <input
             type="text"
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             placeholder="Cari produk, misal: serum, cream malam..."
-            className="w-full md:w-96 bg-[#F4FAFD] border border-[#2FA8E0]/25 rounded-full px-5 py-2.5 text-sm focus:outline-none focus:border-[#2FA8E0] placeholder:text-[#1F2937]/30"
+            className="w-full md:w-96 bg-[#F6F0EA] border border-[#E8E1DB] rounded-full px-5 py-2.5 text-sm focus:outline-none focus:border-[#B9897D] placeholder:text-[#6D6662]/60"
           />
         </div>
         <div className="flex items-center justify-between mb-8 flex-wrap gap-4">
-          <h2 className="font-display text-3xl">Katalog Produk</h2>
-          <div className="flex gap-2">
+          <h2 className="font-display text-3xl">Semua Produk</h2>
+          <div className="flex gap-2 flex-wrap">
             {["Semua", "Cream", "Serum", "Toner", "Sabun", "Lotion", "Cleansing", "Gel"].map((c) => (
               <button
                 key={c}
                 onClick={() => setCategory(c)}
                 className={`px-4 py-1.5 rounded-full text-sm border transition ${
                   category === c
-                    ? "bg-[#2FA8E0] text-white border-[#2FA8E0] font-semibold"
-                    : "border-[#2FA8E0]/30 text-[#1F2937]/70 hover:border-[#2FA8E0]/60"
+                    ? "bg-[#B9897D] text-white border-[#B9897D] font-semibold"
+                    : "border-[#E8E1DB] text-[#282422]/70 hover:border-[#B9897D]/60"
                 }`}
               >
                 {c}
@@ -346,95 +693,135 @@ export default function BeautyRossaStore() {
         </div>
 
         {filtered.length === 0 && (
-          <p className="text-center text-[#1F2937]/40 py-16">
+          <p className="text-center text-[#6D6662] py-16">
             Produk tidak ditemukan. Coba kata kunci atau kategori lain.
           </p>
         )}
 
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {filtered.map((p) => (
-            <div
-              key={p.id}
-              className="group border border-[#2FA8E0]/15 rounded-2xl overflow-hidden bg-[#F4FAFD] hover:border-[#2FA8E0]/50 hover:shadow-xl hover:-translate-y-1 transition-all duration-300"
-            >
-              <button
-                onClick={() => setDetailProduct(p)}
-                className="block w-full text-left"
-                aria-label={`Lihat detail ${p.name}`}
-              >
-                <div className={`relative aspect-square bg-gradient-to-br ${p.blob} opacity-90 overflow-hidden`}>
-                  <img
-                    src={`/images/${p.image}`}
-                    alt={p.name}
-                    className="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-                    onError={(e) => {
-                      e.currentTarget.style.display = "none";
-                    }}
-                  />
+            <div key={p.id}>
+              {p.price > 0 ? (
+                <ProductCard product={p} onView={setDetailProduct} onAdd={addToCart} />
+              ) : (
+                <div className="group border border-[#E8E1DB] rounded-2xl overflow-hidden bg-white">
+                  <button
+                    onClick={() => setDetailProduct(p)}
+                    className="block w-full text-left"
+                    aria-label={`Lihat detail ${p.name}`}
+                  >
+                    <div className="relative aspect-square bg-gradient-to-br from-[#F6F0EA] to-[#EED9D6] overflow-hidden">
+                      <img
+                        src={`/images/${p.image}`}
+                        alt={p.name}
+                        loading="lazy"
+                        className="absolute inset-0 w-full h-full object-cover"
+                        onError={(e) => {
+                          e.currentTarget.style.display = "none";
+                        }}
+                      />
+                    </div>
+                    <div className="px-4 pt-4">
+                      <div className="text-[10px] uppercase tracking-wider text-[#B9897D] mb-1">{p.cat}</div>
+                      <h3 className="font-display text-base mb-1 line-clamp-1">{p.name}</h3>
+                    </div>
+                  </button>
+                  <div className="px-4 pb-4 pt-1 flex items-center justify-between gap-2">
+                    <span className="text-xs text-[#6D6662]">Hubungi Kami</span>
+                    <span className="text-xs border border-[#E8E1DB] text-[#6D6662]/70 rounded-full px-3 py-1.5 whitespace-nowrap">
+                      Segera Hadir
+                    </span>
+                  </div>
                 </div>
-                <div className="px-4 pt-4">
-                  <div className="text-[10px] uppercase tracking-wider text-[#2FA8E0] mb-1">{p.cat}</div>
-                  <h3 className="font-display text-lg mb-1 group-hover:text-[#2FA8E0] transition">{p.name}</h3>
-                  <p className="text-xs text-[#1F2937]/50 mb-3 leading-relaxed">{p.desc}</p>
-                </div>
-              </button>
-              <div className="px-4 pb-4">
-                <div className="flex items-center justify-between">
-                  {p.price > 0 ? (
-                    <>
-                      <span className="font-semibold text-[#6FBF3F]">{rupiah(p.price)}</span>
-                      <button
-                        onClick={() => addToCart(p.id)}
-                        className="text-xs border border-[#2FA8E0]/40 rounded-full px-3 py-1.5 hover:bg-[#2FA8E0] hover:text-white transition"
-                      >
-                        + Keranjang
-                      </button>
-                    </>
-                  ) : (
-                    <>
-                      <span className="font-semibold text-[#1F2937]/40 text-sm">Hubungi Kami</span>
-                      <span className="text-xs border border-[#2FA8E0]/15 text-[#1F2937]/30 rounded-full px-3 py-1.5">
-                        Segera Hadir
-                      </span>
-                    </>
-                  )}
-                </div>
-              </div>
+              )}
             </div>
           ))}
         </div>
       </section>
 
-      <footer className="border-t border-[#2FA8E0]/15 bg-[#F4FAFD] pt-12 pb-8">
-        <div className="max-w-6xl mx-auto px-6 grid sm:grid-cols-3 gap-8 mb-8">
-          <div>
-            <div className="flex items-center mb-3">
-              <img src="/images/logo.png" alt="Beauty Rossa" className="h-14 w-auto object-contain" />
-            </div>
-            <p className="text-xs text-[#1F2937]/50 leading-relaxed">
-              Rangkaian skincare untuk kulit yang bercahaya dan tampilan yang percaya diri, setiap hari.
+      {/* Footer */}
+      <footer className="border-t border-[#E8E1DB] bg-[#F6F0EA] pt-14 pb-8">
+        <div className="max-w-6xl mx-auto px-6 grid sm:grid-cols-2 lg:grid-cols-5 gap-8 mb-10">
+          <div className="lg:col-span-1">
+            <img src="/images/logo.png" alt="Beauty Rossa" className="h-12 w-auto object-contain mb-3" />
+            <p className="text-xs text-[#6D6662] leading-relaxed">
+              Skincare dan layanan kecantikan yang disesuaikan dengan kebutuhan kulit Anda.
             </p>
           </div>
           <div>
-            <h4 className="text-xs uppercase tracking-wider text-[#1F2937]/40 mb-3">Kontak</h4>
-            <ul className="text-sm text-[#1F2937]/70 space-y-1.5">
-              <li>Admin (Pembelian): {WA_DISPLAY}</li>
-              <li>Beauty Rossa Advisor: {DOCTOR_WA_DISPLAY}</li>
-              <li>beautyrossa.id</li>
+            <h4 className="text-xs uppercase tracking-wider text-[#6D6662] mb-3 font-semibold">Belanja</h4>
+            <ul className="text-sm text-[#282422]/80 space-y-2">
+              <li><a href="#produk" className="hover:text-[#B9897D] transition">Produk</a></li>
+              <li><span className="text-[#6D6662]/60">Promo - Segera hadir</span></li>
+              <li><button onClick={openCart} className="hover:text-[#B9897D] transition">Keranjang</button></li>
             </ul>
           </div>
           <div>
-            <h4 className="text-xs uppercase tracking-wider text-[#1F2937]/40 mb-3">Kebijakan</h4>
-            <ul className="text-sm text-[#1F2937]/70 space-y-1.5">
-              <li>Pengiriman ke seluruh Indonesia</li>
-              <li>Pembayaran via Transfer Bank / COD / QRIS</li>
-              <li>Hubungi kami untuk pertanyaan produk</li>
+            <h4 className="text-xs uppercase tracking-wider text-[#6D6662] mb-3 font-semibold">Layanan</h4>
+            <ul className="text-sm text-[#282422]/80 space-y-2">
+              <li>
+                <a
+                  href={`https://wa.me/${DOCTOR_WA_NUMBER}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:text-[#B9897D] transition"
+                >
+                  Konsultasi
+                </a>
+              </li>
+              <li><a href="#klinik" className="hover:text-[#B9897D] transition">Klinik</a></li>
+              <li><a href="#klinik" className="hover:text-[#B9897D] transition">Treatment</a></li>
+              <li><a href="#klinik" className="hover:text-[#B9897D] transition">Booking</a></li>
+            </ul>
+          </div>
+          <div>
+            <h4 className="text-xs uppercase tracking-wider text-[#6D6662] mb-3 font-semibold">Informasi</h4>
+            <ul className="text-sm text-[#282422]/80 space-y-2">
+              <li><a href="#tentang" className="hover:text-[#B9897D] transition">Tentang Kami</a></li>
+              <li><span className="text-[#6D6662]/60">FAQ - Segera hadir</span></li>
+              <li><span className="text-[#6D6662]/60">Pengiriman - Segera hadir</span></li>
+              <li>
+                <a
+                  href={`https://wa.me/${WA_NUMBER}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:text-[#B9897D] transition"
+                >
+                  Kontak
+                </a>
+              </li>
+            </ul>
+          </div>
+          <div>
+            <h4 className="text-xs uppercase tracking-wider text-[#6D6662] mb-3 font-semibold">Kebijakan</h4>
+            <ul className="text-sm text-[#282422]/80 space-y-2">
+              <li><span className="text-[#6D6662]/60">Kebijakan Privasi - Segera hadir</span></li>
+              <li><span className="text-[#6D6662]/60">Syarat &amp; Ketentuan - Segera hadir</span></li>
             </ul>
           </div>
         </div>
-        <p className="text-center text-xs text-[#1F2937]/40 border-t border-[#2FA8E0]/10 pt-6">
-          © 2026 beautyrossa.id - Kilau alami, gaya abadi.
-        </p>
+        <div className="max-w-6xl mx-auto px-6 border-t border-[#E8E1DB] pt-6 flex flex-col sm:flex-row items-center justify-between gap-3">
+          <p className="text-xs text-[#6D6662]">&copy; 2026 Beauty Rossa. Seluruh hak cipta dilindungi.</p>
+          <div className="flex items-center gap-4 text-xs text-[#282422]/80">
+            <a
+              href={`https://wa.me/${WA_NUMBER}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-[#B9897D] transition"
+            >
+              WhatsApp Admin
+            </a>
+            <span className="text-[#E8E1DB]">|</span>
+            <a
+              href={`https://wa.me/${DOCTOR_WA_NUMBER}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-[#B9897D] transition"
+            >
+              WhatsApp Beauty Advisor
+            </a>
+          </div>
+        </div>
       </footer>
 
       {/* Tombol WhatsApp Mengambang */}
@@ -445,7 +832,7 @@ export default function BeautyRossaStore() {
           )}`}
           target="_blank"
           rel="noopener noreferrer"
-          className="flex items-center gap-2 bg-[#2FA8E0] text-white px-4 py-3 rounded-full shadow-lg hover:scale-105 transition"
+          className="flex items-center gap-2 bg-[#B9897D] text-white px-4 py-3 rounded-full shadow-lg hover:scale-105 transition"
           aria-label="Konsultasi Beauty Rossa Advisor via WhatsApp"
         >
           <Stethoscope size={20} />
@@ -467,32 +854,35 @@ export default function BeautyRossaStore() {
 
       {/* Cart / Checkout Drawer */}
       {cartOpen && (
-        <div className="fixed inset-0 z-40 flex justify-end">
-          <div className="absolute inset-0 bg-black/60" onClick={() => setCartOpen(false)} />
-          <div className="relative w-full max-w-md h-full bg-[#F4FAFD] border-l border-[#2FA8E0]/20 flex flex-col">
-            <div className="flex items-center justify-between px-6 py-5 border-b border-[#2FA8E0]/15">
+        <div className="fixed inset-0 z-50 flex justify-end">
+          <div className="absolute inset-0 bg-black/50" onClick={() => setCartOpen(false)} />
+          <div className="relative w-full max-w-md h-full bg-white border-l border-[#E8E1DB] flex flex-col">
+            <div className="flex items-center justify-between px-6 py-5 border-b border-[#E8E1DB]">
               <h3 className="font-display text-xl">
                 {step === "cart" && "Keranjang Belanja"}
                 {step === "checkout" && "Checkout"}
-                {step === "success" && "Pesanan Diterima"}
+                {step === "success" && "Pesanan Disiapkan"}
               </h3>
-              <button onClick={() => setCartOpen(false)} className="text-[#1F2937]/60 hover:text-[#2FA8E0]">
+              <button
+                onClick={() => setCartOpen(false)}
+                aria-label="Tutup keranjang"
+                className="text-[#6D6662] hover:text-[#B9897D]"
+              >
                 <X size={20} />
               </button>
             </div>
 
-            {/* CART STEP */}
             {step === "cart" && (
               <>
                 <div className="flex-1 overflow-y-auto px-6 py-4 space-y-4">
                   {cartItems.length === 0 && (
-                    <p className="text-sm text-[#1F2937]/50 mt-10 text-center">
+                    <p className="text-sm text-[#6D6662] mt-10 text-center">
                       Keranjangmu masih kosong. Yuk pilih produk favoritmu.
                     </p>
                   )}
                   {cartItems.map((item) => (
-                    <div key={item.id} className="flex gap-3 items-center border-b border-[#2FA8E0]/10 pb-4">
-                      <div className={`relative w-16 h-16 rounded-lg overflow-hidden bg-gradient-to-br ${item.blob} flex-shrink-0`}>
+                    <div key={item.id} className="flex gap-3 items-center border-b border-[#E8E1DB] pb-4">
+                      <div className="relative w-16 h-16 rounded-lg overflow-hidden bg-gradient-to-br from-[#F6F0EA] to-[#EED9D6] flex-shrink-0">
                         <img
                           src={`/images/${item.image}`}
                           alt={item.name}
@@ -504,38 +894,45 @@ export default function BeautyRossaStore() {
                       </div>
                       <div className="flex-1 min-w-0">
                         <div className="text-sm font-medium truncate">{item.name}</div>
-                        <div className="text-xs text-[#2FA8E0]">{rupiah(item.price)}</div>
+                        <div className="text-xs text-[#B9897D]">{rupiah(item.price)}</div>
                         <div className="flex items-center gap-3 mt-2">
                           <button
                             onClick={() => changeQty(item.id, -1)}
-                            className="w-6 h-6 flex items-center justify-center border border-[#2FA8E0]/30 rounded-full hover:bg-[#2FA8E0]/10"
+                            aria-label="Kurangi jumlah"
+                            className="w-6 h-6 flex items-center justify-center border border-[#E8E1DB] rounded-full hover:bg-[#F6F0EA]"
                           >
                             <Minus size={12} />
                           </button>
                           <span className="text-sm w-4 text-center">{item.qty}</span>
                           <button
                             onClick={() => changeQty(item.id, 1)}
-                            className="w-6 h-6 flex items-center justify-center border border-[#2FA8E0]/30 rounded-full hover:bg-[#2FA8E0]/10"
+                            aria-label="Tambah jumlah"
+                            className="w-6 h-6 flex items-center justify-center border border-[#E8E1DB] rounded-full hover:bg-[#F6F0EA]"
                           >
                             <Plus size={12} />
                           </button>
                         </div>
                       </div>
-                      <button onClick={() => removeItem(item.id)} className="text-[#1F2937]/30 hover:text-red-400">
+                      <button
+                        onClick={() => removeItem(item.id)}
+                        aria-label={`Hapus ${item.name}`}
+                        className="text-[#6D6662]/50 hover:text-red-500"
+                      >
                         <Trash2 size={16} />
                       </button>
                     </div>
                   ))}
                 </div>
                 {cartItems.length > 0 && (
-                  <div className="px-6 py-5 border-t border-[#2FA8E0]/15 space-y-3">
-                    <div className="flex justify-between text-sm text-[#1F2937]/70">
+                  <div className="px-6 py-5 border-t border-[#E8E1DB] space-y-3">
+                    <div className="flex justify-between text-sm text-[#282422]/80">
                       <span>Subtotal</span>
                       <span>{rupiah(subtotal)}</span>
                     </div>
+                    <p className="text-xs text-[#6D6662]">Ongkos kirim akan dikonfirmasi oleh admin.</p>
                     <button
                       onClick={() => setStep("checkout")}
-                      className="w-full bg-[#2FA8E0] text-white font-semibold py-3 rounded-full hover:bg-[#6FBF3F] transition"
+                      className="w-full bg-[#B9897D] text-white font-semibold py-3 rounded-full hover:bg-[#C4A46B] transition"
                     >
                       Lanjut ke Checkout
                     </button>
@@ -544,42 +941,51 @@ export default function BeautyRossaStore() {
               </>
             )}
 
-            {/* CHECKOUT STEP */}
             {step === "checkout" && (
               <form onSubmit={submitOrder} className="flex-1 overflow-y-auto px-6 py-5 flex flex-col gap-4">
                 <div>
-                  <label className="text-xs text-[#1F2937]/60 block mb-1">Nama Penerima</label>
+                  <label className="text-xs text-[#6D6662] block mb-1">Nama Penerima</label>
                   <input
                     required
                     value={form.nama}
                     onChange={(e) => setForm({ ...form, nama: e.target.value })}
-                    className="w-full bg-[#FFFFFF] border border-[#2FA8E0]/25 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-[#2FA8E0]"
+                    className="w-full bg-[#FFFDF9] border border-[#E8E1DB] rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-[#B9897D]"
                     placeholder="Nama lengkap"
                   />
                 </div>
                 <div>
-                  <label className="text-xs text-[#1F2937]/60 block mb-1">Nomor HP / WhatsApp</label>
+                  <label className="text-xs text-[#6D6662] block mb-1">Nomor HP / WhatsApp</label>
                   <input
                     required
                     value={form.hp}
                     onChange={(e) => setForm({ ...form, hp: e.target.value })}
-                    className="w-full bg-[#FFFFFF] border border-[#2FA8E0]/25 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-[#2FA8E0]"
+                    className="w-full bg-[#FFFDF9] border border-[#E8E1DB] rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-[#B9897D]"
                     placeholder="08xxxxxxxxxx"
                   />
                 </div>
                 <div>
-                  <label className="text-xs text-[#1F2937]/60 block mb-1">Alamat Pengiriman</label>
+                  <label className="text-xs text-[#6D6662] block mb-1">Alamat Pengiriman</label>
                   <textarea
                     required
                     value={form.alamat}
                     onChange={(e) => setForm({ ...form, alamat: e.target.value })}
                     rows={3}
-                    className="w-full bg-[#FFFFFF] border border-[#2FA8E0]/25 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-[#2FA8E0] resize-none"
+                    className="w-full bg-[#FFFDF9] border border-[#E8E1DB] rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-[#B9897D] resize-none"
                     placeholder="Alamat lengkap"
                   />
                 </div>
                 <div>
-                  <label className="text-xs text-[#1F2937]/60 block mb-2">Metode Pembayaran</label>
+                  <label className="text-xs text-[#6D6662] block mb-1">Catatan (opsional)</label>
+                  <textarea
+                    value={form.catatan}
+                    onChange={(e) => setForm({ ...form, catatan: e.target.value })}
+                    rows={2}
+                    className="w-full bg-[#FFFDF9] border border-[#E8E1DB] rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-[#B9897D] resize-none"
+                    placeholder="Contoh: warna, ukuran, permintaan khusus"
+                  />
+                </div>
+                <div>
+                  <label className="text-xs text-[#6D6662] block mb-2">Metode Pembayaran</label>
                   <div className="grid grid-cols-3 gap-2">
                     {["Transfer Bank", "COD", "QRIS"].map((m) => (
                       <button
@@ -588,69 +994,66 @@ export default function BeautyRossaStore() {
                         onClick={() => setForm({ ...form, metode: m })}
                         className={`text-xs py-2 rounded-lg border transition ${
                           form.metode === m
-                            ? "bg-[#2FA8E0] text-white border-[#2FA8E0] font-semibold"
-                            : "border-[#2FA8E0]/25 text-[#1F2937]/70"
+                            ? "bg-[#B9897D] text-white border-[#B9897D] font-semibold"
+                            : "border-[#E8E1DB] text-[#282422]/70"
                         }`}
                       >
                         {m}
                       </button>
                     ))}
                   </div>
+                  <p className="text-[11px] text-[#6D6662] mt-2">
+                    Pembayaran dikonfirmasi manual melalui WhatsApp admin, belum terintegrasi otomatis.
+                  </p>
                 </div>
 
-                <div className="mt-2 border-t border-[#2FA8E0]/15 pt-4 space-y-1 text-sm">
-                  <div className="flex justify-between text-[#1F2937]/70">
+                <div className="mt-2 border-t border-[#E8E1DB] pt-4 space-y-1 text-sm">
+                  <div className="flex justify-between text-[#282422]/80">
                     <span>Subtotal</span>
                     <span>{rupiah(subtotal)}</span>
                   </div>
-                  <div className="flex justify-between text-[#1F2937]/70">
+                  <div className="flex justify-between text-[#6D6662]">
                     <span>Ongkos Kirim</span>
-                    <span>{rupiah(ongkir)}</span>
-                  </div>
-                  <div className="flex justify-between font-semibold text-[#6FBF3F] text-base pt-1">
-                    <span>Total</span>
-                    <span>{rupiah(total)}</span>
+                    <span>Dikonfirmasi admin</span>
                   </div>
                 </div>
 
                 <button
                   type="submit"
-                  className="w-full bg-[#2FA8E0] text-white font-semibold py-3 rounded-full hover:bg-[#6FBF3F] transition mt-2"
+                  className="w-full bg-[#B9897D] text-white font-semibold py-3 rounded-full hover:bg-[#C4A46B] transition mt-2"
                 >
                   Buat Pesanan
                 </button>
                 <button
                   type="button"
                   onClick={() => setStep("cart")}
-                  className="text-xs text-[#1F2937]/50 hover:text-[#2FA8E0] text-center"
+                  className="text-xs text-[#6D6662] hover:text-[#B9897D] text-center"
                 >
                   Kembali ke keranjang
                 </button>
               </form>
             )}
 
-            {/* SUCCESS STEP */}
             {step === "success" && (
               <div className="flex-1 flex flex-col items-center justify-center px-6 text-center gap-4">
-                <div className="w-14 h-14 rounded-full bg-[#2FA8E0] flex items-center justify-center">
+                <div className="w-14 h-14 rounded-full bg-[#B9897D] flex items-center justify-center">
                   <Check size={26} className="text-white" />
                 </div>
                 <h4 className="font-display text-2xl">Terima kasih, {form.nama.split(" ")[0]}!</h4>
-                <p className="text-sm text-[#1F2937]/60 max-w-xs">
-                  Pesananmu dengan nomor <span className="text-[#6FBF3F] font-semibold">{orderNo}</span> sudah
-                  disiapkan. Tab WhatsApp seharusnya sudah terbuka dengan rincian pesananmu &mdash; tinggal klik{" "}
-                  <strong>Kirim</strong> di WhatsApp untuk menyelesaikan pemesanan.
+                <p className="text-sm text-[#6D6662] max-w-xs">
+                  Pesananmu dengan nomor <span className="text-[#B9897D] font-semibold">{orderNo}</span>{" "}
+                  sudah disiapkan. Tab WhatsApp seharusnya sudah terbuka dengan rincian pesananmu &mdash;
+                  tinggal klik <strong>Kirim</strong> di WhatsApp untuk menyelesaikan pemesanan. Pesanan
+                  baru dianggap berhasil setelah pesan WhatsApp terkirim.
                 </p>
-                <div className="text-sm text-[#1F2937]/40">
+                <div className="text-xs text-[#6D6662]">
                   Kalau WhatsApp tidak otomatis terbuka, klik tombol di bawah ini:
                 </div>
                 <a
                   href={`https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(
-                    `Halo Beauty Rossa, ada pesanan baru masuk lewat website:\n\nNo. Pesanan: ${orderNo}\nNama: ${form.nama}\nNo. HP: ${form.hp}\nAlamat: ${form.alamat}\nMetode Bayar: ${form.metode}\n\nRincian Produk:\n${cartItems
+                    `Halo Beauty Rossa, ada pesanan baru masuk lewat website:\n\nNo. Pesanan: ${orderNo}\nNama: ${form.nama}\nNo. HP: ${form.hp}\nAlamat: ${form.alamat}\nMetode Bayar: ${form.metode}\nCatatan: ${form.catatan || "-"}\n\nRincian Produk:\n${cartItems
                       .map((item) => `- ${item.name} x${item.qty} = ${rupiah(item.qty * item.price)}`)
-                      .join("\n")}\n\nSubtotal: ${rupiah(subtotal)}\nOngkos Kirim: ${rupiah(
-                      ongkir
-                    )}\nTotal: ${rupiah(total)}`
+                      .join("\n")}\n\nSubtotal: ${rupiah(subtotal)}\nOngkos Kirim: akan dikonfirmasi oleh admin`
                   )}`}
                   target="_blank"
                   rel="noopener noreferrer"
@@ -658,10 +1061,10 @@ export default function BeautyRossaStore() {
                 >
                   <MessageCircle size={16} /> Kirim via WhatsApp
                 </a>
-                <div className="text-sm text-[#6FBF3F] font-semibold">Total: {rupiah(total)}</div>
+                <div className="text-sm text-[#282422] font-semibold">Subtotal: {rupiah(subtotal)}</div>
                 <button
                   onClick={resetAll}
-                  className="mt-4 bg-[#2FA8E0] text-white font-semibold px-6 py-2.5 rounded-full hover:bg-[#6FBF3F] transition"
+                  className="mt-4 bg-[#B9897D] text-white font-semibold px-6 py-2.5 rounded-full hover:bg-[#C4A46B] transition"
                 >
                   Belanja Lagi
                 </button>
@@ -674,16 +1077,17 @@ export default function BeautyRossaStore() {
       {/* Modal Detail Produk */}
       {detailProduct && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
-          <div className="absolute inset-0 bg-black/60" onClick={() => setDetailProduct(null)} />
-          <div className="relative w-full max-w-2xl max-h-[90vh] overflow-y-auto bg-white rounded-2xl border border-[#2FA8E0]/15">
+          <div className="absolute inset-0 bg-black/50" onClick={() => setDetailProduct(null)} />
+          <div className="relative w-full max-w-2xl max-h-[90vh] overflow-y-auto bg-white rounded-2xl border border-[#E8E1DB]">
             <button
               onClick={() => setDetailProduct(null)}
-              className="absolute top-4 right-4 z-10 w-9 h-9 rounded-full bg-white/90 border border-[#2FA8E0]/20 flex items-center justify-center hover:bg-[#F4FAFD]"
+              aria-label="Tutup detail produk"
+              className="absolute top-4 right-4 z-10 w-9 h-9 rounded-full bg-white/90 border border-[#E8E1DB] flex items-center justify-center hover:bg-[#F6F0EA]"
             >
               <X size={18} />
             </button>
             <div className="grid md:grid-cols-2">
-              <div className={`relative aspect-square bg-gradient-to-br ${detailProduct.blob} opacity-90`}>
+              <div className="relative aspect-square bg-gradient-to-br from-[#F6F0EA] to-[#EED9D6]">
                 <img
                   src={`/images/${detailProduct.image}`}
                   alt={detailProduct.name}
@@ -694,27 +1098,24 @@ export default function BeautyRossaStore() {
                 />
               </div>
               <div className="p-6">
-                <div className="text-[10px] uppercase tracking-wider text-[#2FA8E0] mb-2">{detailProduct.cat}</div>
+                <div className="text-[10px] uppercase tracking-wider text-[#B9897D] mb-2">
+                  {detailProduct.cat}
+                </div>
                 <h3 className="font-display text-2xl mb-3">{detailProduct.name}</h3>
                 {detailProduct.price > 0 ? (
-                  <div className="text-xl font-semibold text-[#6FBF3F] mb-4">{rupiah(detailProduct.price)}</div>
-                ) : (
-                  <div className="text-sm font-semibold text-[#1F2937]/40 mb-4">
-                    Hubungi Kami - Segera Hadir
+                  <div className="text-xl font-semibold text-[#282422] mb-4">
+                    {rupiah(detailProduct.price)}
                   </div>
+                ) : (
+                  <div className="text-sm font-semibold text-[#6D6662] mb-4">Hubungi Kami - Segera Hadir</div>
                 )}
 
-                <div className="mb-4">
-                  <h4 className="text-xs uppercase tracking-wider text-[#1F2937]/40 mb-1">Deskripsi</h4>
-                  <p className="text-sm text-[#1F2937]/70 leading-relaxed">{detailProduct.desc}</p>
-                </div>
-                <div className="mb-6">
-                  <h4 className="text-xs uppercase tracking-wider text-[#1F2937]/40 mb-1">Cara Pakai</h4>
-                  <p className="text-sm text-[#1F2937]/70 leading-relaxed">
-                    Informasi cara pakai akan segera dilengkapi. Hubungi kami via WhatsApp untuk konsultasi
-                    penggunaan produk ini.
-                  </p>
-                </div>
+                {detailProduct.desc && detailProduct.desc !== "Deskripsi menyusul" && (
+                  <div className="mb-4">
+                    <h4 className="text-xs uppercase tracking-wider text-[#6D6662] mb-1">Deskripsi</h4>
+                    <p className="text-sm text-[#282422]/80 leading-relaxed">{detailProduct.desc}</p>
+                  </div>
+                )}
 
                 {detailProduct.price > 0 ? (
                   <button
@@ -723,7 +1124,7 @@ export default function BeautyRossaStore() {
                       setDetailProduct(null);
                       openCart();
                     }}
-                    className="w-full bg-[#2FA8E0] text-white font-semibold py-3 rounded-full hover:bg-[#6FBF3F] transition"
+                    className="w-full bg-[#B9897D] text-white font-semibold py-3 rounded-full hover:bg-[#C4A46B] transition"
                   >
                     + Tambah ke Keranjang
                   </button>
@@ -739,6 +1140,16 @@ export default function BeautyRossaStore() {
                     Tanya via WhatsApp
                   </a>
                 )}
+                <a
+                  href={`https://wa.me/${DOCTOR_WA_NUMBER}?text=${encodeURIComponent(
+                    `Halo Beauty Rossa,\nSaya ingin tanya ke Beauty Advisor mengenai produk ${detailProduct.name}.\nTerima kasih.`
+                  )}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="block text-center w-full mt-2 border border-[#E8E1DB] text-[#282422] text-sm font-medium py-2.5 rounded-full hover:bg-[#F6F0EA] transition"
+                >
+                  Tanya Beauty Advisor
+                </a>
               </div>
             </div>
           </div>
