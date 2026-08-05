@@ -229,6 +229,7 @@ export default function BeautyRossaStore() {
   const [form, setForm] = useState({ nama: "", hp: "", alamat: "", metode: "Transfer Bank", catatan: "" });
   const [orderNo, setOrderNo] = useState("");
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [floatingMenuOpen, setFloatingMenuOpen] = useState(false);
 
   const featuredProducts = useMemo(
     () => PRODUCTS.filter((p) => p.hasPhoto && p.price > 0).slice(0, 8),
@@ -260,7 +261,10 @@ export default function BeautyRossaStore() {
 
   useEffect(() => {
     const onKeyDown = (e) => {
-      if (e.key === "Escape") setMobileMenuOpen(false);
+      if (e.key === "Escape") {
+        setMobileMenuOpen(false);
+        setFloatingMenuOpen(false);
+      }
     };
     window.addEventListener("keydown", onKeyDown);
     return () => window.removeEventListener("keydown", onKeyDown);
@@ -350,7 +354,7 @@ export default function BeautyRossaStore() {
               <Menu size={22} />
             </button>
             <a href="#" className="flex items-center">
-              <img src="/images/logo.png" alt="Beauty Rossa" className="h-12 w-auto object-contain" />
+              <img src="/images/logo.png" alt="Beauty Rossa" className="h-11 sm:h-12 lg:h-[52px] w-auto object-contain" />
             </a>
           </div>
 
@@ -359,7 +363,7 @@ export default function BeautyRossaStore() {
               <a
                 key={link.label}
                 href={link.href}
-                className="text-sm text-[#282422]/80 hover:text-[#B9897D] transition"
+                className="text-sm text-[#282422]/80 hover:text-[#B9897D] transition rounded-sm"
               >
                 {link.label}
               </a>
@@ -370,7 +374,7 @@ export default function BeautyRossaStore() {
               )}`}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-sm text-[#282422]/80 hover:text-[#B9897D] transition"
+              className="text-sm text-[#282422]/80 hover:text-[#B9897D] transition rounded-sm"
             >
               Konsultasi
             </a>
@@ -420,7 +424,7 @@ export default function BeautyRossaStore() {
           <div className="absolute inset-0 bg-black/50" onClick={() => setMobileMenuOpen(false)} />
           <div className="absolute top-0 left-0 bottom-0 w-72 bg-[#FFFDF9] shadow-xl p-6 flex flex-col gap-1">
             <div className="flex items-center justify-between mb-6">
-              <img src="/images/logo.png" alt="Beauty Rossa" className="h-10 w-auto object-contain" />
+              <img src="/images/logo.png" alt="Beauty Rossa" className="h-11 w-auto object-contain" />
               <button onClick={() => setMobileMenuOpen(false)} aria-label="Tutup menu" className="p-2">
                 <X size={20} />
               </button>
@@ -451,19 +455,19 @@ export default function BeautyRossaStore() {
       )}
 
       {/* Hero */}
-      <section className="max-w-6xl mx-auto px-6 pt-12 pb-14 grid lg:grid-cols-2 gap-10 items-center">
+      <section className="max-w-6xl mx-auto px-6 pt-8 sm:pt-10 pb-10 grid lg:grid-cols-2 gap-8 lg:gap-10 items-center">
         <div>
-          <div className="text-xs tracking-[0.25em] uppercase text-[#B9897D] mb-4 font-semibold">
+          <div className="text-xs tracking-[0.25em] uppercase text-[#B9897D] mb-3 font-semibold">
             Skincare &amp; Klinik Kecantikan
           </div>
-          <h1 className="font-display text-4xl sm:text-5xl leading-tight mb-5 text-[#282422]">
+          <h1 className="font-display text-4xl sm:text-5xl leading-[1.15] mb-4 text-[#282422]">
             Perawatan Kulit yang Lebih Personal untuk Kecantikan Anda
           </h1>
-          <p className="text-[#6D6662] max-w-md mb-8 leading-relaxed">
+          <p className="text-[#6D6662] max-w-md mb-6 leading-relaxed">
             Temukan skincare Beauty Rossa, konsultasi Beauty Advisor, dan perawatan klinik yang
             disesuaikan dengan kebutuhan kulit Anda.
           </p>
-          <div className="flex flex-wrap items-center gap-4 mb-8">
+          <div className="flex flex-wrap items-center gap-4 mb-6">
             <a
               href="#produk"
               className="inline-flex items-center gap-2 bg-[#B9897D] text-white font-semibold px-6 py-3 rounded-full hover:bg-[#C4A46B] transition"
@@ -481,25 +485,55 @@ export default function BeautyRossaStore() {
               Konsultasi Gratis
             </a>
           </div>
-          <div className="flex flex-wrap gap-x-6 gap-y-2 text-xs text-[#6D6662]">
-            <span>Produk berizin BPOM</span>
-            <span>Konsultasi personal</span>
-            <span>Pengiriman seluruh Indonesia</span>
-            <span>Klinik Beauty Rossa</span>
+          <div className="grid grid-cols-2 sm:flex sm:flex-wrap sm:items-center gap-x-5 gap-y-2.5 text-xs text-[#6D6662]">
+            {["Produk berizin BPOM", "Konsultasi personal", "Pengiriman seluruh Indonesia", "Klinik Beauty Rossa"].map(
+              (item, i, arr) => (
+                <React.Fragment key={item}>
+                  <span className="flex items-center gap-1.5">
+                    <Check size={13} className="text-[#B9897D] flex-shrink-0" />
+                    {item}
+                  </span>
+                  {i < arr.length - 1 && (
+                    <span className="hidden sm:inline text-[#E8E1DB]" aria-hidden="true">
+                      &middot;
+                    </span>
+                  )}
+                </React.Fragment>
+              )
+            )}
           </div>
         </div>
-        <div className="relative aspect-square max-h-[420px] mx-auto w-full rounded-3xl bg-gradient-to-br from-[#F6F0EA] via-[#EED9D6] to-[#F6F0EA] flex items-center justify-center border border-[#E8E1DB]">
-          <img
-            src="/images/logo.png"
-            alt="Beauty Rossa"
-            className="w-1/2 h-1/2 object-contain drop-shadow-md"
-          />
+
+        {/* Komposisi visual hero: foto produk asli + logo pendukung + gradient */}
+        <div className="relative aspect-[4/3] lg:aspect-square max-h-[380px] mx-auto w-full">
+          <div className="absolute inset-0 rounded-3xl bg-gradient-to-br from-[#F6F0EA] via-[#EED9D6] to-[#F6F0EA] border border-[#E8E1DB]" />
+          <div className="absolute -top-4 -left-4 w-20 h-20 rounded-full bg-[#EED9D6]/60 blur-2xl" />
+          <div className="absolute -bottom-6 -right-6 w-28 h-28 rounded-full bg-[#C4A46B]/20 blur-2xl" />
+
+          <div className="absolute left-[12%] bottom-[10%] w-[42%] aspect-[3/4] rounded-2xl overflow-hidden shadow-xl border-4 border-white rotate-[-4deg]">
+            <img
+              src="/images/10_BRIGHTENING_SHOWER_GEL_500_ml_.png"
+              alt="Brightening Shower Gel Beauty Rossa"
+              className="w-full h-full object-cover"
+            />
+          </div>
+          <div className="absolute right-[10%] top-[12%] w-[38%] aspect-[3/4] rounded-2xl overflow-hidden shadow-xl border-4 border-white rotate-[5deg]">
+            <img
+              src="/images/29__FACIAL_WASH_200_ML_.png"
+              alt="Facial Wash Beauty Rossa"
+              className="w-full h-full object-cover"
+            />
+          </div>
+
+          <div className="absolute bottom-4 right-4 w-14 h-14 rounded-full bg-white shadow-md flex items-center justify-center p-2">
+            <img src="/images/logo.png" alt="Beauty Rossa" className="w-full h-full object-contain" />
+          </div>
         </div>
       </section>
 
       {/* Trust Bar */}
-      <section className="max-w-6xl mx-auto px-6 pb-14">
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 border-t border-b border-[#E8E1DB] py-6">
+      <section className="max-w-6xl mx-auto px-6 pb-10">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 border-t border-b border-[#E8E1DB] py-5">
           {TRUST_BADGES.map((b, i) =>
             b.link ? (
               <a
@@ -529,7 +563,7 @@ export default function BeautyRossaStore() {
       </section>
 
       {/* Solusi Kulit */}
-      <section id="solusi-kulit" className="max-w-6xl mx-auto px-6 pb-16">
+      <section id="solusi-kulit" className="max-w-6xl mx-auto px-6 py-14 sm:py-16">
         <div className="text-center max-w-xl mx-auto mb-10">
           <h2 className="font-display text-3xl mb-3">Temukan Perawatan Berdasarkan Kebutuhan Kulit</h2>
           <p className="text-[#6D6662] text-sm leading-relaxed">
@@ -554,7 +588,7 @@ export default function BeautyRossaStore() {
       </section>
 
       {/* Produk Unggulan */}
-      <section id="produk" className="max-w-6xl mx-auto px-6 pb-20">
+      <section id="produk" className="max-w-6xl mx-auto px-6 py-14 sm:py-16">
         <div className="text-center max-w-xl mx-auto mb-10">
           <h2 className="font-display text-3xl mb-3">Produk Pilihan Beauty Rossa</h2>
           <p className="text-[#6D6662] text-sm leading-relaxed">
@@ -585,7 +619,7 @@ export default function BeautyRossaStore() {
       </section>
 
       {/* Beauty Advisor */}
-      <section className="bg-[#F6F0EA] py-16">
+      <section className="bg-[#F6F0EA] py-14 sm:py-16">
         <div className="max-w-4xl mx-auto px-6 text-center">
           <h2 className="font-display text-3xl mb-4">Bingung Memilih Skincare yang Tepat?</h2>
           <p className="text-[#6D6662] leading-relaxed mb-2 max-w-2xl mx-auto">
@@ -609,7 +643,7 @@ export default function BeautyRossaStore() {
       </section>
 
       {/* Tentang Beauty Rossa */}
-      <section id="tentang" className="max-w-6xl mx-auto px-6 py-20">
+      <section id="tentang" className="max-w-6xl mx-auto px-6 py-14 sm:py-16">
         <div className="text-center max-w-2xl mx-auto mb-12">
           <h2 className="font-display text-3xl mb-4">Kecantikan yang Berawal dari Perawatan yang Tepat</h2>
           <p className="text-[#6D6662] leading-relaxed">
@@ -630,7 +664,7 @@ export default function BeautyRossaStore() {
       </section>
 
       {/* Klinik & Treatment */}
-      <section id="klinik" className="bg-[#282422] text-[#FFFDF9] py-20">
+      <section id="klinik" className="bg-[#282422] text-[#FFFDF9] py-14 sm:py-16">
         <div className="max-w-6xl mx-auto px-6">
           <div className="text-center max-w-2xl mx-auto mb-12">
             <h2 className="font-display text-3xl mb-4">Perawatan Profesional di Klinik Beauty Rossa</h2>
@@ -663,7 +697,7 @@ export default function BeautyRossaStore() {
       </section>
 
       {/* Katalog Lengkap */}
-      <section id="semua-produk" className="max-w-6xl mx-auto px-6 py-20">
+      <section id="semua-produk" className="max-w-6xl mx-auto px-6 py-14 sm:py-16">
         <div className="mb-6">
           <input
             type="text"
@@ -824,32 +858,44 @@ export default function BeautyRossaStore() {
         </div>
       </footer>
 
-      {/* Tombol WhatsApp Mengambang */}
-      <div className="fixed bottom-6 right-6 z-30 flex flex-col items-end gap-3">
-        <a
-          href={`https://wa.me/${DOCTOR_WA_NUMBER}?text=${encodeURIComponent(
-            "Halo Beauty Rossa,\nSaya ingin melakukan konsultasi mengenai kondisi kulit saya. Mohon dibantu informasi konsultasi dan prosedurnya.\nTerima kasih."
-          )}`}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="flex items-center gap-2 bg-[#B9897D] text-white px-4 py-3 rounded-full shadow-lg hover:scale-105 transition"
-          aria-label="Konsultasi Beauty Rossa Advisor via WhatsApp"
+      {/* Tombol WhatsApp Mengambang - satu tombol utama + submenu */}
+      {floatingMenuOpen && (
+        <div className="fixed inset-0 z-20" onClick={() => setFloatingMenuOpen(false)} />
+      )}
+      <div className="fixed bottom-5 right-5 z-30">
+        {floatingMenuOpen && (
+          <div className="absolute bottom-14 right-0 w-60 bg-white rounded-xl shadow-xl border border-[#E8E1DB] p-2 mb-2">
+            <a
+              href={`https://wa.me/${DOCTOR_WA_NUMBER}?text=${encodeURIComponent(
+                "Halo Beauty Rossa,\nSaya ingin melakukan konsultasi mengenai kondisi kulit saya. Mohon dibantu informasi konsultasi dan prosedurnya.\nTerima kasih."
+              )}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-2.5 px-3 py-2.5 rounded-lg hover:bg-[#F6F0EA] transition text-sm text-[#282422]"
+            >
+              <Stethoscope size={16} className="text-[#B9897D]" /> Beauty Rossa Advisor
+            </a>
+            <a
+              href={`https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(
+                "Halo Beauty Rossa,\nSaya ingin mendapatkan informasi mengenai produk dan layanan Beauty Rossa.\nMohon bantuannya.\nTerima kasih."
+              )}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-2.5 px-3 py-2.5 rounded-lg hover:bg-[#F6F0EA] transition text-sm text-[#282422]"
+            >
+              <MessageCircle size={16} className="text-[#25D366]" /> Chat Admin
+            </a>
+          </div>
+        )}
+        <button
+          onClick={() => setFloatingMenuOpen((s) => !s)}
+          aria-label="Buka pilihan chat WhatsApp"
+          aria-expanded={floatingMenuOpen}
+          className="flex items-center gap-2 bg-[#B9897D] text-white pl-4 pr-5 py-3 rounded-full shadow-lg hover:bg-[#C4A46B] transition"
         >
-          <Stethoscope size={20} />
-          <span className="hidden sm:inline text-sm font-semibold pr-1">Beauty Rossa Advisor</span>
-        </a>
-        <a
-          href={`https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(
-            "Halo Beauty Rossa,\nSaya ingin mendapatkan informasi mengenai produk dan layanan Beauty Rossa.\nMohon bantuannya.\nTerima kasih."
-          )}`}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="flex items-center gap-2 bg-[#25D366] text-white px-4 py-3 rounded-full shadow-lg hover:scale-105 transition"
-          aria-label="Chat Admin via WhatsApp"
-        >
-          <MessageCircle size={22} />
-          <span className="hidden sm:inline text-sm font-semibold pr-1">Chat Admin</span>
-        </a>
+          <MessageCircle size={18} />
+          <span className="text-sm font-semibold">Chat Beauty Advisor</span>
+        </button>
       </div>
 
       {/* Cart / Checkout Drawer */}
