@@ -15,6 +15,22 @@ body {
   margin: 0;
 }
 
+/* Focus state: ring rose gold lembut, hanya muncul saat navigasi keyboard */
+a:focus,
+button:focus,
+input:focus,
+textarea:focus {
+  outline: none;
+}
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible {
+  outline: 2px solid #b9897d;
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
 .line-clamp-1 {
   display: -webkit-box;
   -webkit-line-clamp: 1;
