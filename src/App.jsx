@@ -419,7 +419,7 @@ export default function BeautyRossaStore() {
 
       {/* Header */}
       <header className="sticky top-0 z-40 bg-[#FFFDF9]/95 backdrop-blur border-b border-[#E8E1DB] transition-shadow">
-        <div className="max-w-6xl mx-auto px-6 py-3 flex items-center justify-between gap-4">
+        <div className="max-w-6xl mx-auto px-6 py-2 flex items-center justify-between gap-4">
           <div className="flex items-center gap-6">
             <button
               className="lg:hidden p-2 -ml-2 text-[#282422]"
@@ -429,7 +429,11 @@ export default function BeautyRossaStore() {
               <Menu size={22} />
             </button>
             <a href="#" className="flex items-center">
-              <img src="/images/logo.png" alt="Beauty Rossa" className="h-11 sm:h-12 lg:h-[52px] w-auto object-contain" />
+              <img
+                src="/images/beauty-rossa-logo-header.png"
+                alt="Beauty Rossa"
+                className="w-[105px] sm:w-[135px] lg:w-[155px] h-auto object-contain"
+              />
             </a>
           </div>
 
@@ -499,7 +503,7 @@ export default function BeautyRossaStore() {
           <div className="absolute inset-0 bg-black/50" onClick={() => setMobileMenuOpen(false)} />
           <div className="absolute top-0 left-0 bottom-0 w-72 bg-[#FFFDF9] shadow-xl p-6 flex flex-col gap-1">
             <div className="flex items-center justify-between mb-6">
-              <img src="/images/logo.png" alt="Beauty Rossa" className="h-11 w-auto object-contain" />
+              <span className="font-display text-xl italic text-[#B9897D]">Beauty Rossa</span>
               <button onClick={() => setMobileMenuOpen(false)} aria-label="Tutup menu" className="p-2">
                 <X size={20} />
               </button>
