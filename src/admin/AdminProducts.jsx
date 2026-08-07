@@ -295,7 +295,8 @@ export default function AdminProducts() {
                   <th className="px-4 py-3 font-medium">Harga Modal</th>
                   <th className="px-4 py-3 font-medium">Harga Jual</th>
                   <th className="px-4 py-3 font-medium">Stok</th>
-                  <th className="px-4 py-3 font-medium">Kedaluwarsa</th>
+                  <th className="px-4 py-3 font-medium whitespace-nowrap">Kedaluwarsa BPOM</th>
+                  <th className="px-4 py-3 font-medium whitespace-nowrap">Kedaluwarsa Produk</th>
                   <th className="px-4 py-3 font-medium">Status</th>
                   <th className="px-4 py-3 font-medium"></th>
                 </tr>
@@ -303,7 +304,7 @@ export default function AdminProducts() {
               <tbody>
                 {filtered.map((p) => (
                   <tr key={p.id} className="border-t border-[#DCE3EC]">
-                    <td className="px-4 py-3 font-medium text-[#0F2A4A]">{p.sku}</td>
+                    <td className="px-4 py-3 font-medium text-[#0F2A4A] whitespace-nowrap">{p.sku}</td>
                     <td className="px-4 py-3 text-[#0F2A4A]">
                       {p.name}
                       {p.brand && <div className="text-xs text-[#7C8A9A]">{p.brand}</div>}
@@ -321,7 +322,16 @@ export default function AdminProducts() {
                         <span className="ml-1.5 text-xs text-red-600">(menipis)</span>
                       )}
                     </td>
-                    <td className="px-4 py-3">
+                    <td className="px-4 py-3 whitespace-nowrap">
+                      {p.bpom_expiry_date ? (
+                        <span className={isNearExpiry(p.bpom_expiry_date) ? "text-red-600 font-medium" : "text-[#5B6B7F]"}>
+                          {formatDate(p.bpom_expiry_date)}
+                        </span>
+                      ) : (
+                        <span className="text-[#B8C2CE]">-</span>
+                      )}
+                    </td>
+                    <td className="px-4 py-3 whitespace-nowrap">
                       {p.expiry_date ? (
                         <span className={isNearExpiry(p.expiry_date) ? "text-red-600 font-medium" : "text-[#5B6B7F]"}>
                           {formatDate(p.expiry_date)}
