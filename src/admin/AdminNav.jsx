@@ -4,6 +4,7 @@ import { supabase } from "../lib/supabaseClient.js";
 
 const LINKS = [
   { to: "/admin", label: "Dashboard", end: true },
+  { to: "/admin/products", label: "Produk" },
   { to: "/admin/orders", label: "Pesanan" },
   { to: "/admin/reports", label: "Laporan" },
 ];

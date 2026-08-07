@@ -4,6 +4,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import App from "./App.jsx";
 import AdminLogin from "./admin/AdminLogin.jsx";
 import AdminDashboard from "./admin/AdminDashboard.jsx";
+import AdminProducts from "./admin/AdminProducts.jsx";
 import AdminOrders from "./admin/AdminOrders.jsx";
 import AdminReports from "./admin/AdminReports.jsx";
 import RequireAdmin from "./admin/RequireAdmin.jsx";
@@ -23,6 +24,14 @@ ReactDOM.createRoot(document.getElementById("root")).render(
           element={
             <RequireAdmin>
               <AdminDashboard />
+            </RequireAdmin>
+          }
+        />
+        <Route
+          path="/admin/products"
+          element={
+            <RequireAdmin>
+              <AdminProducts />
             </RequireAdmin>
           }
         />
