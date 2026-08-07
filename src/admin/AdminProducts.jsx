@@ -295,8 +295,8 @@ export default function AdminProducts() {
                   <th className="px-4 py-3 font-medium">Harga Modal</th>
                   <th className="px-4 py-3 font-medium">Harga Jual</th>
                   <th className="px-4 py-3 font-medium">Stok</th>
-                  <th className="px-4 py-3 font-medium whitespace-nowrap">Kedaluwarsa BPOM</th>
-                  <th className="px-4 py-3 font-medium whitespace-nowrap">Kedaluwarsa Produk</th>
+                  <th className="px-4 py-3 font-medium whitespace-nowrap">Expired BPOM</th>
+                  <th className="px-4 py-3 font-medium whitespace-nowrap">Expired Produk</th>
                   <th className="px-4 py-3 font-medium">Status</th>
                   <th className="px-4 py-3 font-medium"></th>
                 </tr>
@@ -516,7 +516,7 @@ export default function AdminProducts() {
               </Field>
 
               <div className="grid grid-cols-2 gap-3">
-                <Field label="Kedaluwarsa BPOM">
+                <Field label="Expired BPOM">
                   <input
                     type="date"
                     value={form.bpom_expiry_date}
@@ -524,7 +524,7 @@ export default function AdminProducts() {
                     className="input"
                   />
                 </Field>
-                <Field label="Kedaluwarsa Produk">
+                <Field label="Expired Produk">
                   <input
                     type="date"
                     value={form.expiry_date}
