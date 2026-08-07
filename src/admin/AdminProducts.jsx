@@ -5,6 +5,19 @@ import AdminNav from "./AdminNav.jsx";
 
 const rupiah = (n) => "Rp" + Number(n || 0).toLocaleString("id-ID");
 
+const formatDate = (d) => {
+  if (!d) return "-";
+  return new Date(d).toLocaleDateString("id-ID", { day: "2-digit", month: "short", year: "numeric" });
+};
+
+// Ditandai kalau kedaluwarsa dalam 90 hari ke depan (sejalan dengan
+// rencana notifikasi 90/60/30/7 hari di modul Batch nanti)
+const isNearExpiry = (d) => {
+  if (!d) return false;
+  const diffDays = (new Date(d) - new Date()) / (1000 * 60 * 60 * 24);
+  return diffDays <= 90;
+};
+
 const UNIT_OPTIONS = ["pcs", "botol", "box", "tube", "sachet"];
 
 const EMPTY_FORM = {
@@ -19,6 +32,9 @@ const EMPTY_FORM = {
   cost_price: "",
   sell_price: "",
   min_stock: "",
+  bpom_number: "",
+  bpom_expiry_date: "",
+  expiry_date: "",
   is_active: true,
 };
 
@@ -42,7 +58,7 @@ export default function AdminProducts() {
     const [productsRes, categoriesRes] = await Promise.all([
       supabase
         .from("products")
-        .select("id, sku, name, brand, unit, size_label, cost_price, sell_price, min_stock, is_active, category_id, product_categories(name)")
+        .select("id, sku, name, brand, unit, size_label, cost_price, sell_price, min_stock, bpom_number, bpom_expiry_date, expiry_date, is_active, category_id, product_categories(name)")
         .order("name", { ascending: true }),
       supabase.from("product_categories").select("id, name").order("name"),
     ]);
@@ -97,6 +113,9 @@ export default function AdminProducts() {
       cost_price: p.cost_price ?? "",
       sell_price: p.sell_price ?? "",
       min_stock: p.min_stock ?? "",
+      bpom_number: p.bpom_number || "",
+      bpom_expiry_date: p.bpom_expiry_date || "",
+      expiry_date: p.expiry_date || "",
       is_active: p.is_active,
     });
     setFormError("");
@@ -127,24 +146,40 @@ export default function AdminProducts() {
       cost_price: form.cost_price === "" ? 0 : Number(form.cost_price),
       sell_price: form.sell_price === "" ? 0 : Number(form.sell_price),
       min_stock: form.min_stock === "" ? 0 : Number(form.min_stock),
+      bpom_number: form.bpom_number.trim() || null,
+      bpom_expiry_date: form.bpom_expiry_date || null,
+      expiry_date: form.expiry_date || null,
       is_active: form.is_active,
     };
 
+    // Kolom created_by/updated_by merujuk ke admin_users.id, BUKAN ke
+    // auth.users.id (ID sesi login). Jadi ID admin_users milik pengguna
+    // yang sedang login perlu dicari dulu sebelum insert/update.
     const { data: sessionData } = await supabase.auth.getSession();
     const authUserId = sessionData?.session?.user?.id;
+
+    let adminUserId = null;
+    if (authUserId) {
+      const { data: adminRow } = await supabase
+        .from("admin_users")
+        .select("id")
+        .eq("auth_user_id", authUserId)
+        .single();
+      adminUserId = adminRow?.id || null;
+    }
 
     let saveError = null;
 
     if (form.id) {
       const { error: updateError } = await supabase
         .from("products")
-        .update({ ...payload, updated_by: authUserId })
+        .update({ ...payload, updated_by: adminUserId })
         .eq("id", form.id);
       saveError = updateError;
     } else {
       const { error: insertError } = await supabase
         .from("products")
-        .insert({ ...payload, created_by: authUserId, updated_by: authUserId });
+        .insert({ ...payload, created_by: adminUserId, updated_by: adminUserId });
       saveError = insertError;
     }
 
@@ -154,6 +189,8 @@ export default function AdminProducts() {
       // SKU unik -> pesan lebih jelas kalau bentrok
       if (saveError.code === "23505") {
         setFormError("SKU ini sudah dipakai produk lain. Gunakan SKU yang berbeda.");
+      } else if (saveError.code === "42501") {
+        setFormError("Akun Anda tidak punya izin untuk menyimpan produk (perlu role owner/administrator).");
       } else {
         setFormError("Gagal menyimpan produk. Coba lagi.");
       }
@@ -238,6 +275,7 @@ export default function AdminProducts() {
                   <th className="px-4 py-3 font-medium">Harga Modal</th>
                   <th className="px-4 py-3 font-medium">Harga Jual</th>
                   <th className="px-4 py-3 font-medium">Stok Min.</th>
+                  <th className="px-4 py-3 font-medium">Kedaluwarsa</th>
                   <th className="px-4 py-3 font-medium">Status</th>
                   <th className="px-4 py-3 font-medium"></th>
                 </tr>
@@ -258,6 +296,15 @@ export default function AdminProducts() {
                     <td className="px-4 py-3 text-[#5B6B7F]">{rupiah(p.cost_price)}</td>
                     <td className="px-4 py-3 text-[#0F2A4A]">{rupiah(p.sell_price)}</td>
                     <td className="px-4 py-3 text-[#5B6B7F]">{p.min_stock}</td>
+                    <td className="px-4 py-3">
+                      {p.expiry_date ? (
+                        <span className={isNearExpiry(p.expiry_date) ? "text-red-600 font-medium" : "text-[#5B6B7F]"}>
+                          {formatDate(p.expiry_date)}
+                        </span>
+                      ) : (
+                        <span className="text-[#B8C2CE]">-</span>
+                      )}
+                    </td>
                     <td className="px-4 py-3">
                       <span
                         className={`text-xs px-2.5 py-1 rounded-full whitespace-nowrap ${
@@ -407,6 +454,34 @@ export default function AdminProducts() {
                     min="0"
                     value={form.sell_price}
                     onChange={(e) => setForm({ ...form, sell_price: e.target.value })}
+                    className="input"
+                  />
+                </Field>
+              </div>
+
+              <Field label="No. BPOM">
+                <input
+                  value={form.bpom_number}
+                  onChange={(e) => setForm({ ...form, bpom_number: e.target.value })}
+                  className="input"
+                  placeholder="mis. NA18211900123"
+                />
+              </Field>
+
+              <div className="grid grid-cols-2 gap-3">
+                <Field label="Kedaluwarsa BPOM">
+                  <input
+                    type="date"
+                    value={form.bpom_expiry_date}
+                    onChange={(e) => setForm({ ...form, bpom_expiry_date: e.target.value })}
+                    className="input"
+                  />
+                </Field>
+                <Field label="Kedaluwarsa Produk">
+                  <input
+                    type="date"
+                    value={form.expiry_date}
+                    onChange={(e) => setForm({ ...form, expiry_date: e.target.value })}
                     className="input"
                   />
                 </Field>
