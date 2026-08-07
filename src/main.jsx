@@ -5,6 +5,7 @@ import App from "./App.jsx";
 import AdminLogin from "./admin/AdminLogin.jsx";
 import AdminDashboard from "./admin/AdminDashboard.jsx";
 import AdminProducts from "./admin/AdminProducts.jsx";
+import AdminInventoryIncoming from "./admin/AdminInventoryIncoming.jsx";
 import AdminOrders from "./admin/AdminOrders.jsx";
 import AdminReports from "./admin/AdminReports.jsx";
 import RequireAdmin from "./admin/RequireAdmin.jsx";
@@ -32,6 +33,14 @@ ReactDOM.createRoot(document.getElementById("root")).render(
           element={
             <RequireAdmin>
               <AdminProducts />
+            </RequireAdmin>
+          }
+        />
+        <Route
+          path="/admin/inventory/incoming"
+          element={
+            <RequireAdmin>
+              <AdminInventoryIncoming />
             </RequireAdmin>
           }
         />
